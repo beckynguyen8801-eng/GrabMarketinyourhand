@@ -7,7 +7,9 @@ UI language is English; data and search input are Vietnamese.
 from __future__ import annotations
 
 import argparse
+import os
 import sys
+import tempfile
 from datetime import UTC, date, datetime, time, timedelta
 from pathlib import Path
 
@@ -30,8 +32,34 @@ MODULES = {
 st.set_page_config(page_title="VN Listen", page_icon="📊", layout="wide")
 apply_theme()
 
+# ---- Cloud mode (Streamlit Community Cloud): settings come from st.secrets, DB comes from the repo's `data` branch
+try:
+    for _k, _v in st.secrets.items():
+        if isinstance(_v, str | int | float):
+            os.environ.setdefault(_k, str(_v))
+except Exception:  # noqa: BLE001 – no secrets file locally
+    pass
+os.environ.setdefault("VNLISTEN_INDUSTRIES_DIR", str(Path(__file__).resolve().parents[1] / "config" / "industries"))
+REMOTE_REPO = os.environ.get("VNLISTEN_REMOTE_REPO", "")
+
+
+@st.cache_data(ttl=600, show_spinner="Loading latest data…")
+def remote_db() -> str:
+    """Download the newest DB (refreshed every 10 min). Returns '' if the collector has not run yet."""
+    from vnlisten.remote_db import download_db  # noqa: PLC0415
+
+    dest = Path(tempfile.gettempdir()) / f"vnlisten-{datetime.now(UTC):%Y%m%d%H%M%S}.db"
+    ok = download_db(REMOTE_REPO, dest, os.environ.get("GITHUB_TOKEN", ""))
+    return str(dest) if ok else ""
+
 
 def _db_path() -> Path:
+    if REMOTE_REPO:
+        path = remote_db()
+        if not path:
+            st.info("No data yet. Run the **Collect data** workflow once in GitHub → Actions (see DEPLOY.md).")
+            st.stop()
+        return Path(path)
     parser = argparse.ArgumentParser()
     parser.add_argument("--db")
     args, _ = parser.parse_known_args(sys.argv[1:])
@@ -47,12 +75,16 @@ def registry() -> IndustryRegistry:
 
 
 @st.cache_resource
+def _repo_for(path: str) -> SqliteRepository:
+    return SqliteRepository(path)
+
+
 def repo() -> SqliteRepository:
-    return SqliteRepository(DB_PATH)
+    return _repo_for(str(DB_PATH))
 
 
 @st.cache_data(ttl=300)
-def load_frame(industry: str, since: datetime, until: datetime) -> pd.DataFrame:
+def load_frame(industry: str, since: datetime, until: datetime, db: str = "") -> pd.DataFrame:
     return metrics.to_frame(repo().load_mentions(since, until, industry))
 
 
@@ -82,13 +114,15 @@ with st.sidebar:
 span = timedelta(days=(end - start).days + 1)
 until = datetime.combine(end, time.max, tzinfo=UTC)
 since = datetime.combine(start, time.min, tzinfo=UTC)
-raw = load_frame(industry, since - span, until)   # current + previous period of equal length
+raw = load_frame(industry, since - span, until, str(DB_PATH))   # current + previous period of equal length
 
 with st.sidebar:
     all_sources = sorted(raw["source"].unique()) if not raw.empty else []
     sources = st.multiselect("Sources", all_sources, default=all_sources,
                              format_func=lambda s: SOURCE_LABELS.get(s, s))
-    if query:
+    if query and REMOTE_REPO:  # cloud dashboard is read-only
+        st.caption(f"To collect “{query}” daily, add it to `config/watchlist.yaml` on GitHub.")
+    elif query:
         tracked = {kw for _, kw in repo().watchlist(industry)}
         if query.strip() in tracked:
             st.caption(f"“{query}” is tracked daily.")

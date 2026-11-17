@@ -4,6 +4,10 @@ from __future__ import annotations
 import logging
 from datetime import UTC, datetime, timedelta
 
+from pathlib import Path
+
+import yaml
+
 from .container import App
 from .domain.models import Tier, TrackingQuery
 
@@ -12,10 +16,23 @@ log = logging.getLogger(__name__)
 LOOKBACK = {Tier.HOURLY: timedelta(hours=6), Tier.DAILY: timedelta(days=3)}
 
 
+def watchlist_file(path: Path) -> list[tuple[str, str]]:
+    """config/watchlist.yaml – watchlist sửa được trên GitHub (chế độ cloud, dashboard chỉ đọc)."""
+    if not path.exists():
+        return []
+    raw = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
+    return [(ind, str(kw).strip()) for ind, kws in raw.items() for kw in (kws or []) if str(kw).strip()]
+
+
+def all_watch_keywords(app: App) -> list[tuple[str, str]]:
+    pairs = app.repo.watchlist() + watchlist_file(app.settings.industries_dir.parent / "watchlist.yaml")
+    return [p for p in dict.fromkeys(pairs) if p[0] in app.registry]
+
+
 def _queries(app: App, tier: Tier) -> list[TrackingQuery]:
     queries = [q for tax in app.registry.all() for q in tax.tracking_queries(tier)]
-    if tier is Tier.DAILY:  # từ khoá người dùng bấm "Track" trên dashboard
-        queries += [TrackingQuery(kw, industry=ind) for ind, kw in app.repo.watchlist() if ind in app.registry]
+    if tier is Tier.DAILY:  # từ khoá bấm "Track" trên dashboard + config/watchlist.yaml
+        queries += [TrackingQuery(kw, industry=ind) for ind, kw in all_watch_keywords(app)]
     return queries
 
 
@@ -40,7 +57,7 @@ def run_daily(app: App) -> None:
     if app.web_search:  # site:facebook.com/groups ... – chỉ từ khoá ngành con + watchlist để tiết kiệm quota
         web_queries = [TrackingQuery(k, c.id, industry=t.industry)
                        for t in app.registry.all() for c in t.categories.values() for k in c.keywords]
-        web_queries += [TrackingQuery(kw, industry=ind) for ind, kw in app.repo.watchlist() if ind in app.registry]
+        web_queries += [TrackingQuery(kw, industry=ind) for ind, kw in all_watch_keywords(app)]
         web = app.collection.collect([app.web_search], web_queries, datetime.now(UTC) - LOOKBACK[Tier.DAILY])
         log.info("[daily] web search: fetched=%d new=%d errors=%d", web.fetched, web.new, len(web.errors))
     suggestions = sum(app.keywords.refresh(t.industry, t.research_seeds) for t in app.registry.all())

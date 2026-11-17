@@ -1,0 +1,2 @@
+# Used by Streamlit Community Cloud (installs this project and its dependencies)
+-e .

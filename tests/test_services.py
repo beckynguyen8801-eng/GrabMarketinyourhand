@@ -95,3 +95,33 @@ def test_build_app_wires_everything(tmp_path):
     app = build_app(s)
     assert set(app.registry.ids()) == {"me_va_be", "y_te_suc_khoe"}
     assert app.web_search is not None
+
+
+def test_download_db_from_data_branch(tmp_path):
+    import httpx
+
+    from vnlisten.remote_db import download_db
+
+    seen = {}
+
+    def handler(request):
+        seen["auth"] = request.headers.get("Authorization")
+        seen["ref"] = request.url.params.get("ref")
+        if "missing" in request.url.path:
+            return httpx.Response(404)
+        return httpx.Response(200, content=b"SQLite format 3\x00...")
+
+    client = httpx.Client(transport=httpx.MockTransport(handler))
+    dest = tmp_path / "x.db"
+    assert download_db("me/repo", dest, "tok", client=client) is True
+    assert dest.read_bytes().startswith(b"SQLite") and seen == {"auth": "Bearer tok", "ref": "data"}
+    assert download_db("me/missing", tmp_path / "y.db", client=client) is False
+
+
+def test_watchlist_file(tmp_path):
+    from vnlisten.jobs import watchlist_file
+
+    f = tmp_path / "watchlist.yaml"
+    f.write_text("me_va_be:\n  - sữa công thức\n  - ''\ny_te_suc_khoe: []\n", encoding="utf-8")
+    assert watchlist_file(f) == [("me_va_be", "sữa công thức")]
+    assert watchlist_file(tmp_path / "none.yaml") == []

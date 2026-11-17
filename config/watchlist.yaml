@@ -1,0 +1,8 @@
+# Từ khoá tự do được thu thập mỗi ngày (chế độ cloud: sửa file này trực tiếp trên GitHub).
+# Dạng:  <industry_id>: [từ khoá 1, từ khoá 2, ...]
+# industry_id xem bằng lệnh: vnlisten industries
+me_va_be:
+  - sữa công thức
+  - sữa đạm A2
+y_te_suc_khoe:
+  - bệnh viện tư

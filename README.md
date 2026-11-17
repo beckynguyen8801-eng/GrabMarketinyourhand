@@ -3,6 +3,10 @@
 Tool thu thập → phân tích → cảnh báo → dashboard cho thảo luận về sản phẩm theo ngành hàng.
 Thiết kế **0 đồng**: SQLite, nguồn miễn phí, sentiment rule-based / model local, LLM local (tuỳ chọn).
 
+## Chạy 24/7 miễn phí
+
+Xem **[DEPLOY.md](DEPLOY.md)**: GitHub Actions thu thập theo lịch + Streamlit Community Cloud làm dashboard – 0đ, không cần thẻ.
+
 ## Chạy nhanh
 
 ```bash
