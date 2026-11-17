@@ -1,0 +1,642 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>VN Listen – Main</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;font-family:Montserrat,system-ui,sans-serif;color:#101828;background:#e4eafd}
+*{box-sizing:border-box}
+a{color:#1f43c4}a:hover{color:#142c86}
+/* ---- One interaction language for everything clickable (+ haptic tick from the page script) ---- */
+button,a,select,input,label,[data-tap]{-webkit-tap-highlight-color:transparent}
+button,a.btn,[data-tap]{cursor:pointer;transition:transform .16s cubic-bezier(.3,.7,.4,1.5),box-shadow .16s ease,filter .16s ease,background-color .16s ease}
+button:hover,a.btn:hover{transform:translateY(-1px)}
+button:active,a.btn:active,[data-tap]:active{transform:scale(.96)}
+.card[data-tap]:hover{transform:translateY(-4px);box-shadow:0 18px 40px rgba(47,91,234,.16)}
+.card[data-tap]:active{transform:translateY(-1px) scale(.985)}
+.bar{transform-origin:left center}
+.bar[data-tap]:hover{filter:brightness(1.08) saturate(1.2);transform:scaleY(1.4)}
+.vbar[data-tap]:hover{filter:brightness(1.1) saturate(1.2)}
+.row[data-tap]:hover{background:rgba(47,91,234,.05)}
+.row[data-tap]:active{transform:scale(.99)}
+.cell[data-tap]:hover{transform:scale(1.08);box-shadow:0 6px 14px rgba(16,24,40,.18)}
+.dot[data-tap]:hover{transform:scale(1.2)}
+.chip[data-tap]:hover{transform:translateY(-1px);box-shadow:0 6px 14px rgba(47,91,234,.14)}
+.word[data-tap]:hover{transform:scale(1.08)}
+.tile{transition:transform .22s cubic-bezier(.3,.7,.4,1.6),box-shadow .22s ease}
+[data-tap]:hover .tile,a:hover .tile{transform:rotate(-8deg) scale(1.08)}
+[data-tap]:active .tile,a:active .tile{transform:scale(.9)}
+.hscroll{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
+.hscroll::-webkit-scrollbar{display:none}
+</style>
+</helmet>
+<div style="display: flex; flex-wrap: wrap; min-height: 100vh; background: linear-gradient(160deg, #f3f5ff 0%, #e4eafd 45%, #d3ddfb 100%); font-family: Montserrat, system-ui, sans-serif; color: #101828">
+  <div style="flex: 0 1 280px; max-width: 100%; display: flex">
+    <dc-import name="Sidebar" active="listening" industry="Mother &amp; Baby" query="sữa công thức" date-from="01/10/2026" date-to="31/10/2026" accent="{{accent}}" hint-size="280px,1260px"></dc-import>
+  </div>
+  <main style="flex: 999 1 560px; min-width: 0; padding: 36px 40px 56px; display: flex; flex-direction: column; gap: 24px">
+<header style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px">
+  <div style="display: flex; align-items: center; gap: 16px; min-width: 0">
+    <span class="tile" style="flex: 0 0 56px; width: 56px; height: 56px; border-radius: 18px; display: flex; align-items: center; justify-content: center; color: #2f5bea; background: linear-gradient(150deg, #ffffff 0%, rgba(47,91,234,0.2) 100%); border: 1px solid rgba(255,255,255,0.95); box-shadow: inset 0 1px 0 #ffffff, inset 0 -5px 10px rgba(47,91,234,0.18), 0 8px 18px rgba(47,91,234,0.2)"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="2.2"></circle><path d="M8.2 8.2a5.4 5.4 0 0 0 0 7.6M15.8 15.8a5.4 5.4 0 0 0 0-7.6M5.2 5.2a9.6 9.6 0 0 0 0 13.6M18.8 18.8a9.6 9.6 0 0 0 0-13.6"></path></svg></span>
+    <div style="min-width: 0"><div style="font-size: 13px; font-weight: 500; color: #5b6478; line-height: 1.5">Mother &amp; Baby · 01/10/2026 – 31/10/2026 · search “sữa công thức”</div>
+    <h1 style="margin: 2px 0 0; font-size: 40px; font-weight: 800; letter-spacing: -0.03em; line-height: 1.1">Social Listening</h1></div>
+  </div>
+  <div style="display: flex; gap: 10px"><button type="button" style="display: inline-flex; align-items: center; gap: 8px; height: 46px; padding: 0 18px; border-radius: 14px; border: 1px solid rgba(255,255,255,0.95); background: rgba(255,255,255,0.75); font-family: Montserrat, system-ui, sans-serif; font-size: 14px; font-weight: 600; color: #101828"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"></path></svg> Export report</button><button type="button" style="display: inline-flex; align-items: center; gap: 8px; height: 46px; padding: 0 18px; border-radius: 14px; border: 0; background: {{accent}}; font-family: Montserrat, system-ui, sans-serif; font-size: 14px; font-weight: 700; color: #ffffff; box-shadow: 0 10px 24px rgba(47,91,234,0.3)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 11a8 8 0 0 0-14.6-4.5L4 8M4 4v4h4M4 13a8 8 0 0 0 14.6 4.5L20 16M20 20v-4h-4"></path></svg> Run scan now</button></div>
+</header>
+<section aria-label="Key metrics" style="display: flex; flex-wrap: wrap; gap: 16px; align-items: stretch">
+    <div class="card" data-tap style="flex: 1 1 300px; min-height: 188px; min-width: 0; border-radius: 24px; padding: 24px 26px; background: linear-gradient(135deg, {{accent}} 0%, #4f86f7 55%, #8cc8fb 100%); color: #ffffff; box-shadow: 0 16px 36px rgba(47,91,234,0.32); display: flex; flex-direction: column; justify-content: center; gap: 8px; position: relative; overflow: hidden">
+      <div style="font-size: 14px; font-weight: 500; opacity: 0.92">{{hero.label}}</div>
+      <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px"><span style="font-size: 44px; font-weight: 700; letter-spacing: -0.03em; line-height: 1.1">{{hero.value}}</span><span style="height: 26px; padding: 0 10px; border-radius: 13px; background: #dcfae6; color: #067647; font-size: 12px; font-weight: 700; display: inline-flex; align-items: center">{{hero.pill}}</span></div>
+      <div style="font-size: 12px; font-weight: 500; opacity: 0.92">{{hero.note}}</div>
+      <svg viewBox="0 0 200 40" style="position: absolute; right: 0; bottom: 8px; width: 50%; height: 44px" aria-hidden="true"><path d="M0 34 C 25 34, 30 22, 55 26 S 90 12, 110 20 S 150 4, 200 8" fill="none" stroke="rgba(255,255,255,0.85)" stroke-width="2.5" stroke-linecap="round"></path></svg>
+    </div>
+    <div style="flex: 2 1 560px; min-width: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 16px"><sc-for list="{{kpis}}" as="k" hint-placeholder-count="4"><div class="card" data-tap style="border-radius: 24px; background: rgba(255,255,255,0.74); border: 1px solid rgba(255,255,255,0.95); box-shadow: 0 10px 30px rgba(47,91,234,0.08); border-radius: 22px; padding: 18px 20px; display: flex; align-items: center; gap: 14px; min-width: 0">
+        <span class="tile" style="flex: 0 0 46px; width: 46px; height: 46px; border-radius: 15px; display: flex; align-items: center; justify-content: center; color: {{k.color}}; background: linear-gradient(150deg, #ffffff 0%, {{k.tint}} 100%); border: 1px solid rgba(255,255,255,0.95); box-shadow: inset 0 1px 0 #ffffff, inset 0 -5px 10px {{k.inner}}, 0 8px 18px {{k.tint}}"><sc-if value="{{k.ic_listening}}" hint-placeholder-val="{{false}}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="2.2"></circle><path d="M8.2 8.2a5.4 5.4 0 0 0 0 7.6M15.8 15.8a5.4 5.4 0 0 0 0-7.6M5.2 5.2a9.6 9.6 0 0 0 0 13.6M18.8 18.8a9.6 9.6 0 0 0 0-13.6"></path></svg></sc-if><sc-if value="{{k.ic_research}}" hint-placeholder-val="{{false}}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6"></circle><path d="m15 15 5 5M10.5 7.5v6M7.5 10.5h6"></path></svg></sc-if><sc-if value="{{k.ic_users}}" hint-placeholder-val="{{false}}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8.5" r="3.2"></circle><path d="M3.5 19c.6-3.2 2.8-5 5.5-5s4.9 1.8 5.5 5"></path><circle cx="16.8" cy="9.5" r="2.5"></circle><path d="M16.5 14c2.2 0 3.8 1.5 4.3 4"></path></svg></sc-if><sc-if value="{{k.ic_bell}}" hint-placeholder-val="{{false}}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 9.5a5.5 5.5 0 0 1 11 0c0 5.5 2.5 7.5 2.5 7.5H4s2.5-2 2.5-7.5"></path><path d="M10.2 20.5a2 2 0 0 0 3.6 0"></path></svg></sc-if><sc-if value="{{k.ic_heart}}" hint-placeholder-val="{{false}}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"></path></svg></sc-if><sc-if value="{{k.ic_smile}}" hint-placeholder-val="{{false}}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"></circle><path d="M8.5 14c.9 1.3 2.1 2 3.5 2s2.6-.7 3.5-2M9 9.5h.01M15 9.5h.01"></path></svg></sc-if><sc-if value="{{k.ic_warn}}" hint-placeholder-val="{{false}}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 9v4M12 17h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0"></path></svg></sc-if><sc-if value="{{k.ic_pin}}" hint-placeholder-val="{{false}}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11z"></path><circle cx="12" cy="10" r="2.4"></circle></svg></sc-if><sc-if value="{{k.ic_hash}}" hint-placeholder-val="{{false}}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 4 7 20M17 4l-2 16M4.5 9h16M3.5 15h16"></path></svg></sc-if><sc-if value="{{k.ic_spark}}" hint-placeholder-val="{{false}}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.5 13.9 9 19.5 10.5 13.9 12.4 12 18 10.1 12.4 4.5 10.5 10.1 9z"></path></svg></sc-if><sc-if value="{{k.ic_pulse}}" hint-placeholder-val="{{false}}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h3l3-7 4 14 3-7h5"></path></svg></sc-if><sc-if value="{{k.ic_search}}" hint-placeholder-val="{{false}}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg></sc-if><sc-if value="{{k.ic_calendar}}" hint-placeholder-val="{{false}}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="3"></rect><path d="M8 3v4M16 3v4M3.5 10h17"></path></svg></sc-if><sc-if value="{{k.ic_arrow}}" hint-placeholder-val="{{false}}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></sc-if><sc-if value="{{k.ic_chevron}}" hint-placeholder-val="{{false}}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg></sc-if><sc-if value="{{k.ic_external}}" hint-placeholder-val="{{false}}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 4 19V7.5A1.5 1.5 0 0 1 5.5 6H10"></path></svg></sc-if><sc-if value="{{k.ic_download}}" hint-placeholder-val="{{false}}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"></path></svg></sc-if><sc-if value="{{k.ic_refresh}}" hint-placeholder-val="{{false}}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 11a8 8 0 0 0-14.6-4.5L4 8M4 4v4h4M4 13a8 8 0 0 0 14.6 4.5L20 16M20 20v-4h-4"></path></svg></sc-if><sc-if value="{{k.ic_trend}}" hint-placeholder-val="{{false}}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17 9 11l4 4 8-8M15 7h6v6"></path></svg></sc-if><sc-if value="{{k.ic_shield}}" hint-placeholder-val="{{false}}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 5 6v6c0 4.5 3 7.5 7 9 4-1.5 7-4.5 7-9V6z"></path><path d="m9 12 2 2 4-4"></path></svg></sc-if></span>
+        <div style="flex: 1; min-width: 0"><div style="font-size: 13px; font-weight: 500; color: #5b6478; line-height: 1.35">{{k.label}}</div><div style="font-size: 12px; font-weight: {{k.noteWeight}}; color: {{k.noteInk}}; line-height: 1.35; margin-top: 4px">{{k.note}}</div></div>
+        <div style="font-size: 28px; font-weight: 700; letter-spacing: -0.03em; white-space: nowrap">{{k.value}}</div>
+      </div></sc-for></div>
+  </section>
+<div style="display: flex; flex-wrap: wrap; gap: 20px; align-items: stretch"><div style="flex: 3 1 520px; min-width: 0; display: flex"><section style="border-radius: 24px; background: rgba(255,255,255,0.74); border: 1px solid rgba(255,255,255,0.95); box-shadow: 0 10px 30px rgba(47,91,234,0.08); border-radius: 24px; padding: 22px 24px; min-width: 0; width: 100%">
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 10px">
+        <div><h2 style="margin: 0; font-size: 18px; font-weight: 600; line-height: 1.3">Mentions over time</h2></div>
+        <div style="display: flex; flex-wrap: wrap; gap: 14px; font-size: 12px; font-weight: 500; color: #3b4459"><span style="display: inline-flex; align-items: center; gap: 6px; white-space: nowrap"><span style="width: 12px; height: 12px; border-radius: 3px; background: #2a78d6"></span>Lumi Milk</span><span style="display: inline-flex; align-items: center; gap: 6px; white-space: nowrap"><span style="width: 12px; height: 12px; border-radius: 3px; background: #e8590c"></span>Nutri Kid</span><span style="display: inline-flex; align-items: center; gap: 6px; white-space: nowrap"><span style="width: 12px; height: 12px; border-radius: 3px; background: #0e9f6e"></span>Happi Dry</span></div>
+      </div>
+      <svg viewBox="0 0 760 250" style="width: 100%; height: auto; display: block" role="img" aria-label="Weekly mentions for three brands; Lumi Milk peaks in week 4 at 640 mentions">
+          <defs><linearGradient id="peak" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2f5bea"></stop><stop offset="1" stop-color="#8cc8fb"></stop></linearGradient></defs>
+          <g fill="rgba(47,91,234,0.08)"><rect class="vbar" data-tap x="52" y="30" width="56" height="180" rx="14"><title>Week 1</title></rect><rect class="vbar" data-tap x="160" y="30" width="56" height="180" rx="14"><title>Week 2</title></rect><rect class="vbar" data-tap x="268" y="30" width="56" height="180" rx="14"><title>Week 3</title></rect><rect class="vbar" data-tap x="484" y="30" width="56" height="180" rx="14"><title>Week 5</title></rect><rect class="vbar" data-tap x="592" y="30" width="56" height="180" rx="14"><title>Week 6</title></rect></g>
+          <rect class="vbar" data-tap x="376" y="30" width="56" height="180" rx="14" fill="url(#peak)" opacity="0.9"><title>Week 4 · peak</title></rect>
+          <g font-size="11" fill="#5b6478" font-family="Montserrat, sans-serif" font-weight="600"><text x="80" y="234" text-anchor="middle">W1</text><text x="188" y="234" text-anchor="middle">W2</text><text x="296" y="234" text-anchor="middle">W3</text><text x="404" y="234" text-anchor="middle">W4</text><text x="512" y="234" text-anchor="middle">W5</text><text x="620" y="234" text-anchor="middle">W6</text></g>
+          <g fill="none" stroke-width="2.5" stroke-linecap="round">
+            <path d="M80 160 C 130 160, 140 150, 188 146 S 250 150, 296 138 S 360 120, 404 124 S 470 140, 512 132 S 580 128, 620 120" stroke="#0e9f6e"></path>
+            <path d="M80 120 C 130 118, 140 112, 188 110 S 250 116, 296 112 S 360 104, 404 108 S 470 118, 512 116 S 580 122, 620 118" stroke="#e8590c"></path>
+            <path d="M80 140 C 130 132, 140 104, 188 100 S 250 96, 296 80 S 360 48, 404 46 S 470 70, 512 78 S 580 74, 620 64" stroke="#2a78d6"></path>
+          </g>
+          <circle cx="404" cy="46" r="8" fill="#ffffff" stroke="#2a78d6" stroke-width="3"></circle>
+          <g transform="translate(424 18)"><rect width="112" height="42" rx="12" fill="#101828"></rect>
+            <text x="14" y="18" font-size="11" fill="#c9d3ea" font-family="Montserrat, sans-serif" font-weight="500">Lumi Milk · W4</text>
+            <text x="14" y="34" font-size="13" fill="#ffffff" font-family="Montserrat, sans-serif" font-weight="700">640 mentions</text></g>
+        </svg>
+</section></div><div style="flex: 2 1 320px; min-width: 0; display: flex"><section style="border-radius: 24px; background: rgba(255,255,255,0.74); border: 1px solid rgba(255,255,255,0.95); box-shadow: 0 10px 30px rgba(47,91,234,0.08); border-radius: 24px; padding: 22px 24px; min-width: 0; width: 100%">
+<div style="display: flex; flex-direction: column; gap: 10px"><div><h2 style="margin: 0; font-size: 18px; font-weight: 600; line-height: 1.3">Share of voice</h2></div>
+      <sc-for list="{{sov}}" as="b" hint-placeholder-count="6">
+        <div class="row" data-tap title="{{b.title}}" style="display: grid; grid-template-columns: 104px minmax(0, 1fr) 44px; align-items: center; gap: 12px; padding: 4px 6px; margin: 0 -6px; border-radius: 10px">
+          <span style="font-size: 13px; font-weight: 500; color: #3b4459; line-height: 1.3">{{b.label}}</span>
+          <span style="height: 12px; border-radius: 6px; background: rgba(47,91,234,0.07)"><span class="bar" data-tap style="display: block; height: 12px; width: {{b.width}}; border-radius: 6px; background: linear-gradient(90deg, {{b.color}}, {{b.color2}})"></span></span>
+          <span style="font-size: 13px; font-weight: 700; text-align: right; white-space: nowrap">{{b.value}}</span>
+        </div>
+      </sc-for></div>
+</section></div></div>
+<section style="border-radius: 24px; background: rgba(255,255,255,0.74); border: 1px solid rgba(255,255,255,0.95); box-shadow: 0 10px 30px rgba(47,91,234,0.08); border-radius: 24px; padding: 24px; min-width: 0; ">
+<div style="display: flex; flex-direction: column; gap: 16px">
+      <div><h2 style="margin: 0; font-size: 18px; font-weight: 600; line-height: 1.3">Product keywords</h2><div style="font-size: 12px; font-weight: 500; color: #5b6478; line-height: 1.5; margin-top: 4px">Every keyword people use when they talk about the selected product. <b style="font-weight: 600; color: #3b4459">Known</b> = industry vocabulary · <b style="font-weight: 600; color: #3b4459">Discovered</b> = recurring new phrases.</div></div>
+      <form role="search" aria-label="Find keywords for a product" style="display: flex; flex-wrap: wrap; align-items: flex-end; gap: 12px; padding: 16px; border-radius: 18px; background: rgba(47,91,234,0.06)">
+        <label style="flex: 1 1 220px; display: flex; flex-direction: column; gap: 6px; font-size: 12px; font-weight: 500; color: #5b6478">Brand
+          <span style="display: flex; align-items: center; gap: 8px; height: 46px; padding: 0 14px; border-radius: 14px; background: #ffffff; border: 1px solid rgba(47,91,234,0.18); color: #5b6478"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg><input type="text" value="lumi" placeholder="Type any brand, e.g. enfa" style="flex: 1; min-width: 0; border: 0; outline: none; background: transparent; font-family: Montserrat, system-ui, sans-serif; font-size: 14px; font-weight: 600; color: #101828"></span></label>
+        <label style="flex: 1 1 260px; display: flex; flex-direction: column; gap: 6px; font-size: 12px; font-weight: 500; color: #5b6478">Product
+          <span style="display: flex; align-items: center; gap: 8px; height: 46px; padding: 0 14px; border-radius: 14px; background: #ffffff; border: 1.5px solid {{accent}}; box-shadow: 0 6px 18px rgba(47,91,234,0.12); color: #5b6478"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg><input type="text" value="lumi a2 gold" placeholder="Type any product, e.g. enfa A2" style="flex: 1; min-width: 0; border: 0; outline: none; background: transparent; font-family: Montserrat, system-ui, sans-serif; font-size: 14px; font-weight: 600; color: #101828"></span></label>
+        <button type="submit" style="flex: 0 0 auto; height: 46px; padding: 0 20px; border-radius: 14px; border: 0; background: {{accent}}; color: #ffffff; font-family: Montserrat, system-ui, sans-serif; font-size: 14px; font-weight: 700; box-shadow: 0 8px 18px rgba(47,91,234,0.28)">Find keywords</button>
+        <div style="flex: 1 1 100%; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-size: 12px; font-weight: 500; color: #3b4459; line-height: 1.5">
+          <span style="color: #5b6478">Matched:</span>
+          <span class="chip" data-tap style="padding: 4px 10px; border-radius: 13px; background: #ffffff; font-weight: 700">Brand · Lumi Milk</span>
+          <span class="chip" data-tap style="padding: 4px 10px; border-radius: 13px; background: #ffffff; font-weight: 700">Product · Lumi Milk A2 Gold</span>
+          <span style="color: #5b6478; flex: 1 1 220px">Accents optional · empty Product = brand-wide · unknown words → text search</span>
+        </div>
+      </form>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px">
+        <sc-for list="{{facts}}" as="f" hint-placeholder-count="5"><div class="card" data-tap style="padding: 12px 14px; border-radius: 16px; background: rgba(47,91,234,0.06)"><div style="font-size: 11px; font-weight: 500; color: #5b6478">{{f.label}}</div><div style="font-size: 18px; font-weight: 700; margin-top: 4px; line-height: 1.25">{{f.value}}</div></div></sc-for>
+      </div>
+      <div style="display: flex; flex-wrap: wrap; gap: 20px; align-items: stretch"><figure style="flex: 2 1 380px; min-width: 0; margin: 0; padding: 22px; border-radius: 20px; background: #ffffff; border: 1px solid rgba(47,91,234,0.12); display: flex; flex-direction: column; gap: 14px">
+        <figcaption style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 6px"><span style="font-size: 14px; font-weight: 600">Keyword cloud</span><span style="font-size: 11px; font-weight: 500; color: #5b6478">Bigger &amp; bolder = mentioned more</span></figcaption>
+        <div style="flex: 1; min-height: 360px; display: flex; flex-wrap: wrap; align-items: center; align-content: space-evenly; justify-content: space-evenly; gap: 8px 20px; line-height: 1.1; text-align: center">
+          <sc-for list="{{cloud}}" as="w" hint-placeholder-count="24"><span class="word" data-tap title="{{w.title}}" style="font-size: {{w.size}}; font-weight: {{w.weight}}; color: {{w.color}}">{{w.kw}}</span></sc-for>
+        </div>
+        <div style="display: flex; flex-wrap: wrap; gap: 12px; padding-top: 12px; border-top: 1px solid rgba(16,24,40,0.06); font-size: 11px; font-weight: 500; color: #5b6478; line-height: 1.4">
+          <span style="display: inline-flex; align-items: center; gap: 6px"><span style="display: inline-flex; gap: 2px"><span style="width: 8px; height: 8px; border-radius: 4px; background: #0e9f6e"></span><span style="width: 8px; height: 8px; border-radius: 4px; background: #e8590c"></span><span style="width: 8px; height: 8px; border-radius: 4px; background: #b7791f"></span></span>Positive</span>
+          <span style="display: inline-flex; align-items: center; gap: 6px; white-space: nowrap"><span style="width: 8px; height: 8px; border-radius: 3px; background: #5b6478"></span>Neutral</span><span style="display: inline-flex; align-items: center; gap: 6px; white-space: nowrap"><span style="width: 8px; height: 8px; border-radius: 3px; background: #d92d32"></span>Negative</span><span>Muted = fewer mentions</span>
+        </div>
+      </figure><div style="flex: 3 1 520px; min-width: 0" role="table" aria-label="Keywords">
+        <div role="row" style="display: grid; grid-template-columns: minmax(96px, 1.1fr) 92px 58px 64px 64px minmax(160px, 2.4fr); gap: 10px; padding: 8px 12px; font-size: 12px; font-weight: 500; color: #5b6478; border-bottom: 1px solid rgba(16,24,40,0.08)"><span role="columnheader">Keyword</span><span role="columnheader">Type</span><span role="columnheader" style="text-align: right">Posts</span><span role="columnheader" style="text-align: right">Share</span><span role="columnheader" style="text-align: right">NSR</span><span role="columnheader">Example post</span></div>
+        <sc-for list="{{kwRows}}" as="r" hint-placeholder-count="8"><div role="row" class="row" data-tap style="display: grid; grid-template-columns: minmax(96px, 1.1fr) 92px 58px 64px 64px minmax(160px, 2.4fr); gap: 10px; align-items: center; padding: 11px 12px; border-radius: 12px; border-bottom: 1px solid rgba(16,24,40,0.05); font-size: 13px">
+          <span role="cell" style="font-weight: 700">{{r.kw}}</span><span role="cell"><span style="padding: 3px 9px; border-radius: 11px; background: {{r.typeBg}}; color: {{r.typeInk}}; font-size: 11px; font-weight: 700">{{r.type}}</span></span>
+          <span role="cell" style="text-align: right; font-weight: 700">{{r.posts}}</span><span role="cell" style="text-align: right">{{r.share}}</span><span role="cell" style="text-align: right; font-weight: 700; color: {{r.nsrInk}}">{{r.nsr}}</span><span role="cell" style="color: #3b4459; line-height: 1.45">{{r.example}}</span>
+        </div></sc-for></div></div>
+    </div>
+</section>
+<div style="display: flex; flex-wrap: wrap; gap: 20px; align-items: stretch"><div style="flex: 3 1 520px; min-width: 0; display: flex"><section style="border-radius: 24px; background: rgba(255,255,255,0.74); border: 1px solid rgba(255,255,255,0.95); box-shadow: 0 10px 30px rgba(47,91,234,0.08); border-radius: 24px; padding: 22px 24px; min-width: 0; width: 100%">
+<div style="display: flex; flex-direction: column; gap: 8px"><div><h2 style="margin: 0; font-size: 18px; font-weight: 600; line-height: 1.3">Brand ranking</h2><div style="font-size: 12px; font-weight: 500; color: #5b6478; line-height: 1.5; margin-top: 4px">Score = 45% mentions · 35% interactions · 20% NSR</div></div><div role="table" aria-label="Brand ranking"><div role="row" style="display: grid; grid-template-columns: 34px minmax(110px, 1.4fr) minmax(130px, 1.6fr) 84px 56px 64px 64px; gap: 10px; padding: 8px 10px; font-size: 12px; font-weight: 500; color: #5b6478; border-bottom: 1px solid rgba(16,24,40,0.08)"><span>#</span><span>Brand</span><span>Score</span><span style="text-align: right">Mentions</span><span style="text-align: right">SOV</span><span style="text-align: right">NSR</span><span style="text-align: right">Buzz</span></div>
+        <sc-for list="{{ranking}}" as="r" hint-placeholder-count="5"><div role="row" class="row" data-tap style="display: grid; grid-template-columns: 34px minmax(110px, 1.4fr) minmax(130px, 1.6fr) 84px 56px 64px 64px; gap: 10px; align-items: center; padding: 12px 10px; border-radius: 12px; border-bottom: 1px solid rgba(16,24,40,0.05); font-size: 13px">
+          <b style="font-weight: 700; color: #5b6478">{{r.rank}}</b><b style="font-weight: 700">{{r.name}}</b>
+          <span style="display: flex; align-items: center; gap: 8px"><span style="flex: 1; height: 8px; border-radius: 4px; background: rgba(47,91,234,0.08)"><span class="bar" data-tap style="display: block; height: 8px; width: {{r.scoreW}}; border-radius: 4px; background: {{accent}}"></span></span><b style="font-weight: 700">{{r.score}}</b></span>
+          <span style="text-align: right">{{r.mentions}}</span><span style="text-align: right">{{r.sov}}</span><b style="text-align: right; font-weight: 700; color: {{r.nsrInk}}">{{r.nsr}}</b><b style="text-align: right; font-weight: 700; color: {{r.buzzInk}}">{{r.buzz}}</b>
+        </div></sc-for></div></div>
+</section></div><div style="flex: 2 1 320px; min-width: 0; display: flex"><section class="card" data-tap style="width: 100%; border-radius: 24px; padding: 22px 24px; background: linear-gradient(160deg, #101828 0%, #1f2a4a 100%); color: #ffffff; box-shadow: 0 16px 36px rgba(16,24,40,0.25)">
+      <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 12px"><span style="padding: 4px 10px; border-radius: 12px; background: rgba(255,255,255,0.12); font-size: 11px; font-weight: 700">Auto summary</span><span style="font-size: 12px; font-weight: 500; color: #c9d3ea">Updated 06:23 today</span></div>
+      <h2 style="margin: 0 0 10px; font-size: 18px; font-weight: 600">Insights &amp; actions</h2>
+      <ul style="margin: 0 0 14px; padding-left: 18px; font-size: 13px; line-height: 1.7; color: #e3e8f4"><li><b style="font-weight: 600; color: #ffffff">Lumi Milk</b> leads with 21% SOV, but NSR fell 8 pts on a counterfeit rumour.</li><li><b style="font-weight: 600; color: #ffffff">“đạm A2”</b> is the fastest-rising keyword (×8.5).</li><li><b style="font-weight: 600; color: #ffffff">Happi Dry</b> buzz <b style="color: #7ee2b0">+115%</b>, driven by TikTok reviews.</li></ul>
+      <div style="font-size: 12px; font-weight: 600; color: #c9d3ea; margin-bottom: 6px">Recommended</div>
+      <ol style="margin: 0; padding-left: 18px; font-size: 13px; line-height: 1.7; color: #e3e8f4"><li>Publish an authenticity guide within 24h.</li><li>Build content around “đạm A2” in the next 5 days.</li></ol>
+    </section></div></div>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"accent": {"editor": "color", "default": "#2f5bea", "options": ["#2f5bea", "#6250d6", "#0e9f6e", "#e8590c"]}, "$preview": {"width": 1440, "height": 2000}}'>
+class Component extends DCLogic {
+  componentDidMount() {
+    // Haptic tick for every control, chart bar, card, row… (Android Chrome; other devices get the visual press)
+    this._tap = (e) => {
+      const t = e.target && e.target.closest ? e.target.closest('button,a,select,input,label,[data-tap]') : null;
+      if (!t) return;
+      try { if (navigator.vibrate) navigator.vibrate(t.matches('button,a') ? 10 : 6); } catch (err) { /* unsupported */ }
+    };
+    document.addEventListener('pointerdown', this._tap, { passive: true });
+  }
+  componentWillUnmount() {
+    document.removeEventListener('pointerdown', this._tap);
+  }
+  renderVals() {
+    // Illustrative data (fictional brands / communities). Edit freely.
+    const D = {
+ "hero": {
+  "label": "Mentions",
+  "value": "5,412",
+  "pill": "▲ +18%",
+  "note": "vs September"
+ },
+ "kpis": [
+  {
+   "label": "Interactions",
+   "value": "1.24M",
+   "note": "▲ +11% vs September",
+   "noteInk": "#067647",
+   "noteWeight": 700,
+   "color": "#d6336c",
+   "tint": "rgba(214,51,108,0.2)",
+   "inner": "rgba(214,51,108,0.16)",
+   "ic_heart": true
+  },
+  {
+   "label": "Net sentiment (NSR)",
+   "value": "+41%",
+   "note": "▼ −6 pts",
+   "noteInk": "#c01c28",
+   "noteWeight": 700,
+   "color": "#0e9f6e",
+   "tint": "rgba(14,159,110,0.2)",
+   "inner": "rgba(14,159,110,0.16)",
+   "ic_smile": true
+  },
+  {
+   "label": "Negative posts",
+   "value": "486",
+   "note": "▲ +23% – watch",
+   "noteInk": "#c01c28",
+   "noteWeight": 700,
+   "color": "#e8590c",
+   "tint": "rgba(232,89,12,0.2)",
+   "inner": "rgba(232,89,12,0.16)",
+   "ic_warn": true
+  },
+  {
+   "label": "Alerts",
+   "value": "12",
+   "note": "▲ 3 high severity",
+   "noteInk": "#c01c28",
+   "noteWeight": 700,
+   "color": "#c27c00",
+   "tint": "rgba(245,159,0,0.2)",
+   "inner": "rgba(245,159,0,0.16)",
+   "ic_bell": true
+  }
+ ],
+ "sov": [
+  {
+   "label": "Lumi Milk",
+   "value": "21%",
+   "width": "100%",
+   "color": "#2f5bea",
+   "color2": "#8cc8fb",
+   "title": "Lumi Milk: 21%"
+  },
+  {
+   "label": "Nutri Kid",
+   "value": "13%",
+   "width": "62%",
+   "color": "#2f5bea",
+   "color2": "#8cc8fb",
+   "title": "Nutri Kid: 13%"
+  },
+  {
+   "label": "Happi Dry",
+   "value": "12%",
+   "width": "57%",
+   "color": "#2f5bea",
+   "color2": "#8cc8fb",
+   "title": "Happi Dry: 12%"
+  },
+  {
+   "label": "Mimo",
+   "value": "8%",
+   "width": "38%",
+   "color": "#2f5bea",
+   "color2": "#8cc8fb",
+   "title": "Mimo: 8%"
+  },
+  {
+   "label": "BabySoft",
+   "value": "8%",
+   "width": "38%",
+   "color": "#2f5bea",
+   "color2": "#8cc8fb",
+   "title": "BabySoft: 8%"
+  },
+  {
+   "label": "Sunny Bottle",
+   "value": "6%",
+   "width": "29%",
+   "color": "#2f5bea",
+   "color2": "#8cc8fb",
+   "title": "Sunny Bottle: 6%"
+  }
+ ],
+ "facts": [
+  {
+   "label": "Category",
+   "value": "Infant formula"
+  },
+  {
+   "label": "Posts",
+   "value": "214"
+  },
+  {
+   "label": "Share of brand talk",
+   "value": "38%"
+  },
+  {
+   "label": "NSR",
+   "value": "+36%"
+  },
+  {
+   "label": "Top source",
+   "value": "TikTok"
+  }
+ ],
+ "cloud": [
+  {
+   "kw": "giao hàng",
+   "title": "giao hàng · 5 posts · NSR −30%",
+   "color": "#a2484b",
+   "size": "15px",
+   "msize": "14px",
+   "weight": 400
+  },
+  {
+   "kw": "ngủ ngon",
+   "title": "ngủ ngon · 6 posts · NSR +90%",
+   "color": "#8a6d32",
+   "size": "15px",
+   "msize": "14px",
+   "weight": 400
+  },
+  {
+   "kw": "bé lười ăn",
+   "title": "bé lười ăn · 7 posts · NSR −20%",
+   "color": "#6b7385",
+   "size": "15px",
+   "msize": "14px",
+   "weight": 400
+  },
+  {
+   "kw": "hàng giả",
+   "title": "hàng giả · 9 posts · NSR −100%",
+   "color": "#a2484b",
+   "size": "15px",
+   "msize": "14px",
+   "weight": 400
+  },
+  {
+   "kw": "mua ở đâu",
+   "title": "mua ở đâu · 10 posts · NSR 0%",
+   "color": "#6b7385",
+   "size": "15px",
+   "msize": "14px",
+   "weight": 400
+  },
+  {
+   "kw": "6 tháng",
+   "title": "6 tháng · 12 posts · NSR +40%",
+   "color": "#8a6d32",
+   "size": "15px",
+   "msize": "14px",
+   "weight": 400
+  },
+  {
+   "kw": "DHA",
+   "title": "DHA · 13 posts · NSR +50%",
+   "color": "#3f7d66",
+   "size": "20px",
+   "msize": "17px",
+   "weight": 600
+  },
+  {
+   "kw": "đổi sữa",
+   "title": "đổi sữa · 15 posts · NSR +5%",
+   "color": "#6b7385",
+   "size": "20px",
+   "msize": "17px",
+   "weight": 600
+  },
+  {
+   "kw": "chính hãng",
+   "title": "chính hãng · 17 posts · NSR +41%",
+   "color": "#a2593a",
+   "size": "20px",
+   "msize": "17px",
+   "weight": 600
+  },
+  {
+   "kw": "táo bón",
+   "title": "táo bón · 22 posts · NSR −64%",
+   "color": "#d92d32",
+   "size": "28px",
+   "msize": "22px",
+   "weight": 700
+  },
+  {
+   "kw": "sữa mát",
+   "title": "sữa mát · 41 posts · NSR +66%",
+   "color": "#b7791f",
+   "size": "40px",
+   "msize": "30px",
+   "weight": 800
+  },
+  {
+   "kw": "đạm A2",
+   "title": "đạm A2 · 62 posts · NSR +71%",
+   "color": "#0e9f6e",
+   "size": "40px",
+   "msize": "30px",
+   "weight": 800
+  },
+  {
+   "kw": "tăng cân",
+   "title": "tăng cân · 48 posts · NSR +83%",
+   "color": "#e8590c",
+   "size": "40px",
+   "msize": "30px",
+   "weight": 800
+  },
+  {
+   "kw": "giá cao",
+   "title": "giá cao · 37 posts · NSR −78%",
+   "color": "#d92d32",
+   "size": "28px",
+   "msize": "22px",
+   "weight": 700
+  },
+  {
+   "kw": "dễ uống",
+   "title": "dễ uống · 19 posts · NSR +90%",
+   "color": "#3f7d66",
+   "size": "20px",
+   "msize": "17px",
+   "weight": 600
+  },
+  {
+   "kw": "tiêu hoá",
+   "title": "tiêu hoá · 16 posts · NSR +60%",
+   "color": "#8a6d32",
+   "size": "20px",
+   "msize": "17px",
+   "weight": 600
+  },
+  {
+   "kw": "lon 800g",
+   "title": "lon 800g · 14 posts · NSR +12%",
+   "color": "#6b7385",
+   "size": "20px",
+   "msize": "17px",
+   "weight": 600
+  },
+  {
+   "kw": "HMO",
+   "title": "HMO · 12 posts · NSR +58%",
+   "color": "#a2593a",
+   "size": "15px",
+   "msize": "14px",
+   "weight": 400
+  },
+  {
+   "kw": "khuyến mãi",
+   "title": "khuyến mãi · 11 posts · NSR +10%",
+   "color": "#6b7385",
+   "size": "15px",
+   "msize": "14px",
+   "weight": 400
+  },
+  {
+   "kw": "pha sữa",
+   "title": "pha sữa · 9 posts · NSR +30%",
+   "color": "#3f7d66",
+   "size": "15px",
+   "msize": "14px",
+   "weight": 400
+  },
+  {
+   "kw": "review",
+   "title": "review · 9 posts · NSR +40%",
+   "color": "#a2593a",
+   "size": "15px",
+   "msize": "14px",
+   "weight": 400
+  },
+  {
+   "kw": "so sánh",
+   "title": "so sánh · 6 posts · NSR 0%",
+   "color": "#6b7385",
+   "size": "15px",
+   "msize": "14px",
+   "weight": 400
+  },
+  {
+   "kw": "vón cục",
+   "title": "vón cục · 5 posts · NSR −60%",
+   "color": "#a2484b",
+   "size": "15px",
+   "msize": "14px",
+   "weight": 400
+  },
+  {
+   "kw": "nôn trớ",
+   "title": "nôn trớ · 4 posts · NSR −70%",
+   "color": "#a2484b",
+   "size": "15px",
+   "msize": "14px",
+   "weight": 400
+  }
+ ],
+ "kwRows": [
+  {
+   "kw": "đạm A2",
+   "type": "Known",
+   "posts": 62,
+   "share": "29%",
+   "nsr": "+71%",
+   "nsrInk": "#067647",
+   "example": "Đổi sang Lumi A2 Gold 1 tháng, đạm A2 dễ tiêu hơn hẳn",
+   "typeBg": "rgba(47,91,234,0.1)",
+   "typeInk": "#1f43c4"
+  },
+  {
+   "kw": "tăng cân",
+   "type": "Known",
+   "posts": 48,
+   "share": "22%",
+   "nsr": "+83%",
+   "nsrInk": "#067647",
+   "example": "Bé uống 2 tháng tăng cân đều, mẹ yên tâm",
+   "typeBg": "rgba(47,91,234,0.1)",
+   "typeInk": "#1f43c4"
+  },
+  {
+   "kw": "sữa mát",
+   "type": "Known",
+   "posts": 41,
+   "share": "19%",
+   "nsr": "+66%",
+   "nsrInk": "#067647",
+   "example": "Sữa mát, bé đi ngoài đều, không nóng trong",
+   "typeBg": "rgba(47,91,234,0.1)",
+   "typeInk": "#1f43c4"
+  },
+  {
+   "kw": "giá cao",
+   "type": "Known",
+   "posts": 37,
+   "share": "17%",
+   "nsr": "−78%",
+   "nsrInk": "#c01c28",
+   "example": "Sữa tốt nhưng giá cao quá, lon 800g gần 700k",
+   "typeBg": "rgba(47,91,234,0.1)",
+   "typeInk": "#1f43c4"
+  },
+  {
+   "kw": "táo bón",
+   "type": "Known",
+   "posts": 22,
+   "share": "10%",
+   "nsr": "−64%",
+   "nsrInk": "#c01c28",
+   "example": "Tuần đầu bé hơi táo bón, các mẹ có bị không?",
+   "typeBg": "rgba(47,91,234,0.1)",
+   "typeInk": "#1f43c4"
+  },
+  {
+   "kw": "dễ uống",
+   "type": "Known",
+   "posts": 19,
+   "share": "9%",
+   "nsr": "+90%",
+   "nsrInk": "#067647",
+   "example": "Vị nhạt dễ uống, bé không kén",
+   "typeBg": "rgba(47,91,234,0.1)",
+   "typeInk": "#1f43c4"
+  },
+  {
+   "kw": "chính hãng",
+   "type": "Known",
+   "posts": 17,
+   "share": "8%",
+   "nsr": "+41%",
+   "nsrInk": "#067647",
+   "example": "Mua ở cửa hàng chính hãng có tem cào",
+   "typeBg": "rgba(47,91,234,0.1)",
+   "typeInk": "#1f43c4"
+  },
+  {
+   "kw": "tiêu hoá",
+   "type": "Known",
+   "posts": 16,
+   "share": "7%",
+   "nsr": "+60%",
+   "nsrInk": "#067647",
+   "example": "Hệ tiêu hoá bé ổn hơn sau 2 tuần",
+   "typeBg": "rgba(47,91,234,0.1)",
+   "typeInk": "#1f43c4"
+  }
+ ],
+ "ranking": [
+  {
+   "rank": 1,
+   "name": "Lumi Milk",
+   "score": "0.92",
+   "scoreW": "92%",
+   "mentions": "1,136",
+   "sov": "21%",
+   "nsr": "+20%",
+   "nsrInk": "#067647",
+   "buzz": "+45%",
+   "buzzInk": "#067647"
+  },
+  {
+   "rank": 2,
+   "name": "Nutri Kid",
+   "score": "0.90",
+   "scoreW": "90%",
+   "mentions": "703",
+   "sov": "13%",
+   "nsr": "+67%",
+   "nsrInk": "#067647",
+   "buzz": "+5%",
+   "buzzInk": "#067647"
+  },
+  {
+   "rank": 3,
+   "name": "Happi Dry",
+   "score": "0.85",
+   "scoreW": "85%",
+   "mentions": "649",
+   "sov": "12%",
+   "nsr": "+46%",
+   "nsrInk": "#067647",
+   "buzz": "+115%",
+   "buzzInk": "#067647"
+  },
+  {
+   "rank": 4,
+   "name": "BabySoft",
+   "score": "0.77",
+   "scoreW": "77%",
+   "mentions": "433",
+   "sov": "8%",
+   "nsr": "+50%",
+   "nsrInk": "#067647",
+   "buzz": "+22%",
+   "buzzInk": "#067647"
+  },
+  {
+   "rank": 5,
+   "name": "Mimo",
+   "score": "0.74",
+   "scoreW": "74%",
+   "mentions": "441",
+   "sov": "8%",
+   "nsr": "+17%",
+   "nsrInk": "#067647",
+   "buzz": "−18%",
+   "buzzInk": "#c01c28"
+  }
+ ]
+};
+    return { ...D, accent: this.props.accent ?? '#2f5bea' };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,748 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>VN Listen – Communities</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;font-family:Montserrat,system-ui,sans-serif;color:#101828;background:#e4eafd}
+*{box-sizing:border-box}
+a{color:#1f43c4}a:hover{color:#142c86}
+/* ---- One interaction language for everything clickable (+ haptic tick from the page script) ---- */
+button,a,select,input,label,[data-tap]{-webkit-tap-highlight-color:transparent}
+button,a.btn,[data-tap]{cursor:pointer;transition:transform .16s cubic-bezier(.3,.7,.4,1.5),box-shadow .16s ease,filter .16s ease,background-color .16s ease}
+button:hover,a.btn:hover{transform:translateY(-1px)}
+button:active,a.btn:active,[data-tap]:active{transform:scale(.96)}
+.card[data-tap]:hover{transform:translateY(-4px);box-shadow:0 18px 40px rgba(47,91,234,.16)}
+.card[data-tap]:active{transform:translateY(-1px) scale(.985)}
+.bar{transform-origin:left center}
+.bar[data-tap]:hover{filter:brightness(1.08) saturate(1.2);transform:scaleY(1.4)}
+.vbar[data-tap]:hover{filter:brightness(1.1) saturate(1.2)}
+.row[data-tap]:hover{background:rgba(47,91,234,.05)}
+.row[data-tap]:active{transform:scale(.99)}
+.cell[data-tap]:hover{transform:scale(1.08);box-shadow:0 6px 14px rgba(16,24,40,.18)}
+.dot[data-tap]:hover{transform:scale(1.2)}
+.chip[data-tap]:hover{transform:translateY(-1px);box-shadow:0 6px 14px rgba(47,91,234,.14)}
+.word[data-tap]:hover{transform:scale(1.08)}
+.tile{transition:transform .22s cubic-bezier(.3,.7,.4,1.6),box-shadow .22s ease}
+[data-tap]:hover .tile,a:hover .tile{transform:rotate(-8deg) scale(1.08)}
+[data-tap]:active .tile,a:active .tile{transform:scale(.9)}
+.hscroll{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
+.hscroll::-webkit-scrollbar{display:none}
+</style>
+</helmet>
+<div style="display: flex; flex-wrap: wrap; min-height: 100vh; background: linear-gradient(160deg, #f3f5ff 0%, #e4eafd 45%, #d3ddfb 100%); font-family: Montserrat, system-ui, sans-serif; color: #101828">
+  <div style="flex: 0 1 280px; max-width: 100%; display: flex">
+    <dc-import name="Sidebar" active="communities" industry="Mother &amp; Baby" query="sữa công thức" date-from="01/10/2026" date-to="31/10/2026" accent="{{accent}}" hint-size="280px,1260px"></dc-import>
+  </div>
+  <main style="flex: 999 1 560px; min-width: 0; padding: 36px 40px 56px; display: flex; flex-direction: column; gap: 24px">
+<header style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px">
+  <div style="display: flex; align-items: center; gap: 16px; min-width: 0">
+    <span class="tile" style="flex: 0 0 56px; width: 56px; height: 56px; border-radius: 18px; display: flex; align-items: center; justify-content: center; color: #d6336c; background: linear-gradient(150deg, #ffffff 0%, rgba(214,51,108,0.2) 100%); border: 1px solid rgba(255,255,255,0.95); box-shadow: inset 0 1px 0 #ffffff, inset 0 -5px 10px rgba(214,51,108,0.18), 0 8px 18px rgba(214,51,108,0.2)"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8.5" r="3.2"></circle><path d="M3.5 19c.6-3.2 2.8-5 5.5-5s4.9 1.8 5.5 5"></path><circle cx="16.8" cy="9.5" r="2.5"></circle><path d="M16.5 14c2.2 0 3.8 1.5 4.3 4"></path></svg></span>
+    <div style="min-width: 0"><div style="font-size: 13px; font-weight: 500; color: #5b6478; line-height: 1.5">Social Listening › Communities · Mother &amp; Baby · search “sữa công thức”</div>
+    <h1 style="margin: 2px 0 0; font-size: 40px; font-weight: 800; letter-spacing: -0.03em; line-height: 1.1">Community Radar</h1></div>
+  </div>
+  <div role="group" aria-label="Community type" class="" style="display: flex; flex-wrap: wrap; gap: 6px; padding: 5px; border-radius: 16px; background: rgba(255,255,255,0.6); border: 1px solid rgba(255,255,255,0.95)">
+        <sc-for list="{{typeFilters}}" as="f" hint-placeholder-count="5"><button type="button" style="flex: 0 0 auto; height: 38px; padding: 0 14px; border: 0; border-radius: 12px; background: {{f.bg}}; color: {{f.ink}}; box-shadow: {{f.shadow}}; font-family: Montserrat, system-ui, sans-serif; font-size: 13px; font-weight: 600; white-space: nowrap">{{f.label}}</button></sc-for>
+      </div>
+</header>
+<section style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px"><sc-for list="{{top}}" as="t" hint-placeholder-count="3"><article class="card" data-tap style="border-radius: 24px; padding: 22px; background: {{t.cardBg}}; border: 1px solid rgba(255,255,255,0.95); box-shadow: 0 10px 30px rgba(47,91,234,0.08); display: flex; flex-direction: column; gap: 12px; min-width: 0">
+        <div style="display: flex; align-items: center; gap: 12px">
+          <span class="tile" style="flex: 0 0 44px; height: 44px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 800; color: {{t.medalInk}}; background: {{t.medal}}; box-shadow: inset 0 1px 0 rgba(255,255,255,.9), inset 0 -5px 10px rgba(16,24,40,.12), 0 8px 18px rgba(16,24,40,.12)">{{t.rank}}</span>
+          <div style="min-width: 0"><div style="font-size: 12px; font-weight: 500; color: #5b6478">{{t.type}} · {{t.access}}</div><div style="font-size: 17px; font-weight: 700; line-height: 1.3">{{t.name}}</div></div>
+        </div>
+        <div style="display: flex; align-items: center; justify-content: space-between; gap: 10px"><span style="padding: 5px 11px; border-radius: 13px; font-size: 12px; font-weight: 700; background: {{t.tierBg}}; color: {{t.tierInk}}">{{t.tier}}</span><span style="font-size: 30px; font-weight: 700; letter-spacing: -0.03em">{{t.score}}</span></div>
+        <div style="display: flex; height: 10px; border-radius: 5px; overflow: hidden; gap: 2px; background: rgba(16,24,40,0.06)"><sc-for list="{{t.parts}}" as="p" hint-placeholder-count="5"><span class="bar" data-tap style="width: {{p.w}}; background: {{p.c}}"></span></sc-for></div>
+        <div style="font-size: 12px; line-height: 1.6; color: #3b4459">{{t.summary}}</div>
+        <div style="display: flex; gap: 10px; align-items: flex-start; padding: 12px; border-radius: 14px; background: {{t.recBg}}; color: #101828"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="flex: 0 0 18px; margin-top: 1px" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg><span style="font-size: 13px; font-weight: 600; line-height: 1.45">{{t.rec}}</span></div>
+      </article></sc-for></section>
+<div style="display: flex; flex-wrap: wrap; gap: 20px; align-items: stretch"><div style="flex: 1 1 320px; min-width: 0; display: flex"><section style="border-radius: 24px; background: rgba(255,255,255,0.74); border: 1px solid rgba(255,255,255,0.95); box-shadow: 0 10px 30px rgba(47,91,234,0.08); border-radius: 24px; padding: 22px 24px; min-width: 0; width: 100%">
+<div style="display: flex; flex-direction: column; gap: 12px"><div><h2 style="margin: 0; font-size: 18px; font-weight: 600; line-height: 1.3">How the score works</h2><div style="font-size: 12px; font-weight: 500; color: #5b6478; line-height: 1.5; margin-top: 4px">Five signals, weighted for marketing value</div></div>
+      <sc-for list="{{components}}" as="c" hint-placeholder-count="5"><div class="card" data-tap style="background: rgba(47,91,234,0.04); border-radius: 20px; padding: 16px 18px; display: flex; align-items: center; gap: 12px; min-width: 0; ">
+        <span class="tile" style="flex: 0 0 42px; width: 42px; height: 42px; border-radius: 13px; display: flex; align-items: center; justify-content: center; color: {{c.color}}; background: linear-gradient(150deg, #ffffff 0%, {{c.tint}} 100%); border: 1px solid rgba(255,255,255,0.95); box-shadow: inset 0 1px 0 #ffffff, inset 0 -5px 10px {{c.inner}}, 0 8px 18px {{c.tint}}"><sc-if value="{{c.ic_listening}}" hint-placeholder-val="{{false}}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="2.2"></circle><path d="M8.2 8.2a5.4 5.4 0 0 0 0 7.6M15.8 15.8a5.4 5.4 0 0 0 0-7.6M5.2 5.2a9.6 9.6 0 0 0 0 13.6M18.8 18.8a9.6 9.6 0 0 0 0-13.6"></path></svg></sc-if><sc-if value="{{c.ic_research}}" hint-placeholder-val="{{false}}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6"></circle><path d="m15 15 5 5M10.5 7.5v6M7.5 10.5h6"></path></svg></sc-if><sc-if value="{{c.ic_users}}" hint-placeholder-val="{{false}}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8.5" r="3.2"></circle><path d="M3.5 19c.6-3.2 2.8-5 5.5-5s4.9 1.8 5.5 5"></path><circle cx="16.8" cy="9.5" r="2.5"></circle><path d="M16.5 14c2.2 0 3.8 1.5 4.3 4"></path></svg></sc-if><sc-if value="{{c.ic_bell}}" hint-placeholder-val="{{false}}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 9.5a5.5 5.5 0 0 1 11 0c0 5.5 2.5 7.5 2.5 7.5H4s2.5-2 2.5-7.5"></path><path d="M10.2 20.5a2 2 0 0 0 3.6 0"></path></svg></sc-if><sc-if value="{{c.ic_heart}}" hint-placeholder-val="{{false}}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"></path></svg></sc-if><sc-if value="{{c.ic_smile}}" hint-placeholder-val="{{false}}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"></circle><path d="M8.5 14c.9 1.3 2.1 2 3.5 2s2.6-.7 3.5-2M9 9.5h.01M15 9.5h.01"></path></svg></sc-if><sc-if value="{{c.ic_warn}}" hint-placeholder-val="{{false}}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 9v4M12 17h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0"></path></svg></sc-if><sc-if value="{{c.ic_pin}}" hint-placeholder-val="{{false}}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11z"></path><circle cx="12" cy="10" r="2.4"></circle></svg></sc-if><sc-if value="{{c.ic_hash}}" hint-placeholder-val="{{false}}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 4 7 20M17 4l-2 16M4.5 9h16M3.5 15h16"></path></svg></sc-if><sc-if value="{{c.ic_spark}}" hint-placeholder-val="{{false}}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.5 13.9 9 19.5 10.5 13.9 12.4 12 18 10.1 12.4 4.5 10.5 10.1 9z"></path></svg></sc-if><sc-if value="{{c.ic_pulse}}" hint-placeholder-val="{{false}}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h3l3-7 4 14 3-7h5"></path></svg></sc-if><sc-if value="{{c.ic_search}}" hint-placeholder-val="{{false}}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg></sc-if><sc-if value="{{c.ic_calendar}}" hint-placeholder-val="{{false}}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="3"></rect><path d="M8 3v4M16 3v4M3.5 10h17"></path></svg></sc-if><sc-if value="{{c.ic_arrow}}" hint-placeholder-val="{{false}}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></sc-if><sc-if value="{{c.ic_chevron}}" hint-placeholder-val="{{false}}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg></sc-if><sc-if value="{{c.ic_external}}" hint-placeholder-val="{{false}}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 4 19V7.5A1.5 1.5 0 0 1 5.5 6H10"></path></svg></sc-if><sc-if value="{{c.ic_download}}" hint-placeholder-val="{{false}}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"></path></svg></sc-if><sc-if value="{{c.ic_refresh}}" hint-placeholder-val="{{false}}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 11a8 8 0 0 0-14.6-4.5L4 8M4 4v4h4M4 13a8 8 0 0 0 14.6 4.5L20 16M20 20v-4h-4"></path></svg></sc-if><sc-if value="{{c.ic_trend}}" hint-placeholder-val="{{false}}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17 9 11l4 4 8-8M15 7h6v6"></path></svg></sc-if><sc-if value="{{c.ic_shield}}" hint-placeholder-val="{{false}}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 5 6v6c0 4.5 3 7.5 7 9 4-1.5 7-4.5 7-9V6z"></path><path d="m9 12 2 2 4-4"></path></svg></sc-if></span>
+        <div style="min-width: 0"><div style="display: flex; align-items: baseline; gap: 6px"><span style="font-size: 14px; font-weight: 700">{{c.label}}</span><span style="font-size: 12px; font-weight: 800; color: {{c.color}}">{{c.weight}}%</span></div><div style="font-size: 12px; font-weight: 500; color: #5b6478; line-height: 1.35; margin-top: 2px">{{c.hint}}</div></div>
+      </div></sc-for></div>
+</section></div><div style="flex: 2 1 520px; min-width: 0; display: flex"><section style="border-radius: 24px; background: rgba(255,255,255,0.74); border: 1px solid rgba(255,255,255,0.95); box-shadow: 0 10px 30px rgba(47,91,234,0.08); border-radius: 24px; padding: 22px 24px; min-width: 0; width: 100%">
+<div style="display: flex; flex-direction: column; gap: 12px">
+      <div><h2 style="margin: 0; font-size: 18px; font-weight: 600; line-height: 1.3">Relevance × reach</h2><div style="font-size: 12px; font-weight: 500; color: #5b6478; line-height: 1.5; margin-top: 4px">Top-right = on-topic and engaging → best place to be</div></div>
+      <div role="img" aria-label="Quadrant chart: communities 1 to 3 sit in the top-right" style="position: relative; height: 330px; border-radius: 18px; background: linear-gradient(135deg, rgba(14,159,110,0) 50%, rgba(14,159,110,0.12) 100%); border: 1px solid rgba(16,24,40,0.06); overflow: hidden">
+        <span style="position: absolute; left: 50%; top: 0; bottom: 0; border-left: 1px dashed rgba(16,24,40,0.15)"></span>
+        <span style="position: absolute; top: 50%; left: 0; right: 0; border-top: 1px dashed rgba(16,24,40,0.15)"></span>
+        <span style="position: absolute; right: 10px; top: 10px; padding: 3px 8px; border-radius: 10px; background: rgba(255,255,255,0.8); font-size: 11px; font-weight: 700; color: #067647">Go here</span>
+        <span style="position: absolute; left: 10px; top: 10px; padding: 3px 8px; border-radius: 10px; background: rgba(255,255,255,0.8); font-size: 11px; font-weight: 600; color: #5b6478">Reach, off-topic</span>
+        <span style="position: absolute; right: 10px; bottom: 10px; padding: 3px 8px; border-radius: 10px; background: rgba(255,255,255,0.8); font-size: 11px; font-weight: 600; color: #5b6478">Niche, on-topic</span>
+        <sc-for list="{{rows}}" as="d" hint-placeholder-count="8"><span class="dot" data-tap title="{{d.name}} · score {{d.score}}" style="position: absolute; left: {{d.x}}; bottom: {{d.y}}; width: {{d.dot}}; height: {{d.dot}}; margin-left: -14px; margin-bottom: -14px; border-radius: 50%; background: {{d.tierColor}}; border: 2px solid #ffffff; box-shadow: 0 6px 14px rgba(16,24,40,0.2); color: #ffffff; font-size: 11px; font-weight: 800; display: flex; align-items: center; justify-content: center">{{d.rank}}</span></sc-for>
+      </div>
+      <div style="display: flex; justify-content: space-between; font-size: 11px; font-weight: 500; color: #5b6478"><span>On-topic share →</span><span>↑ Avg interactions / post</span></div>
+      <ol style="margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px 14px">
+        <sc-for list="{{rows}}" as="d" hint-placeholder-count="8"><li class="row" data-tap style="display: flex; align-items: center; gap: 8px; padding: 4px; border-radius: 8px; font-size: 12px; font-weight: 500; color: #3b4459; line-height: 1.35"><span style="flex: 0 0 20px; height: 20px; border-radius: 10px; background: {{d.tierColor}}; color: #ffffff; font-size: 10px; font-weight: 800; display: flex; align-items: center; justify-content: center">{{d.rank}}</span>{{d.name}}</li></sc-for>
+      </ol>
+      <div style="display: flex; flex-wrap: wrap; gap: 14px; font-size: 12px; font-weight: 500; color: #3b4459"><span style="display: inline-flex; align-items: center; gap: 6px; white-space: nowrap"><span style="width: 10px; height: 10px; border-radius: 3px; background: #0e9f6e"></span>High potential</span><span style="display: inline-flex; align-items: center; gap: 6px; white-space: nowrap"><span style="width: 10px; height: 10px; border-radius: 3px; background: #e8590c"></span>Worth testing</span><span style="display: inline-flex; align-items: center; gap: 6px; white-space: nowrap"><span style="width: 10px; height: 10px; border-radius: 3px; background: #8a93a6"></span>Monitor</span></div>
+    </div>
+</section></div></div>
+<section style="border-radius: 24px; background: rgba(255,255,255,0.74); border: 1px solid rgba(255,255,255,0.95); box-shadow: 0 10px 30px rgba(47,91,234,0.08); border-radius: 24px; padding: 22px 24px; min-width: 0; width: 100%">
+<div style="display: flex; flex-direction: column; gap: 8px">
+      <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 10px"><div><h2 style="margin: 0; font-size: 18px; font-weight: 600; line-height: 1.3">All communities</h2></div><label class="chip" data-tap style="display: inline-flex; align-items: center; gap: 8px; padding: 6px 10px; border-radius: 12px; font-size: 13px; font-weight: 500; color: #3b4459"><input type="checkbox" style="width: 18px; height: 18px; margin: 0; accent-color: #d6336c"> Public only</label></div>
+      <div role="table" aria-label="All communities"><div role="row" style="display: grid; grid-template-columns: 34px minmax(170px, 2fr) 76px minmax(150px, 1.4fr) 72px 72px 82px 64px; gap: 10px; padding: 8px 10px; font-size: 12px; font-weight: 500; color: #5b6478; border-bottom: 1px solid rgba(16,24,40,0.08)"><span>#</span><span>Community</span><span>Access</span><span>Score</span><span style="text-align: right">Posts/wk</span><span style="text-align: right">On-topic</span><span style="text-align: right">Intent</span><span style="text-align: right">NSR</span></div>
+        <sc-for list="{{rows}}" as="r" hint-placeholder-count="8"><div role="row" class="row" data-tap style="display: grid; grid-template-columns: 34px minmax(170px, 2fr) 76px minmax(150px, 1.4fr) 72px 72px 82px 64px; gap: 10px; align-items: center; padding: 11px 10px; border-radius: 12px; border-bottom: 1px solid rgba(16,24,40,0.05); font-size: 13px">
+          <b style="font-weight: 700; color: #5b6478">{{r.rank}}</b><span style="min-width: 0"><b style="display: block; font-weight: 700; line-height: 1.3">{{r.name}}</b><span style="font-size: 11px; font-weight: 500; color: #5b6478">{{r.type}}</span></span>
+          <span><span style="padding: 3px 9px; border-radius: 11px; font-size: 11px; font-weight: 700; background: {{r.accessBg}}; color: {{r.accessInk}}">{{r.access}}</span></span>
+          <span style="display: flex; align-items: center; gap: 8px"><span style="display: flex; flex: 1; height: 8px; border-radius: 4px; overflow: hidden; gap: 1px; background: rgba(16,24,40,0.06)"><sc-for list="{{r.parts}}" as="p" hint-placeholder-count="5"><span class="bar" data-tap style="width: {{p.w}}; background: {{p.c}}"></span></sc-for></span><b style="font-weight: 700">{{r.score}}</b></span>
+          <span style="text-align: right">{{r.ppw}}</span><span style="text-align: right">{{r.rel}}</span><span style="text-align: right">{{r.intent}}</span><b style="text-align: right; font-weight: 700; color: {{r.nsrInk}}">{{r.nsr}}</b>
+        </div></sc-for></div></div>
+</section>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"accent": {"editor": "color", "default": "#2f5bea", "options": ["#2f5bea", "#6250d6", "#0e9f6e", "#e8590c"]}, "$preview": {"width": 1440, "height": 2000}}'>
+class Component extends DCLogic {
+  componentDidMount() {
+    // Haptic tick for every control, chart bar, card, row… (Android Chrome; other devices get the visual press)
+    this._tap = (e) => {
+      const t = e.target && e.target.closest ? e.target.closest('button,a,select,input,label,[data-tap]') : null;
+      if (!t) return;
+      try { if (navigator.vibrate) navigator.vibrate(t.matches('button,a') ? 10 : 6); } catch (err) { /* unsupported */ }
+    };
+    document.addEventListener('pointerdown', this._tap, { passive: true });
+  }
+  componentWillUnmount() {
+    document.removeEventListener('pointerdown', this._tap);
+  }
+  renderVals() {
+    // Illustrative data (fictional brands / communities). Edit freely.
+    const D = {
+ "typeFilters": [
+  {
+   "label": "All",
+   "bg": "#d6336c",
+   "ink": "#ffffff",
+   "shadow": "0 8px 18px rgba(214,51,108,0.3)"
+  },
+  {
+   "label": "Facebook groups",
+   "bg": "transparent",
+   "ink": "#3b4459",
+   "shadow": "none"
+  },
+  {
+   "label": "TikTok",
+   "bg": "transparent",
+   "ink": "#3b4459",
+   "shadow": "none"
+  },
+  {
+   "label": "Instagram / Threads",
+   "bg": "transparent",
+   "ink": "#3b4459",
+   "shadow": "none"
+  },
+  {
+   "label": "Forums",
+   "bg": "transparent",
+   "ink": "#3b4459",
+   "shadow": "none"
+  }
+ ],
+ "components": [
+  {
+   "label": "Activity",
+   "weight": "25",
+   "hint": "Posts per week",
+   "color": "#2f5bea",
+   "tint": "rgba(47,91,234,0.2)",
+   "inner": "rgba(47,91,234,0.16)",
+   "ic_trend": true
+  },
+  {
+   "label": "Engagement",
+   "weight": "25",
+   "hint": "Avg interactions per post",
+   "color": "#d6336c",
+   "tint": "rgba(214,51,108,0.2)",
+   "inner": "rgba(214,51,108,0.16)",
+   "ic_heart": true
+  },
+  {
+   "label": "Relevance",
+   "weight": "25",
+   "hint": "Share of on-topic posts",
+   "color": "#0e9f6e",
+   "tint": "rgba(14,159,110,0.2)",
+   "inner": "rgba(14,159,110,0.16)",
+   "ic_search": true
+  },
+  {
+   "label": "Buying intent",
+   "weight": "15",
+   "hint": "Questions, reviews, price asks",
+   "color": "#e8590c",
+   "tint": "rgba(232,89,12,0.2)",
+   "inner": "rgba(232,89,12,0.16)",
+   "ic_spark": true
+  },
+  {
+   "label": "Openness",
+   "weight": "10",
+   "hint": "Public › unknown › private",
+   "color": "#c27c00",
+   "tint": "rgba(245,159,0,0.2)",
+   "inner": "rgba(245,159,0,0.16)",
+   "ic_users": true
+  }
+ ],
+ "top": [
+  {
+   "rank": 1,
+   "name": "Hội mẹ bỉm sữa Hà Nội",
+   "type": "Facebook group",
+   "access": "public",
+   "score": "0.82",
+   "tier": "High potential",
+   "tierBg": "rgba(14,159,110,0.14)",
+   "tierInk": "#05603a",
+   "tierColor": "#0e9f6e",
+   "ppw": 56,
+   "rel": "41%",
+   "intent": "38%",
+   "nsr": "+43%",
+   "nsrInk": "#067647",
+   "rec": "Buyers asking questions – seed honest KOC reviews and answer threads",
+   "summary": "56 posts/week · 41% on-topic · 38% buying questions · NSR +43%",
+   "parts": [
+    {
+     "w": "24%",
+     "c": "#2f5bea"
+    },
+    {
+     "w": "20%",
+     "c": "#d6336c"
+    },
+    {
+     "w": "20%",
+     "c": "#0e9f6e"
+    },
+    {
+     "w": "8%",
+     "c": "#e8590c"
+    },
+    {
+     "w": "10%",
+     "c": "#c27c00"
+    }
+   ],
+   "accessBg": "rgba(14,159,110,0.14)",
+   "accessInk": "#05603a",
+   "x": "72%",
+   "y": "70%",
+   "dot": "33px",
+   "medal": "linear-gradient(150deg,#fff6d6,#f5b400)",
+   "medalInk": "#5c3d00",
+   "cardBg": "linear-gradient(150deg, #ffffff 0%, #ffe3ee 100%)",
+   "recBg": "rgba(214,51,108,0.10)"
+  },
+  {
+   "rank": 2,
+   "name": "mebap.review",
+   "type": "TikTok account",
+   "access": "public",
+   "score": "0.76",
+   "tier": "High potential",
+   "tierBg": "rgba(14,159,110,0.14)",
+   "tierInk": "#05603a",
+   "tierColor": "#0e9f6e",
+   "ppw": 43,
+   "rel": "33%",
+   "intent": "37%",
+   "nsr": "+58%",
+   "nsrInk": "#067647",
+   "rec": "Core community – build a long-term presence with expert answers",
+   "summary": "43 posts/week · 33% on-topic · 37% buying questions · NSR +58%",
+   "parts": [
+    {
+     "w": "20%",
+     "c": "#2f5bea"
+    },
+    {
+     "w": "25%",
+     "c": "#d6336c"
+    },
+    {
+     "w": "15%",
+     "c": "#0e9f6e"
+    },
+    {
+     "w": "6%",
+     "c": "#e8590c"
+    },
+    {
+     "w": "10%",
+     "c": "#c27c00"
+    }
+   ],
+   "accessBg": "rgba(14,159,110,0.14)",
+   "accessInk": "#05603a",
+   "x": "58%",
+   "y": "86%",
+   "dot": "31px",
+   "medal": "linear-gradient(150deg,#ffffff,#c9d1e3)",
+   "medalInk": "#2c3445",
+   "cardBg": "rgba(255,255,255,0.74)",
+   "recBg": "rgba(47,91,234,0.06)"
+  },
+  {
+   "rank": 3,
+   "name": "Nuôi con bằng sữa công thức",
+   "type": "Facebook group",
+   "access": "public",
+   "score": "0.68",
+   "tier": "High potential",
+   "tierBg": "rgba(14,159,110,0.14)",
+   "tierInk": "#05603a",
+   "tierColor": "#0e9f6e",
+   "ppw": 41,
+   "rel": "52%",
+   "intent": "36%",
+   "nsr": "+51%",
+   "nsrInk": "#067647",
+   "rec": "Core community – host an AMA with a nutritionist",
+   "summary": "41 posts/week · 52% on-topic · 36% buying questions · NSR +51%",
+   "parts": [
+    {
+     "w": "18%",
+     "c": "#2f5bea"
+    },
+    {
+     "w": "14%",
+     "c": "#d6336c"
+    },
+    {
+     "w": "22%",
+     "c": "#0e9f6e"
+    },
+    {
+     "w": "4%",
+     "c": "#e8590c"
+    },
+    {
+     "w": "10%",
+     "c": "#c27c00"
+    }
+   ],
+   "accessBg": "rgba(14,159,110,0.14)",
+   "accessInk": "#05603a",
+   "x": "86%",
+   "y": "48%",
+   "dot": "31px",
+   "medal": "linear-gradient(150deg,#ffe8d9,#e8590c)",
+   "medalInk": "#ffffff",
+   "cardBg": "rgba(255,255,255,0.74)",
+   "recBg": "rgba(47,91,234,0.06)"
+  }
+ ],
+ "rows": [
+  {
+   "rank": 1,
+   "name": "Hội mẹ bỉm sữa Hà Nội",
+   "type": "Facebook group",
+   "access": "public",
+   "score": "0.82",
+   "tier": "High potential",
+   "tierBg": "rgba(14,159,110,0.14)",
+   "tierInk": "#05603a",
+   "tierColor": "#0e9f6e",
+   "ppw": 56,
+   "rel": "41%",
+   "intent": "38%",
+   "nsr": "+43%",
+   "nsrInk": "#067647",
+   "rec": "Buyers asking questions – seed honest KOC reviews and answer threads",
+   "summary": "56 posts/week · 41% on-topic · 38% buying questions · NSR +43%",
+   "parts": [
+    {
+     "w": "24%",
+     "c": "#2f5bea"
+    },
+    {
+     "w": "20%",
+     "c": "#d6336c"
+    },
+    {
+     "w": "20%",
+     "c": "#0e9f6e"
+    },
+    {
+     "w": "8%",
+     "c": "#e8590c"
+    },
+    {
+     "w": "10%",
+     "c": "#c27c00"
+    }
+   ],
+   "accessBg": "rgba(14,159,110,0.14)",
+   "accessInk": "#05603a",
+   "x": "72%",
+   "y": "70%",
+   "dot": "33px",
+   "medal": "linear-gradient(150deg,#fff6d6,#f5b400)",
+   "medalInk": "#5c3d00",
+   "cardBg": "linear-gradient(150deg, #ffffff 0%, #ffe3ee 100%)",
+   "recBg": "rgba(214,51,108,0.10)"
+  },
+  {
+   "rank": 2,
+   "name": "mebap.review",
+   "type": "TikTok account",
+   "access": "public",
+   "score": "0.76",
+   "tier": "High potential",
+   "tierBg": "rgba(14,159,110,0.14)",
+   "tierInk": "#05603a",
+   "tierColor": "#0e9f6e",
+   "ppw": 43,
+   "rel": "33%",
+   "intent": "37%",
+   "nsr": "+58%",
+   "nsrInk": "#067647",
+   "rec": "Core community – build a long-term presence with expert answers",
+   "summary": "43 posts/week · 33% on-topic · 37% buying questions · NSR +58%",
+   "parts": [
+    {
+     "w": "20%",
+     "c": "#2f5bea"
+    },
+    {
+     "w": "25%",
+     "c": "#d6336c"
+    },
+    {
+     "w": "15%",
+     "c": "#0e9f6e"
+    },
+    {
+     "w": "6%",
+     "c": "#e8590c"
+    },
+    {
+     "w": "10%",
+     "c": "#c27c00"
+    }
+   ],
+   "accessBg": "rgba(14,159,110,0.14)",
+   "accessInk": "#05603a",
+   "x": "58%",
+   "y": "86%",
+   "dot": "31px",
+   "medal": "linear-gradient(150deg,#ffffff,#c9d1e3)",
+   "medalInk": "#2c3445",
+   "cardBg": "rgba(255,255,255,0.74)",
+   "recBg": "rgba(47,91,234,0.06)"
+  },
+  {
+   "rank": 3,
+   "name": "Nuôi con bằng sữa công thức",
+   "type": "Facebook group",
+   "access": "public",
+   "score": "0.68",
+   "tier": "High potential",
+   "tierBg": "rgba(14,159,110,0.14)",
+   "tierInk": "#05603a",
+   "tierColor": "#0e9f6e",
+   "ppw": 41,
+   "rel": "52%",
+   "intent": "36%",
+   "nsr": "+51%",
+   "nsrInk": "#067647",
+   "rec": "Core community – host an AMA with a nutritionist",
+   "summary": "41 posts/week · 52% on-topic · 36% buying questions · NSR +51%",
+   "parts": [
+    {
+     "w": "18%",
+     "c": "#2f5bea"
+    },
+    {
+     "w": "14%",
+     "c": "#d6336c"
+    },
+    {
+     "w": "22%",
+     "c": "#0e9f6e"
+    },
+    {
+     "w": "4%",
+     "c": "#e8590c"
+    },
+    {
+     "w": "10%",
+     "c": "#c27c00"
+    }
+   ],
+   "accessBg": "rgba(14,159,110,0.14)",
+   "accessInk": "#05603a",
+   "x": "86%",
+   "y": "48%",
+   "dot": "31px",
+   "medal": "linear-gradient(150deg,#ffe8d9,#e8590c)",
+   "medalInk": "#ffffff",
+   "cardBg": "rgba(255,255,255,0.74)",
+   "recBg": "rgba(47,91,234,0.06)"
+  },
+  {
+   "rank": 4,
+   "name": "Review bỉm sữa chính hãng",
+   "type": "Facebook group",
+   "access": "public",
+   "score": "0.57",
+   "tier": "Worth testing",
+   "tierBg": "rgba(232,89,12,0.14)",
+   "tierInk": "#9a3c12",
+   "tierColor": "#e8590c",
+   "ppw": 31,
+   "rel": "38%",
+   "intent": "44%",
+   "nsr": "−12%",
+   "nsrInk": "#c01c28",
+   "rec": "Competitor stronghold – sponsor the admin or run a comparison review",
+   "summary": "31 posts/week · 38% on-topic · 44% buying questions · NSR −12%",
+   "parts": [
+    {
+     "w": "12%",
+     "c": "#2f5bea"
+    },
+    {
+     "w": "12%",
+     "c": "#d6336c"
+    },
+    {
+     "w": "16%",
+     "c": "#0e9f6e"
+    },
+    {
+     "w": "7%",
+     "c": "#e8590c"
+    },
+    {
+     "w": "10%",
+     "c": "#c27c00"
+    }
+   ],
+   "accessBg": "rgba(14,159,110,0.14)",
+   "accessInk": "#05603a",
+   "x": "62%",
+   "y": "36%",
+   "dot": "29px",
+   "medal": "",
+   "medalInk": "",
+   "cardBg": "rgba(255,255,255,0.74)",
+   "recBg": "rgba(47,91,234,0.06)"
+  },
+  {
+   "rank": 5,
+   "name": "nhabimsua",
+   "type": "TikTok account",
+   "access": "public",
+   "score": "0.55",
+   "tier": "Worth testing",
+   "tierBg": "rgba(232,89,12,0.14)",
+   "tierInk": "#9a3c12",
+   "tierColor": "#e8590c",
+   "ppw": 48,
+   "rel": "12%",
+   "intent": "31%",
+   "nsr": "+30%",
+   "nsrInk": "#067647",
+   "rec": "Big reach, broad topic – awareness content or minigame",
+   "summary": "48 posts/week · 12% on-topic · 31% buying questions · NSR +30%",
+   "parts": [
+    {
+     "w": "16%",
+     "c": "#2f5bea"
+    },
+    {
+     "w": "22%",
+     "c": "#d6336c"
+    },
+    {
+     "w": "5%",
+     "c": "#0e9f6e"
+    },
+    {
+     "w": "2%",
+     "c": "#e8590c"
+    },
+    {
+     "w": "10%",
+     "c": "#c27c00"
+    }
+   ],
+   "accessBg": "rgba(14,159,110,0.14)",
+   "accessInk": "#05603a",
+   "x": "16%",
+   "y": "78%",
+   "dot": "32px",
+   "medal": "",
+   "medalInk": "",
+   "cardBg": "rgba(255,255,255,0.74)",
+   "recBg": "rgba(47,91,234,0.06)"
+  },
+  {
+   "rank": 6,
+   "name": "Hội mẹ sinh tháng 6/2026",
+   "type": "Facebook group",
+   "access": "private",
+   "score": "0.46",
+   "tier": "Worth testing",
+   "tierBg": "rgba(232,89,12,0.14)",
+   "tierInk": "#9a3c12",
+   "tierColor": "#e8590c",
+   "ppw": 22,
+   "rel": "40%",
+   "intent": "52%",
+   "nsr": "+20%",
+   "nsrInk": "#067647",
+   "rec": "Request to join; observe 1–2 weeks before posting",
+   "summary": "22 posts/week · 40% on-topic · 52% buying questions · NSR +20%",
+   "parts": [
+    {
+     "w": "10%",
+     "c": "#2f5bea"
+    },
+    {
+     "w": "8%",
+     "c": "#d6336c"
+    },
+    {
+     "w": "17%",
+     "c": "#0e9f6e"
+    },
+    {
+     "w": "8%",
+     "c": "#e8590c"
+    },
+    {
+     "w": "3%",
+     "c": "#c27c00"
+    }
+   ],
+   "accessBg": "rgba(245,159,0,0.22)",
+   "accessInk": "#7a4a00",
+   "x": "66%",
+   "y": "18%",
+   "dot": "28px",
+   "medal": "",
+   "medalInk": "",
+   "cardBg": "rgba(255,255,255,0.74)",
+   "recBg": "rgba(47,91,234,0.06)"
+  },
+  {
+   "rank": 7,
+   "name": "webtretho.com",
+   "type": "Forum",
+   "access": "public",
+   "score": "0.38",
+   "tier": "Monitor",
+   "tierBg": "rgba(138,147,166,0.18)",
+   "tierInk": "#3b4459",
+   "tierColor": "#8a93a6",
+   "ppw": 9,
+   "rel": "34%",
+   "intent": "29%",
+   "nsr": "−35%",
+   "nsrInk": "#c01c28",
+   "rec": "Crisis watch – reply with facts and track daily",
+   "summary": "9 posts/week · 34% on-topic · 29% buying questions · NSR −35%",
+   "parts": [
+    {
+     "w": "6%",
+     "c": "#2f5bea"
+    },
+    {
+     "w": "4%",
+     "c": "#d6336c"
+    },
+    {
+     "w": "14%",
+     "c": "#0e9f6e"
+    },
+    {
+     "w": "4%",
+     "c": "#e8590c"
+    },
+    {
+     "w": "10%",
+     "c": "#c27c00"
+    }
+   ],
+   "accessBg": "rgba(14,159,110,0.14)",
+   "accessInk": "#05603a",
+   "x": "46%",
+   "y": "10%",
+   "dot": "27px",
+   "medal": "",
+   "medalInk": "",
+   "cardBg": "rgba(255,255,255,0.74)",
+   "recBg": "rgba(47,91,234,0.06)"
+  },
+  {
+   "rank": 8,
+   "name": "Ăn dặm & dinh dưỡng cho bé",
+   "type": "Facebook group",
+   "access": "public",
+   "score": "0.34",
+   "tier": "Monitor",
+   "tierBg": "rgba(138,147,166,0.18)",
+   "tierInk": "#3b4459",
+   "tierColor": "#8a93a6",
+   "ppw": 18,
+   "rel": "9%",
+   "intent": "24%",
+   "nsr": "+62%",
+   "nsrInk": "#067647",
+   "rec": "Keep monitoring – test with 1–2 helpful posts",
+   "summary": "18 posts/week · 9% on-topic · 24% buying questions · NSR +62%",
+   "parts": [
+    {
+     "w": "8%",
+     "c": "#2f5bea"
+    },
+    {
+     "w": "6%",
+     "c": "#d6336c"
+    },
+    {
+     "w": "6%",
+     "c": "#0e9f6e"
+    },
+    {
+     "w": "4%",
+     "c": "#e8590c"
+    },
+    {
+     "w": "10%",
+     "c": "#c27c00"
+    }
+   ],
+   "accessBg": "rgba(14,159,110,0.14)",
+   "accessInk": "#05603a",
+   "x": "10%",
+   "y": "28%",
+   "dot": "28px",
+   "medal": "",
+   "medalInk": "",
+   "cardBg": "rgba(255,255,255,0.74)",
+   "recBg": "rgba(47,91,234,0.06)"
+  }
+ ]
+};
+    return { ...D, accent: this.props.accent ?? '#2f5bea' };
+  }
+}
+</script>
+</body>
+</html>

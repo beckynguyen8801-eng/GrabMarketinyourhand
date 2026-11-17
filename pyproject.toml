@@ -1,0 +1,32 @@
+[project]
+name = "vnlisten"
+version = "0.1.0"
+description = "Social listening tool cá nhân cho thị trường Việt Nam (pilot: Mẹ & Bé)"
+requires-python = ">=3.11"
+dependencies = [
+  "httpx>=0.27",
+  "PyYAML>=6",
+  "pandas>=2.2",
+  "APScheduler>=3.10,<4",
+  "streamlit>=1.38",
+  "plotly>=5.22",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8"]
+# Sentiment bằng model PhoBERT chạy local (free, nhưng nặng ~500MB)
+ml = ["transformers>=4.44", "torch"]
+
+[project.scripts]
+vnlisten = "vnlisten.cli:main"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]

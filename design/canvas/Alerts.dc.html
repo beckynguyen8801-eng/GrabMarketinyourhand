@@ -1,0 +1,383 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>VN Listen – Alerts</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;font-family:Montserrat,system-ui,sans-serif;color:#101828;background:#e4eafd}
+*{box-sizing:border-box}
+a{color:#1f43c4}a:hover{color:#142c86}
+/* ---- One interaction language for everything clickable (+ haptic tick from the page script) ---- */
+button,a,select,input,label,[data-tap]{-webkit-tap-highlight-color:transparent}
+button,a.btn,[data-tap]{cursor:pointer;transition:transform .16s cubic-bezier(.3,.7,.4,1.5),box-shadow .16s ease,filter .16s ease,background-color .16s ease}
+button:hover,a.btn:hover{transform:translateY(-1px)}
+button:active,a.btn:active,[data-tap]:active{transform:scale(.96)}
+.card[data-tap]:hover{transform:translateY(-4px);box-shadow:0 18px 40px rgba(47,91,234,.16)}
+.card[data-tap]:active{transform:translateY(-1px) scale(.985)}
+.bar{transform-origin:left center}
+.bar[data-tap]:hover{filter:brightness(1.08) saturate(1.2);transform:scaleY(1.4)}
+.vbar[data-tap]:hover{filter:brightness(1.1) saturate(1.2)}
+.row[data-tap]:hover{background:rgba(47,91,234,.05)}
+.row[data-tap]:active{transform:scale(.99)}
+.cell[data-tap]:hover{transform:scale(1.08);box-shadow:0 6px 14px rgba(16,24,40,.18)}
+.dot[data-tap]:hover{transform:scale(1.2)}
+.chip[data-tap]:hover{transform:translateY(-1px);box-shadow:0 6px 14px rgba(47,91,234,.14)}
+.word[data-tap]:hover{transform:scale(1.08)}
+.tile{transition:transform .22s cubic-bezier(.3,.7,.4,1.6),box-shadow .22s ease}
+[data-tap]:hover .tile,a:hover .tile{transform:rotate(-8deg) scale(1.08)}
+[data-tap]:active .tile,a:active .tile{transform:scale(.9)}
+.hscroll{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
+.hscroll::-webkit-scrollbar{display:none}
+</style>
+</helmet>
+<div style="display: flex; flex-wrap: wrap; min-height: 100vh; background: linear-gradient(160deg, #f3f5ff 0%, #e4eafd 45%, #d3ddfb 100%); font-family: Montserrat, system-ui, sans-serif; color: #101828">
+  <div style="flex: 0 1 280px; max-width: 100%; display: flex">
+    <dc-import name="Sidebar" active="alerts" industry="Mother &amp; Baby" query="" date-from="16/11/2026" date-to="17/11/2026" accent="{{accent}}" hint-size="280px,1260px"></dc-import>
+  </div>
+  <main style="flex: 999 1 560px; min-width: 0; padding: 36px 40px 56px; display: flex; flex-direction: column; gap: 24px">
+<header style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px">
+  <div style="display: flex; align-items: center; gap: 16px; min-width: 0">
+    <span class="tile" style="flex: 0 0 56px; width: 56px; height: 56px; border-radius: 18px; display: flex; align-items: center; justify-content: center; color: #c27c00; background: linear-gradient(150deg, #ffffff 0%, rgba(245,159,0,0.2) 100%); border: 1px solid rgba(255,255,255,0.95); box-shadow: inset 0 1px 0 #ffffff, inset 0 -5px 10px rgba(245,159,0,0.18), 0 8px 18px rgba(245,159,0,0.2)"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 9.5a5.5 5.5 0 0 1 11 0c0 5.5 2.5 7.5 2.5 7.5H4s2.5-2 2.5-7.5"></path><path d="M10.2 20.5a2 2 0 0 0 3.6 0"></path></svg></span>
+    <div style="min-width: 0"><div style="font-size: 13px; font-weight: 500; color: #5b6478; line-height: 1.5">Mother &amp; Baby · last 24 hours</div>
+    <h1 style="margin: 2px 0 0; font-size: 40px; font-weight: 800; letter-spacing: -0.03em; line-height: 1.1">Alerts &amp; crisis</h1></div>
+  </div>
+  
+</header>
+<div style="display: flex; flex-wrap: wrap; gap: 20px; align-items: stretch"><div style="flex: 2 1 340px; min-width: 0; display: flex"><div style="display: flex; flex-direction: column; gap: 12px; width: 100%"><sc-for list="{{alerts}}" as="a" hint-placeholder-count="5"><article class="card" data-tap style="border-radius: 20px; padding: 16px 18px; background: {{a.bg}}; border: 1px solid {{a.border}}; box-shadow: {{a.shadow}}; color: {{a.ink}}; display: flex; flex-direction: column; gap: 8px">
+        <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px"><span style="display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 12px; background: {{a.badgeBg}}; color: {{a.badgeInk}}; font-size: 11px; font-weight: 700"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 9v4M12 17h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0"></path></svg> {{a.level}}</span><span style="font-size: 12px; font-weight: 500; color: {{a.muted}}">{{a.time}} · {{a.rule}}</span></div>
+        <div style="font-size: 15px; font-weight: 600; line-height: 1.4">{{a.title}}</div>
+        <div style="font-size: 13px; line-height: 1.5; color: {{a.muted}}">{{a.detail}}</div>
+      </article></sc-for></div></div><div style="flex: 3 1 560px; min-width: 0; display: flex"><div style="display: flex; flex-direction: column; gap: 20px; width: 100%"><section style="border-radius: 24px; background: rgba(255,255,255,0.74); border: 1px solid rgba(255,255,255,0.95); box-shadow: 0 10px 30px rgba(47,91,234,0.08); border-radius: 24px; padding: 22px 24px; min-width: 0; width: 100%">
+<div style="display: flex; flex-direction: column; gap: 14px">
+      <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 8px"><div><h2 style="margin: 0; font-size: 18px; font-weight: 600; line-height: 1.3">Lumi Milk · negative posts per hour</h2></div><span style="font-size: 12px; font-weight: 600; color: #c01c28">Peak 18 at 09:00 · normal 2.3 / day</span></div>
+      <div style="display: flex; align-items: flex-end; gap: 5px; height: 150px"><sc-for list="{{hours}}" as="h" hint-placeholder-count="24"><span class="vbar" data-tap title="{{h.title}}" style="flex: 1; height: {{h.height}}; background: {{h.color}}; border-radius: 8px"></span></sc-for></div>
+      <div style="display: flex; justify-content: space-between; font-size: 11px; font-weight: 500; color: #5b6478"><span>15:00</span><span>21:00</span><span>03:00</span><span>09:00</span><span>14:00</span></div></div>
+</section><div style="display: flex; flex-wrap: wrap; gap: 20px; align-items: stretch"><div style="flex: 1 1 260px; min-width: 0; display: flex"><section style="border-radius: 24px; background: rgba(255,255,255,0.74); border: 1px solid rgba(255,255,255,0.95); box-shadow: 0 10px 30px rgba(47,91,234,0.08); border-radius: 24px; padding: 22px 24px; min-width: 0; width: 100%">
+<div style="display: flex; flex-direction: column; gap: 10px"><div><h2 style="margin: 0; font-size: 18px; font-weight: 600; line-height: 1.3">Risk keywords</h2></div><sc-for list="{{risks}}" as="b" hint-placeholder-count="6">
+        <div class="row" data-tap title="{{b.title}}" style="display: grid; grid-template-columns: 90px minmax(0, 1fr) 32px; align-items: center; gap: 12px; padding: 4px 6px; margin: 0 -6px; border-radius: 10px">
+          <span style="font-size: 13px; font-weight: 500; color: #3b4459; line-height: 1.3">{{b.label}}</span>
+          <span style="height: 12px; border-radius: 6px; background: rgba(47,91,234,0.07)"><span class="bar" data-tap style="display: block; height: 12px; width: {{b.width}}; border-radius: 6px; background: {{b.color}}"></span></span>
+          <span style="font-size: 13px; font-weight: 700; text-align: right; white-space: nowrap">{{b.value}}</span>
+        </div>
+      </sc-for></div>
+</section></div><div style="flex: 1 1 260px; min-width: 0; display: flex"><section style="border-radius: 24px; background: rgba(255,255,255,0.74); border: 1px solid rgba(255,255,255,0.95); box-shadow: 0 10px 30px rgba(47,91,234,0.08); border-radius: 24px; padding: 22px 24px; min-width: 0; width: 100%">
+<div style="display: flex; flex-direction: column; gap: 12px"><div><h2 style="margin: 0; font-size: 18px; font-weight: 600; line-height: 1.3">Response playbook</h2></div>
+      <sc-for list="{{playbook}}" as="p" hint-placeholder-count="4"><label class="row" data-tap style="display: flex; gap: 10px; align-items: flex-start; padding: 6px; border-radius: 10px; font-size: 13px; font-weight: 500; line-height: 1.45"><input type="checkbox" checked="{{p.done}}" style="flex: 0 0 18px; width: 18px; height: 18px; margin: 1px 0 0; accent-color: #0e9f6e"> {{p.text}}</label></sc-for></div>
+</section></div></div><section style="border-radius: 24px; background: rgba(255,255,255,0.74); border: 1px solid rgba(255,255,255,0.95); box-shadow: 0 10px 30px rgba(47,91,234,0.08); border-radius: 24px; padding: 22px 24px; min-width: 0; width: 100%">
+<div style="display: flex; flex-direction: column; gap: 8px"><div><h2 style="margin: 0; font-size: 18px; font-weight: 600; line-height: 1.3">Most-shared posts</h2></div><div role="table" aria-label="Most-shared posts"><div role="row" style="display: grid; grid-template-columns: 62px 84px minmax(240px, 1fr) 96px 56px; gap: 10px; padding: 8px 10px; font-size: 12px; font-weight: 500; color: #5b6478; border-bottom: 1px solid rgba(16,24,40,0.08)"><span>Time</span><span>Source</span><span>Post</span><span style="text-align: right">Interactions</span><span></span></div>
+        <sc-for list="{{posts}}" as="p" hint-placeholder-count="4"><div role="row" class="row" data-tap style="display: grid; grid-template-columns: 62px 84px minmax(240px, 1fr) 96px 56px; gap: 10px; align-items: center; padding: 11px 10px; border-radius: 12px; border-bottom: 1px solid rgba(16,24,40,0.05); font-size: 13px; line-height: 1.45"><span style="color: #5b6478">{{p.time}}</span><span style="font-weight: 600">{{p.source}}</span><span>{{p.text}}</span><b style="text-align: right; font-weight: 700">{{p.interactions}}</b><button type="button" style="border: 0; padding: 0; background: none; font-family: Montserrat, system-ui, sans-serif; color: #1f43c4; font-weight: 700; font-size: 13px">Open</button></div></sc-for></div></div>
+</section></div></div></div>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"accent": {"editor": "color", "default": "#2f5bea", "options": ["#2f5bea", "#6250d6", "#0e9f6e", "#e8590c"]}, "$preview": {"width": 1440, "height": 2000}}'>
+class Component extends DCLogic {
+  componentDidMount() {
+    // Haptic tick for every control, chart bar, card, row… (Android Chrome; other devices get the visual press)
+    this._tap = (e) => {
+      const t = e.target && e.target.closest ? e.target.closest('button,a,select,input,label,[data-tap]') : null;
+      if (!t) return;
+      try { if (navigator.vibrate) navigator.vibrate(t.matches('button,a') ? 10 : 6); } catch (err) { /* unsupported */ }
+    };
+    document.addEventListener('pointerdown', this._tap, { passive: true });
+  }
+  componentWillUnmount() {
+    document.removeEventListener('pointerdown', this._tap);
+  }
+  renderVals() {
+    // Illustrative data (fictional brands / communities). Edit freely.
+    const D = {
+ "alerts": [
+  {
+   "bg": "linear-gradient(135deg, #e5484d 0%, #f07a6a 100%)",
+   "border": "transparent",
+   "shadow": "0 14px 30px rgba(229,72,77,0.28)",
+   "ink": "#ffffff",
+   "muted": "rgba(255,255,255,0.9)",
+   "badgeBg": "rgba(255,255,255,0.22)",
+   "badgeInk": "#ffffff",
+   "level": "High",
+   "time": "09:12",
+   "rule": "Risk keywords",
+   "title": "Lumi Milk · 12 posts mention “hàng giả”, “tiêu chảy” in 24h",
+   "detail": "5,234 interactions · spreading on TikTok and 2 news sites"
+  },
+  {
+   "bg": "linear-gradient(135deg, #e5484d 0%, #f07a6a 100%)",
+   "border": "transparent",
+   "shadow": "0 14px 30px rgba(229,72,77,0.28)",
+   "ink": "#ffffff",
+   "muted": "rgba(255,255,255,0.9)",
+   "badgeBg": "rgba(255,255,255,0.22)",
+   "badgeInk": "#ffffff",
+   "level": "High",
+   "time": "09:12",
+   "rule": "Negative spike",
+   "title": "Lumi Milk · 15 negative posts in 24h (normal 2.3/day)",
+   "detail": "6.5× the usual level"
+  },
+  {
+   "bg": "rgba(255,255,255,0.74)",
+   "border": "rgba(255,255,255,0.95)",
+   "shadow": "0 10px 30px rgba(47,91,234,0.08)",
+   "ink": "#101828",
+   "muted": "#5b6478",
+   "badgeBg": "#fdead7",
+   "badgeInk": "#93370d",
+   "level": "Medium",
+   "time": "08:05",
+   "rule": "Risk keywords",
+   "title": "Mimo · 5 posts mention “nổi mẩn”, “dị ứng”",
+   "detail": "2,249 interactions · mostly in parenting groups"
+  },
+  {
+   "bg": "rgba(255,255,255,0.74)",
+   "border": "rgba(255,255,255,0.95)",
+   "shadow": "0 10px 30px rgba(47,91,234,0.08)",
+   "ink": "#101828",
+   "muted": "#5b6478",
+   "badgeBg": "#fdead7",
+   "badgeInk": "#93370d",
+   "level": "Medium",
+   "time": "07:40",
+   "rule": "Risk keywords",
+   "title": "BabySoft · 3 posts call out a shop selling fakes",
+   "detail": "494 interactions"
+  },
+  {
+   "bg": "rgba(255,255,255,0.74)",
+   "border": "rgba(255,255,255,0.95)",
+   "shadow": "0 10px 30px rgba(47,91,234,0.08)",
+   "ink": "#101828",
+   "muted": "#5b6478",
+   "badgeBg": "#fdead7",
+   "badgeInk": "#93370d",
+   "level": "Medium",
+   "time": "Yesterday",
+   "rule": "Risk keywords",
+   "title": "Sunny Bottle · 3 posts about choking with the large teat",
+   "detail": "283 interactions"
+  }
+ ],
+ "hours": [
+  {
+   "height": "4%",
+   "title": "15:00 · 0 negative posts",
+   "color": "rgba(229,72,77,0.25)"
+  },
+  {
+   "height": "6%",
+   "title": "16:00 · 1 negative posts",
+   "color": "rgba(229,72,77,0.25)"
+  },
+  {
+   "height": "4%",
+   "title": "17:00 · 0 negative posts",
+   "color": "rgba(229,72,77,0.25)"
+  },
+  {
+   "height": "4%",
+   "title": "18:00 · 0 negative posts",
+   "color": "rgba(229,72,77,0.25)"
+  },
+  {
+   "height": "6%",
+   "title": "19:00 · 1 negative posts",
+   "color": "rgba(229,72,77,0.25)"
+  },
+  {
+   "height": "4%",
+   "title": "20:00 · 0 negative posts",
+   "color": "rgba(229,72,77,0.25)"
+  },
+  {
+   "height": "4%",
+   "title": "21:00 · 0 negative posts",
+   "color": "rgba(229,72,77,0.25)"
+  },
+  {
+   "height": "4%",
+   "title": "22:00 · 0 negative posts",
+   "color": "rgba(229,72,77,0.25)"
+  },
+  {
+   "height": "4%",
+   "title": "23:00 · 0 negative posts",
+   "color": "rgba(229,72,77,0.25)"
+  },
+  {
+   "height": "4%",
+   "title": "00:00 · 0 negative posts",
+   "color": "rgba(229,72,77,0.25)"
+  },
+  {
+   "height": "4%",
+   "title": "01:00 · 0 negative posts",
+   "color": "rgba(229,72,77,0.25)"
+  },
+  {
+   "height": "6%",
+   "title": "02:00 · 1 negative posts",
+   "color": "rgba(229,72,77,0.25)"
+  },
+  {
+   "height": "4%",
+   "title": "03:00 · 0 negative posts",
+   "color": "rgba(229,72,77,0.25)"
+  },
+  {
+   "height": "4%",
+   "title": "04:00 · 0 negative posts",
+   "color": "rgba(229,72,77,0.25)"
+  },
+  {
+   "height": "11%",
+   "title": "05:00 · 2 negative posts",
+   "color": "rgba(229,72,77,0.25)"
+  },
+  {
+   "height": "17%",
+   "title": "06:00 · 3 negative posts",
+   "color": "rgba(229,72,77,0.25)"
+  },
+  {
+   "height": "33%",
+   "title": "07:00 · 6 negative posts",
+   "color": "rgba(229,72,77,0.25)"
+  },
+  {
+   "height": "61%",
+   "title": "08:00 · 11 negative posts",
+   "color": "linear-gradient(180deg, #e5484d, #f59a8f)"
+  },
+  {
+   "height": "100%",
+   "title": "09:00 · 18 negative posts",
+   "color": "linear-gradient(180deg, #e5484d, #f59a8f)"
+  },
+  {
+   "height": "78%",
+   "title": "10:00 · 14 negative posts",
+   "color": "linear-gradient(180deg, #e5484d, #f59a8f)"
+  },
+  {
+   "height": "50%",
+   "title": "11:00 · 9 negative posts",
+   "color": "rgba(229,72,77,0.25)"
+  },
+  {
+   "height": "39%",
+   "title": "12:00 · 7 negative posts",
+   "color": "rgba(229,72,77,0.25)"
+  },
+  {
+   "height": "28%",
+   "title": "13:00 · 5 negative posts",
+   "color": "rgba(229,72,77,0.25)"
+  },
+  {
+   "height": "22%",
+   "title": "14:00 · 4 negative posts",
+   "color": "rgba(229,72,77,0.25)"
+  }
+ ],
+ "risks": [
+  {
+   "label": "hàng giả",
+   "value": "12",
+   "width": "100%",
+   "color": "#e5484d",
+   "color2": "#8cc8fb",
+   "title": "hàng giả: 12"
+  },
+  {
+   "label": "tiêu chảy",
+   "value": "12",
+   "width": "100%",
+   "color": "#e5484d",
+   "color2": "#8cc8fb",
+   "title": "tiêu chảy: 12"
+  },
+  {
+   "label": "bóc phốt",
+   "value": "6",
+   "width": "50%",
+   "color": "#e5484d",
+   "color2": "#8cc8fb",
+   "title": "bóc phốt: 6"
+  },
+  {
+   "label": "thu hồi",
+   "value": "3",
+   "width": "25%",
+   "color": "#e5484d",
+   "color2": "#8cc8fb",
+   "title": "thu hồi: 3"
+  },
+  {
+   "label": "dị ứng",
+   "value": "2",
+   "width": "17%",
+   "color": "#e5484d",
+   "color2": "#8cc8fb",
+   "title": "dị ứng: 2"
+  }
+ ],
+ "playbook": [
+  {
+   "text": "Verify the source and batch numbers",
+   "done": true
+  },
+  {
+   "text": "Publish an official statement (≤ 24h)",
+   "done": false
+  },
+  {
+   "text": "Brief customer care & fanpage admins",
+   "done": false
+  },
+  {
+   "text": "Share a genuine-vs-fake checking guide",
+   "done": false
+  }
+ ],
+ "posts": [
+  {
+   "time": "09:03",
+   "source": "TikTok",
+   "text": "Nghi vấn hàng giả Lumi Milk bán tràn lan trên mạng, nhiều bé bị tiêu chảy sau khi uống",
+   "interactions": "3,114"
+  },
+  {
+   "time": "09:40",
+   "source": "News",
+   "text": "Phụ huynh phản ánh sữa Lumi Milk không rõ nguồn gốc trên sàn TMĐT",
+   "interactions": "1,420"
+  },
+  {
+   "time": "10:15",
+   "source": "Facebook",
+   "text": "Các mẹ check mã lô Lumi Milk trước khi cho con uống nhé, mình bị dính hàng giả",
+   "interactions": "688"
+  },
+  {
+   "time": "11:02",
+   "source": "Threads",
+   "text": "Có ai biết cách phân biệt Lumi Milk thật giả không?",
+   "interactions": "236"
+  }
+ ]
+};
+    return { ...D, accent: this.props.accent ?? '#2f5bea' };
+  }
+}
+</script>
+</body>
+</html>

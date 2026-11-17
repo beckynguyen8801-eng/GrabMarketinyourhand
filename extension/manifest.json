@@ -1,0 +1,16 @@
+{
+  "manifest_version": 3,
+  "name": "VN Listen Capture",
+  "version": "0.1.0",
+  "description": "Send posts you are viewing on Facebook, TikTok, Instagram and Threads to your local VN Listen.",
+  "permissions": ["storage", "contextMenus", "activeTab"],
+  "host_permissions": ["http://127.0.0.1/*", "http://localhost/*"],
+  "background": { "service_worker": "background.js" },
+  "action": { "default_popup": "popup.html", "default_title": "VN Listen Capture" },
+  "content_scripts": [{
+    "matches": ["https://*.facebook.com/*", "https://*.tiktok.com/*", "https://*.instagram.com/*",
+                "https://*.threads.net/*", "https://*.threads.com/*"],
+    "js": ["content.js"],
+    "run_at": "document_idle"
+  }]
+}

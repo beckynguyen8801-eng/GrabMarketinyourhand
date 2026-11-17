@@ -1,0 +1,740 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>VN Listen – Research</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;font-family:Montserrat,system-ui,sans-serif;color:#101828;background:#e4eafd}
+*{box-sizing:border-box}
+a{color:#1f43c4}a:hover{color:#142c86}
+/* ---- One interaction language for everything clickable (+ haptic tick from the page script) ---- */
+button,a,select,input,label,[data-tap]{-webkit-tap-highlight-color:transparent}
+button,a.btn,[data-tap]{cursor:pointer;transition:transform .16s cubic-bezier(.3,.7,.4,1.5),box-shadow .16s ease,filter .16s ease,background-color .16s ease}
+button:hover,a.btn:hover{transform:translateY(-1px)}
+button:active,a.btn:active,[data-tap]:active{transform:scale(.96)}
+.card[data-tap]:hover{transform:translateY(-4px);box-shadow:0 18px 40px rgba(47,91,234,.16)}
+.card[data-tap]:active{transform:translateY(-1px) scale(.985)}
+.bar{transform-origin:left center}
+.bar[data-tap]:hover{filter:brightness(1.08) saturate(1.2);transform:scaleY(1.4)}
+.vbar[data-tap]:hover{filter:brightness(1.1) saturate(1.2)}
+.row[data-tap]:hover{background:rgba(47,91,234,.05)}
+.row[data-tap]:active{transform:scale(.99)}
+.cell[data-tap]:hover{transform:scale(1.08);box-shadow:0 6px 14px rgba(16,24,40,.18)}
+.dot[data-tap]:hover{transform:scale(1.2)}
+.chip[data-tap]:hover{transform:translateY(-1px);box-shadow:0 6px 14px rgba(47,91,234,.14)}
+.word[data-tap]:hover{transform:scale(1.08)}
+.tile{transition:transform .22s cubic-bezier(.3,.7,.4,1.6),box-shadow .22s ease}
+[data-tap]:hover .tile,a:hover .tile{transform:rotate(-8deg) scale(1.08)}
+[data-tap]:active .tile,a:active .tile{transform:scale(.9)}
+.hscroll{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
+.hscroll::-webkit-scrollbar{display:none}
+</style>
+</helmet>
+<div style="display: flex; flex-wrap: wrap; min-height: 100vh; background: linear-gradient(160deg, #f3f5ff 0%, #e4eafd 45%, #d3ddfb 100%); font-family: Montserrat, system-ui, sans-serif; color: #101828">
+  <div style="flex: 0 1 280px; max-width: 100%; display: flex">
+    <dc-import name="Sidebar" active="research" industry="Healthcare" query="bệnh viện tư" date-from="01/01/2026" date-to="17/11/2026" accent="{{accent}}" hint-size="280px,1260px"></dc-import>
+  </div>
+  <main style="flex: 999 1 560px; min-width: 0; padding: 36px 40px 56px; display: flex; flex-direction: column; gap: 24px">
+<header style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px">
+  <div style="display: flex; align-items: center; gap: 16px; min-width: 0">
+    <span class="tile" style="flex: 0 0 56px; width: 56px; height: 56px; border-radius: 18px; display: flex; align-items: center; justify-content: center; color: #e8590c; background: linear-gradient(150deg, #ffffff 0%, rgba(232,89,12,0.2) 100%); border: 1px solid rgba(255,255,255,0.95); box-shadow: inset 0 1px 0 #ffffff, inset 0 -5px 10px rgba(232,89,12,0.18), 0 8px 18px rgba(232,89,12,0.2)"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6"></circle><path d="m15 15 5 5M10.5 7.5v6M7.5 10.5h6"></path></svg></span>
+    <div style="min-width: 0"><div style="font-size: 13px; font-weight: 500; color: #5b6478; line-height: 1.5">Healthcare · 01/01/2026 – 17/11/2026 · search “bệnh viện tư”</div>
+    <h1 style="margin: 2px 0 0; font-size: 40px; font-weight: 800; letter-spacing: -0.03em; line-height: 1.1">Marketing Research</h1></div>
+  </div>
+  <div role="tablist" aria-label="Research sections" style="display: flex; gap: 4px; padding: 5px; border-radius: 16px; background: rgba(255,255,255,0.6); border: 1px solid rgba(255,255,255,0.95)">
+        <button type="button" role="tab" aria-selected="true" style="flex: 1 1 auto; height: 38px; padding: 0 16px; border: 0; border-radius: 12px; background: #ffffff; box-shadow: 0 6px 16px rgba(232,89,12,0.16); font-family: Montserrat, system-ui, sans-serif; font-size: 13px; font-weight: 700; color: #101828">Campaigns</button><button type="button" role="tab" aria-selected="false" style="flex: 1 1 auto; height: 38px; padding: 0 16px; border: 0; border-radius: 12px; background: transparent; box-shadow: none; font-family: Montserrat, system-ui, sans-serif; font-size: 13px; font-weight: 500; color: #3b4459">Keywords</button><button type="button" role="tab" aria-selected="false" style="flex: 1 1 auto; height: 38px; padding: 0 16px; border: 0; border-radius: 12px; background: transparent; box-shadow: none; font-family: Montserrat, system-ui, sans-serif; font-size: 13px; font-weight: 500; color: #3b4459">Trends</button>
+      </div>
+</header>
+<section aria-label="Key metrics" style="display: flex; flex-wrap: wrap; gap: 16px; align-items: stretch">
+    <div class="card" data-tap style="flex: 1 1 300px; min-height: 188px; min-width: 0; border-radius: 24px; padding: 24px 26px; background: linear-gradient(135deg, {{accent}} 0%, #4f86f7 55%, #8cc8fb 100%); color: #ffffff; box-shadow: 0 16px 36px rgba(47,91,234,0.32); display: flex; flex-direction: column; justify-content: center; gap: 8px; position: relative; overflow: hidden">
+      <div style="font-size: 14px; font-weight: 500; opacity: 0.92">{{hero.label}}</div>
+      <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px"><span style="font-size: 44px; font-weight: 700; letter-spacing: -0.03em; line-height: 1.1">{{hero.value}}</span><span style="height: 26px; padding: 0 10px; border-radius: 13px; background: #dcfae6; color: #067647; font-size: 12px; font-weight: 700; display: inline-flex; align-items: center">{{hero.pill}}</span></div>
+      <div style="font-size: 12px; font-weight: 500; opacity: 0.92">{{hero.note}}</div>
+      <svg viewBox="0 0 200 40" style="position: absolute; right: 0; bottom: 8px; width: 50%; height: 44px" aria-hidden="true"><path d="M0 34 C 25 34, 30 22, 55 26 S 90 12, 110 20 S 150 4, 200 8" fill="none" stroke="rgba(255,255,255,0.85)" stroke-width="2.5" stroke-linecap="round"></path></svg>
+    </div>
+    <div style="flex: 2 1 560px; min-width: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 16px"><sc-for list="{{kpis}}" as="k" hint-placeholder-count="4"><div class="card" data-tap style="border-radius: 24px; background: rgba(255,255,255,0.74); border: 1px solid rgba(255,255,255,0.95); box-shadow: 0 10px 30px rgba(47,91,234,0.08); border-radius: 22px; padding: 18px 20px; display: flex; align-items: center; gap: 14px; min-width: 0">
+        <span class="tile" style="flex: 0 0 46px; width: 46px; height: 46px; border-radius: 15px; display: flex; align-items: center; justify-content: center; color: {{k.color}}; background: linear-gradient(150deg, #ffffff 0%, {{k.tint}} 100%); border: 1px solid rgba(255,255,255,0.95); box-shadow: inset 0 1px 0 #ffffff, inset 0 -5px 10px {{k.inner}}, 0 8px 18px {{k.tint}}"><sc-if value="{{k.ic_listening}}" hint-placeholder-val="{{false}}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="2.2"></circle><path d="M8.2 8.2a5.4 5.4 0 0 0 0 7.6M15.8 15.8a5.4 5.4 0 0 0 0-7.6M5.2 5.2a9.6 9.6 0 0 0 0 13.6M18.8 18.8a9.6 9.6 0 0 0 0-13.6"></path></svg></sc-if><sc-if value="{{k.ic_research}}" hint-placeholder-val="{{false}}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6"></circle><path d="m15 15 5 5M10.5 7.5v6M7.5 10.5h6"></path></svg></sc-if><sc-if value="{{k.ic_users}}" hint-placeholder-val="{{false}}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8.5" r="3.2"></circle><path d="M3.5 19c.6-3.2 2.8-5 5.5-5s4.9 1.8 5.5 5"></path><circle cx="16.8" cy="9.5" r="2.5"></circle><path d="M16.5 14c2.2 0 3.8 1.5 4.3 4"></path></svg></sc-if><sc-if value="{{k.ic_bell}}" hint-placeholder-val="{{false}}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 9.5a5.5 5.5 0 0 1 11 0c0 5.5 2.5 7.5 2.5 7.5H4s2.5-2 2.5-7.5"></path><path d="M10.2 20.5a2 2 0 0 0 3.6 0"></path></svg></sc-if><sc-if value="{{k.ic_heart}}" hint-placeholder-val="{{false}}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"></path></svg></sc-if><sc-if value="{{k.ic_smile}}" hint-placeholder-val="{{false}}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"></circle><path d="M8.5 14c.9 1.3 2.1 2 3.5 2s2.6-.7 3.5-2M9 9.5h.01M15 9.5h.01"></path></svg></sc-if><sc-if value="{{k.ic_warn}}" hint-placeholder-val="{{false}}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 9v4M12 17h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0"></path></svg></sc-if><sc-if value="{{k.ic_pin}}" hint-placeholder-val="{{false}}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11z"></path><circle cx="12" cy="10" r="2.4"></circle></svg></sc-if><sc-if value="{{k.ic_hash}}" hint-placeholder-val="{{false}}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 4 7 20M17 4l-2 16M4.5 9h16M3.5 15h16"></path></svg></sc-if><sc-if value="{{k.ic_spark}}" hint-placeholder-val="{{false}}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.5 13.9 9 19.5 10.5 13.9 12.4 12 18 10.1 12.4 4.5 10.5 10.1 9z"></path></svg></sc-if><sc-if value="{{k.ic_pulse}}" hint-placeholder-val="{{false}}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h3l3-7 4 14 3-7h5"></path></svg></sc-if><sc-if value="{{k.ic_search}}" hint-placeholder-val="{{false}}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg></sc-if><sc-if value="{{k.ic_calendar}}" hint-placeholder-val="{{false}}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="3"></rect><path d="M8 3v4M16 3v4M3.5 10h17"></path></svg></sc-if><sc-if value="{{k.ic_arrow}}" hint-placeholder-val="{{false}}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></sc-if><sc-if value="{{k.ic_chevron}}" hint-placeholder-val="{{false}}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg></sc-if><sc-if value="{{k.ic_external}}" hint-placeholder-val="{{false}}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 4 19V7.5A1.5 1.5 0 0 1 5.5 6H10"></path></svg></sc-if><sc-if value="{{k.ic_download}}" hint-placeholder-val="{{false}}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"></path></svg></sc-if><sc-if value="{{k.ic_refresh}}" hint-placeholder-val="{{false}}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 11a8 8 0 0 0-14.6-4.5L4 8M4 4v4h4M4 13a8 8 0 0 0 14.6 4.5L20 16M20 20v-4h-4"></path></svg></sc-if><sc-if value="{{k.ic_trend}}" hint-placeholder-val="{{false}}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17 9 11l4 4 8-8M15 7h6v6"></path></svg></sc-if><sc-if value="{{k.ic_shield}}" hint-placeholder-val="{{false}}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 5 6v6c0 4.5 3 7.5 7 9 4-1.5 7-4.5 7-9V6z"></path><path d="m9 12 2 2 4-4"></path></svg></sc-if></span>
+        <div style="flex: 1; min-width: 0"><div style="font-size: 13px; font-weight: 500; color: #5b6478; line-height: 1.35">{{k.label}}</div><div style="font-size: 12px; font-weight: {{k.noteWeight}}; color: {{k.noteInk}}; line-height: 1.35; margin-top: 4px">{{k.note}}</div></div>
+        <div style="font-size: 28px; font-weight: 700; letter-spacing: -0.03em; white-space: nowrap">{{k.value}}</div>
+      </div></sc-for></div>
+  </section>
+<section style="border-radius: 24px; background: rgba(255,255,255,0.74); border: 1px solid rgba(255,255,255,0.95); box-shadow: 0 10px 30px rgba(47,91,234,0.08); border-radius: 24px; padding: 22px 24px; min-width: 0; ">
+<div style="display: flex; flex-direction: column; gap: 14px">
+      <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px"><div><h2 style="margin: 0; font-size: 18px; font-weight: 600; line-height: 1.3">Hospitals in the conversation</h2><div style="font-size: 12px; font-weight: 500; color: #5b6478; line-height: 1.5; margin-top: 4px">Public &amp; private hospitals in Vietnam, Asia and Europe</div></div><div role="group" aria-label="Hospital segment" class="" style="display: flex; flex-wrap: wrap; gap: 6px"><sc-for list="{{segments}}" as="s" hint-placeholder-count="5"><button type="button" style="flex: 0 0 auto; height: 34px; padding: 0 14px; border-radius: 17px; border: 1px solid rgba(47,91,234,0.14); background: {{s.bg}}; color: {{s.ink}}; font-family: Montserrat, system-ui, sans-serif; font-size: 12px; font-weight: 700; white-space: nowrap">{{s.label}} · {{s.count}}</button></sc-for></div></div>
+      <div role="table" aria-label="Hospitals"><div role="row" style="display: grid; grid-template-columns: minmax(180px, 1.8fr) 116px 96px minmax(140px, 1.4fr) 80px 64px minmax(160px, 1.6fr); gap: 10px; padding: 8px 10px; font-size: 12px; font-weight: 500; color: #5b6478; border-bottom: 1px solid rgba(16,24,40,0.08)"><span>Hospital</span><span>Segment</span><span>Location</span><span>Specialty</span><span style="text-align: right">Mentions</span><span style="text-align: right">NSR</span><span>Top keywords</span></div>
+        <sc-for list="{{hospitals}}" as="h" hint-placeholder-count="7"><div role="row" class="row" data-tap style="display: grid; grid-template-columns: minmax(180px, 1.8fr) 116px 96px minmax(140px, 1.4fr) 80px 64px minmax(160px, 1.6fr); gap: 10px; align-items: center; padding: 11px 10px; border-radius: 12px; border-bottom: 1px solid rgba(16,24,40,0.05); font-size: 13px; line-height: 1.4">
+          <b style="font-weight: 700">{{h.name}}</b><span><span style="display: inline-block; padding: 3px 9px; border-radius: 11px; font-size: 11px; font-weight: 700; background: {{h.segBg}}; color: {{h.segInk}}; white-space: nowrap">{{h.segment}}</span></span>
+          <span style="color: #3b4459">{{h.location}}</span><span style="color: #3b4459">{{h.specialty}}</span><b style="text-align: right; font-weight: 700">{{h.mentions}}</b><b style="text-align: right; font-weight: 700; color: {{h.nsrInk}}">{{h.nsr}}</b><span style="color: #3b4459">{{h.keywords}}</span>
+        </div></sc-for></div></div>
+</section>
+<div style="display: flex; flex-wrap: wrap; gap: 20px; align-items: stretch"><div style="flex: 2 1 360px; min-width: 0; display: flex"><section style="border-radius: 24px; background: rgba(255,255,255,0.74); border: 1px solid rgba(255,255,255,0.95); box-shadow: 0 10px 30px rgba(47,91,234,0.08); border-radius: 24px; padding: 22px 24px; min-width: 0; width: 100%">
+<div style="display: flex; flex-direction: column; gap: 10px">
+      <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px"><div><h2 style="margin: 0; font-size: 18px; font-weight: 600; line-height: 1.3">Activity types</h2></div><div style="display: flex; gap: 12px; font-size: 12px; font-weight: 500; color: #3b4459"><span style="display: inline-flex; align-items: center; gap: 6px; white-space: nowrap"><span style="width: 10px; height: 10px; border-radius: 3px; background: #2f5bea"></span>Online</span><span style="display: inline-flex; align-items: center; gap: 6px; white-space: nowrap"><span style="width: 10px; height: 10px; border-radius: 3px; background: #e8590c"></span>Offline</span></div></div>
+      <sc-for list="{{activities}}" as="b" hint-placeholder-count="6">
+        <div class="row" data-tap title="{{b.title}}" style="display: grid; grid-template-columns: 150px minmax(0, 1fr) 40px; align-items: center; gap: 12px; padding: 4px 6px; margin: 0 -6px; border-radius: 10px">
+          <span style="font-size: 13px; font-weight: 500; color: #3b4459; line-height: 1.3">{{b.label}}</span>
+          <span style="height: 12px; border-radius: 6px; background: rgba(47,91,234,0.07)"><span class="bar" data-tap style="display: block; height: 12px; width: {{b.width}}; border-radius: 6px; background: {{b.color}}"></span></span>
+          <span style="font-size: 13px; font-weight: 700; text-align: right; white-space: nowrap">{{b.value}}</span>
+        </div>
+      </sc-for></div>
+</section></div><div style="flex: 3 1 560px; min-width: 0; display: flex"><section style="border-radius: 24px; background: rgba(255,255,255,0.74); border: 1px solid rgba(255,255,255,0.95); box-shadow: 0 10px 30px rgba(47,91,234,0.08); border-radius: 24px; padding: 22px 24px; min-width: 0; width: 100%">
+<div style="display: flex; flex-direction: column; gap: 12px">
+      <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 8px"><div><h2 style="margin: 0; font-size: 18px; font-weight: 600; line-height: 1.3">Brand × activity</h2></div><span style="font-size: 12px; font-weight: 500; color: #5b6478">Posts</span></div>
+      <div style=""><div style="min-width: 0; display: flex; flex-direction: column; gap: 4px">
+        <div style="display: grid; grid-template-columns: 138px repeat(8, minmax(44px, 1fr)); gap: 4px; font-size: 11px; font-weight: 600; color: #5b6478"><span></span><sc-for list="{{heatCols}}" as="c" hint-placeholder-count="8"><span style="text-align: center">{{c}}</span></sc-for></div>
+        <sc-for list="{{heatRows}}" as="r" hint-placeholder-count="6"><div style="display: grid; grid-template-columns: 138px repeat(8, minmax(44px, 1fr)); gap: 4px">
+          <span style="display: flex; align-items: center; font-size: 12px; font-weight: 600; color: #3b4459; line-height: 1.25">{{r.name}}</span>
+          <sc-for list="{{r.cells}}" as="cell" hint-placeholder-count="8"><span class="cell" data-tap style="height: 36px; border-radius: 10px; background: {{cell.bg}}; color: {{cell.ink}}; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700">{{cell.v}}</span></sc-for>
+        </div></sc-for>
+      </div></div></div>
+</section></div></div>
+<div style="display: flex; flex-wrap: wrap; gap: 20px; align-items: stretch"><div style="flex: 1 1 360px; min-width: 0; display: flex"><section style="border-radius: 24px; background: rgba(255,255,255,0.74); border: 1px solid rgba(255,255,255,0.95); box-shadow: 0 10px 30px rgba(47,91,234,0.08); border-radius: 24px; padding: 22px 24px; min-width: 0; width: 100%">
+<div style="display: flex; flex-direction: column; gap: 10px"><div><h2 style="margin: 0; font-size: 18px; font-weight: 600; line-height: 1.3">Rising phrases</h2><div style="font-size: 12px; font-weight: 500; color: #5b6478; line-height: 1.5; margin-top: 4px">Lift vs the previous period of equal length</div></div><sc-for list="{{trends}}" as="b" hint-placeholder-count="6">
+        <div class="row" data-tap title="{{b.title}}" style="display: grid; grid-template-columns: 180px minmax(0, 1fr) 48px; align-items: center; gap: 12px; padding: 4px 6px; margin: 0 -6px; border-radius: 10px">
+          <span style="font-size: 13px; font-weight: 500; color: #3b4459; line-height: 1.3">{{b.label}}</span>
+          <span style="height: 12px; border-radius: 6px; background: rgba(47,91,234,0.07)"><span class="bar" data-tap style="display: block; height: 12px; width: {{b.width}}; border-radius: 6px; background: linear-gradient(90deg, {{b.color}}, {{b.color2}})"></span></span>
+          <span style="font-size: 13px; font-weight: 700; text-align: right; white-space: nowrap">{{b.value}}</span>
+        </div>
+      </sc-for></div>
+</section></div><div style="flex: 1 1 360px; min-width: 0; display: flex"><section style="border-radius: 24px; background: rgba(255,255,255,0.74); border: 1px solid rgba(255,255,255,0.95); box-shadow: 0 10px 30px rgba(47,91,234,0.08); border-radius: 24px; padding: 22px 24px; min-width: 0; width: 100%">
+<div style="display: flex; flex-direction: column; gap: 10px">
+      <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 10px"><div><h2 style="margin: 0; font-size: 18px; font-weight: 600; line-height: 1.3">What people search for</h2><div style="font-size: 12px; font-weight: 500; color: #5b6478; line-height: 1.5; margin-top: 4px">Google Autocomplete rank · not search volume</div></div>
+        <label style="display: flex; flex-direction: column; gap: 4px; font-size: 11px; font-weight: 500; color: #5b6478">Seed keyword<select style="height: 40px; border-radius: 12px; border: 1px solid rgba(47,91,234,0.18); background: #ffffff; padding: 0 10px; font-family: Montserrat, system-ui, sans-serif; font-size: 13px; font-weight: 600; color: #101828"><option selected="selected">bệnh viện tư</option><option>khám dịch vụ</option><option>đi singapore khám bệnh</option></select></label></div>
+      <ol style="margin: 0; padding: 0; list-style: none"><sc-for list="{{suggest}}" as="s" hint-placeholder-count="6"><li class="row" data-tap style="display: flex; align-items: center; gap: 12px; min-height: 44px; padding: 0 6px; border-radius: 10px; border-bottom: 1px solid rgba(16,24,40,0.05); font-size: 13px">
+        <b style="width: 18px; font-weight: 700; color: #5b6478">{{s.rank}}</b><span style="flex: 1; font-weight: 500; line-height: 1.35">{{s.text}}</span>
+        <sc-if value="{{s.isNew}}" hint-placeholder-val="{{false}}"><span style="padding: 3px 9px; border-radius: 11px; background: #dcfae6; color: #067647; font-size: 11px; font-weight: 700">▲ New</span></sc-if></li></sc-for></ol></div>
+</section></div></div>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"accent": {"editor": "color", "default": "#2f5bea", "options": ["#2f5bea", "#6250d6", "#0e9f6e", "#e8590c"]}, "$preview": {"width": 1440, "height": 2000}}'>
+class Component extends DCLogic {
+  componentDidMount() {
+    // Haptic tick for every control, chart bar, card, row… (Android Chrome; other devices get the visual press)
+    this._tap = (e) => {
+      const t = e.target && e.target.closest ? e.target.closest('button,a,select,input,label,[data-tap]') : null;
+      if (!t) return;
+      try { if (navigator.vibrate) navigator.vibrate(t.matches('button,a') ? 10 : 6); } catch (err) { /* unsupported */ }
+    };
+    document.addEventListener('pointerdown', this._tap, { passive: true });
+  }
+  componentWillUnmount() {
+    document.removeEventListener('pointerdown', this._tap);
+  }
+  renderVals() {
+    // Illustrative data (fictional brands / communities). Edit freely.
+    const D = {
+ "hero": {
+  "label": "Marketing activity posts",
+  "value": "1,906",
+  "pill": "▲ +16%",
+  "note": "vs same period 2025"
+ },
+ "kpis": [
+  {
+   "label": "Brands & hospitals active",
+   "value": "64 / 109",
+   "note": "▲ +9 vs 2025",
+   "noteInk": "#067647",
+   "noteWeight": 700,
+   "color": "#2f5bea",
+   "tint": "rgba(47,91,234,0.2)",
+   "inner": "rgba(47,91,234,0.16)",
+   "ic_users": true
+  },
+  {
+   "label": "Offline share",
+   "value": "35%",
+   "note": "Events, free check-ups",
+   "noteInk": "#5b6478",
+   "noteWeight": 500,
+   "color": "#e8590c",
+   "tint": "rgba(232,89,12,0.2)",
+   "inner": "rgba(232,89,12,0.16)",
+   "ic_pin": true
+  },
+  {
+   "label": "Campaign hashtags",
+   "value": "138",
+   "note": "▲ +22 new this month",
+   "noteInk": "#067647",
+   "noteWeight": 700,
+   "color": "#d6336c",
+   "tint": "rgba(214,51,108,0.2)",
+   "inner": "rgba(214,51,108,0.16)",
+   "ic_hash": true
+  },
+  {
+   "label": "New search suggestions",
+   "value": "17",
+   "note": "Google Autocomplete",
+   "noteInk": "#5b6478",
+   "noteWeight": 500,
+   "color": "#0e9f6e",
+   "tint": "rgba(14,159,110,0.2)",
+   "inner": "rgba(14,159,110,0.16)",
+   "ic_spark": true
+  }
+ ],
+ "segments": [
+  {
+   "label": "All",
+   "count": 109,
+   "bg": "#e8590c",
+   "ink": "#ffffff"
+  },
+  {
+   "label": "Public · VN",
+   "count": 35,
+   "bg": "rgba(255,255,255,0.85)",
+   "ink": "#3b4459"
+  },
+  {
+   "label": "Private · VN",
+   "count": 19,
+   "bg": "rgba(255,255,255,0.85)",
+   "ink": "#3b4459"
+  },
+  {
+   "label": "Asia",
+   "count": 23,
+   "bg": "rgba(255,255,255,0.85)",
+   "ink": "#3b4459"
+  },
+  {
+   "label": "Europe",
+   "count": 13,
+   "bg": "rgba(255,255,255,0.85)",
+   "ink": "#3b4459"
+  }
+ ],
+ "hospitals": [
+  {
+   "name": "Lotus International Hospital",
+   "segment": "Private · VN",
+   "location": "TP.HCM",
+   "specialty": "General",
+   "mentions": "2,140",
+   "nsr": "+38%",
+   "nsrInk": "#067647",
+   "keywords": "gói khám, sạch sẽ, viện phí",
+   "segBg": "rgba(14,159,110,0.12)",
+   "segInk": "#05603a"
+  },
+  {
+   "name": "Sông Hồng General Hospital",
+   "segment": "Public · VN",
+   "location": "Hà Nội",
+   "specialty": "General – central level",
+   "mentions": "1,986",
+   "nsr": "−12%",
+   "nsrInk": "#c01c28",
+   "keywords": "quá tải, chờ lâu, bác sĩ giỏi",
+   "segBg": "rgba(47,91,234,0.12)",
+   "segInk": "#1f43c4"
+  },
+  {
+   "name": "Bến Nghé Women & Children",
+   "segment": "Public · VN",
+   "location": "TP.HCM",
+   "specialty": "Obstetrics & pediatrics",
+   "mentions": "1,402",
+   "nsr": "+21%",
+   "nsrInk": "#067647",
+   "keywords": "sinh con, điều dưỡng, chu đáo",
+   "segBg": "rgba(47,91,234,0.12)",
+   "segInk": "#1f43c4"
+  },
+  {
+   "name": "Harbor Medical Centre",
+   "segment": "Asia",
+   "location": "Singapore",
+   "specialty": "Oncology",
+   "mentions": "864",
+   "nsr": "+44%",
+   "nsrInk": "#067647",
+   "keywords": "du lịch y tế, chi phí, visa",
+   "segBg": "rgba(232,89,12,0.12)",
+   "segInk": "#9a3c12"
+  },
+  {
+   "name": "Siam Care Hospital",
+   "segment": "Asia",
+   "location": "Bangkok",
+   "specialty": "General",
+   "mentions": "611",
+   "nsr": "+52%",
+   "nsrInk": "#067647",
+   "keywords": "khám tổng quát, phiên dịch",
+   "segBg": "rgba(232,89,12,0.12)",
+   "segInk": "#9a3c12"
+  },
+  {
+   "name": "Cửu Long Heart Institute",
+   "segment": "Private · VN",
+   "location": "Cần Thơ",
+   "specialty": "Cardiology",
+   "mentions": "498",
+   "nsr": "+30%",
+   "nsrInk": "#067647",
+   "keywords": "mổ tim, bảo hiểm",
+   "segBg": "rgba(14,159,110,0.12)",
+   "segInk": "#05603a"
+  },
+  {
+   "name": "Nordlicht University Clinic",
+   "segment": "Europe",
+   "location": "Germany",
+   "specialty": "General – university",
+   "mentions": "233",
+   "nsr": "+61%",
+   "nsrInk": "#067647",
+   "keywords": "chữa ung thư, chi phí",
+   "segBg": "rgba(98,80,214,0.12)",
+   "segInk": "#4a3aa7"
+  }
+ ],
+ "activities": [
+  {
+   "label": "Promotion / discount",
+   "value": "412",
+   "width": "100%",
+   "color": "#2f5bea",
+   "color2": "#8cc8fb",
+   "title": "Promotion / discount: 412"
+  },
+  {
+   "label": "Offline event",
+   "value": "366",
+   "width": "89%",
+   "color": "#e8590c",
+   "color2": "#8cc8fb",
+   "title": "Offline event: 366"
+  },
+  {
+   "label": "Free check-up / CSR",
+   "value": "298",
+   "width": "72%",
+   "color": "#e8590c",
+   "color2": "#8cc8fb",
+   "title": "Free check-up / CSR: 298"
+  },
+  {
+   "label": "KOL / doctor content",
+   "value": "271",
+   "width": "66%",
+   "color": "#2f5bea",
+   "color2": "#8cc8fb",
+   "title": "KOL / doctor content: 271"
+  },
+  {
+   "label": "Branding / TVC",
+   "value": "214",
+   "width": "52%",
+   "color": "#2f5bea",
+   "color2": "#8cc8fb",
+   "title": "Branding / TVC: 214"
+  },
+  {
+   "label": "Livestream",
+   "value": "160",
+   "width": "39%",
+   "color": "#2f5bea",
+   "color2": "#8cc8fb",
+   "title": "Livestream: 160"
+  },
+  {
+   "label": "Minigame",
+   "value": "104",
+   "width": "25%",
+   "color": "#2f5bea",
+   "color2": "#8cc8fb",
+   "title": "Minigame: 104"
+  },
+  {
+   "label": "Launch / new branch",
+   "value": "81",
+   "width": "20%",
+   "color": "#2f5bea",
+   "color2": "#8cc8fb",
+   "title": "Launch / new branch: 81"
+  }
+ ],
+ "heatCols": [
+  "Promo",
+  "Game",
+  "KOL",
+  "Live",
+  "Launch",
+  "Brand",
+  "Event",
+  "CSR"
+ ],
+ "heatRows": [
+  {
+   "name": "Lotus International",
+   "cells": [
+    {
+     "v": 14,
+     "bg": "#2f5bea",
+     "ink": "#ffffff"
+    },
+    {
+     "v": 4,
+     "bg": "#a9bdf7",
+     "ink": "#142c86"
+    },
+    {
+     "v": 8,
+     "bg": "#6d8ef0",
+     "ink": "#ffffff"
+    },
+    {
+     "v": 3,
+     "bg": "#a9bdf7",
+     "ink": "#142c86"
+    },
+    {
+     "v": 2,
+     "bg": "#dfe7fd",
+     "ink": "#142c86"
+    },
+    {
+     "v": 6,
+     "bg": "#6d8ef0",
+     "ink": "#ffffff"
+    },
+    {
+     "v": 11,
+     "bg": "#2f5bea",
+     "ink": "#ffffff"
+    },
+    {
+     "v": 5,
+     "bg": "#a9bdf7",
+     "ink": "#142c86"
+    }
+   ]
+  },
+  {
+   "name": "Sông Hồng General",
+   "cells": [
+    {
+     "v": 0,
+     "bg": "rgba(255,255,255,0.75)",
+     "ink": "#8a93a6"
+    },
+    {
+     "v": 0,
+     "bg": "rgba(255,255,255,0.75)",
+     "ink": "#8a93a6"
+    },
+    {
+     "v": 6,
+     "bg": "#6d8ef0",
+     "ink": "#ffffff"
+    },
+    {
+     "v": 0,
+     "bg": "rgba(255,255,255,0.75)",
+     "ink": "#8a93a6"
+    },
+    {
+     "v": 0,
+     "bg": "rgba(255,255,255,0.75)",
+     "ink": "#8a93a6"
+    },
+    {
+     "v": 2,
+     "bg": "#dfe7fd",
+     "ink": "#142c86"
+    },
+    {
+     "v": 9,
+     "bg": "#6d8ef0",
+     "ink": "#ffffff"
+    },
+    {
+     "v": 12,
+     "bg": "#2f5bea",
+     "ink": "#ffffff"
+    }
+   ]
+  },
+  {
+   "name": "VitaCare",
+   "cells": [
+    {
+     "v": 10,
+     "bg": "#2f5bea",
+     "ink": "#ffffff"
+    },
+    {
+     "v": 6,
+     "bg": "#6d8ef0",
+     "ink": "#ffffff"
+    },
+    {
+     "v": 7,
+     "bg": "#6d8ef0",
+     "ink": "#ffffff"
+    },
+    {
+     "v": 5,
+     "bg": "#a9bdf7",
+     "ink": "#142c86"
+    },
+    {
+     "v": 1,
+     "bg": "#dfe7fd",
+     "ink": "#142c86"
+    },
+    {
+     "v": 3,
+     "bg": "#a9bdf7",
+     "ink": "#142c86"
+    },
+    {
+     "v": 2,
+     "bg": "#dfe7fd",
+     "ink": "#142c86"
+    },
+    {
+     "v": 1,
+     "bg": "#dfe7fd",
+     "ink": "#142c86"
+    }
+   ]
+  },
+  {
+   "name": "PharmaGo",
+   "cells": [
+    {
+     "v": 12,
+     "bg": "#2f5bea",
+     "ink": "#ffffff"
+    },
+    {
+     "v": 2,
+     "bg": "#dfe7fd",
+     "ink": "#142c86"
+    },
+    {
+     "v": 3,
+     "bg": "#a9bdf7",
+     "ink": "#142c86"
+    },
+    {
+     "v": 8,
+     "bg": "#6d8ef0",
+     "ink": "#ffffff"
+    },
+    {
+     "v": 4,
+     "bg": "#a9bdf7",
+     "ink": "#142c86"
+    },
+    {
+     "v": 1,
+     "bg": "#dfe7fd",
+     "ink": "#142c86"
+    },
+    {
+     "v": 6,
+     "bg": "#6d8ef0",
+     "ink": "#ffffff"
+    },
+    {
+     "v": 2,
+     "bg": "#dfe7fd",
+     "ink": "#142c86"
+    }
+   ]
+  },
+  {
+   "name": "Harbor Medical",
+   "cells": [
+    {
+     "v": 2,
+     "bg": "#dfe7fd",
+     "ink": "#142c86"
+    },
+    {
+     "v": 0,
+     "bg": "rgba(255,255,255,0.75)",
+     "ink": "#8a93a6"
+    },
+    {
+     "v": 5,
+     "bg": "#a9bdf7",
+     "ink": "#142c86"
+    },
+    {
+     "v": 0,
+     "bg": "rgba(255,255,255,0.75)",
+     "ink": "#8a93a6"
+    },
+    {
+     "v": 0,
+     "bg": "rgba(255,255,255,0.75)",
+     "ink": "#8a93a6"
+    },
+    {
+     "v": 4,
+     "bg": "#a9bdf7",
+     "ink": "#142c86"
+    },
+    {
+     "v": 3,
+     "bg": "#a9bdf7",
+     "ink": "#142c86"
+    },
+    {
+     "v": 0,
+     "bg": "rgba(255,255,255,0.75)",
+     "ink": "#8a93a6"
+    }
+   ]
+  },
+  {
+   "name": "BeatCheck",
+   "cells": [
+    {
+     "v": 4,
+     "bg": "#a9bdf7",
+     "ink": "#142c86"
+    },
+    {
+     "v": 1,
+     "bg": "#dfe7fd",
+     "ink": "#142c86"
+    },
+    {
+     "v": 2,
+     "bg": "#dfe7fd",
+     "ink": "#142c86"
+    },
+    {
+     "v": 3,
+     "bg": "#a9bdf7",
+     "ink": "#142c86"
+    },
+    {
+     "v": 3,
+     "bg": "#a9bdf7",
+     "ink": "#142c86"
+    },
+    {
+     "v": 0,
+     "bg": "rgba(255,255,255,0.75)",
+     "ink": "#8a93a6"
+    },
+    {
+     "v": 5,
+     "bg": "#a9bdf7",
+     "ink": "#142c86"
+    },
+    {
+     "v": 0,
+     "bg": "rgba(255,255,255,0.75)",
+     "ink": "#8a93a6"
+    }
+   ]
+  }
+ ],
+ "trends": [
+  {
+   "label": "men vi sinh",
+   "value": "×8.5",
+   "width": "100%",
+   "color": "#e8590c",
+   "color2": "#ffc078",
+   "title": "men vi sinh: ×8.5"
+  },
+  {
+   "label": "khám tầm soát ung thư",
+   "value": "×6.1",
+   "width": "72%",
+   "color": "#e8590c",
+   "color2": "#ffc078",
+   "title": "khám tầm soát ung thư: ×6.1"
+  },
+  {
+   "label": "bảo hiểm sức khoẻ",
+   "value": "×4.4",
+   "width": "52%",
+   "color": "#e8590c",
+   "color2": "#ffc078",
+   "title": "bảo hiểm sức khoẻ: ×4.4"
+  },
+  {
+   "label": "đi singapore khám",
+   "value": "×3.8",
+   "width": "45%",
+   "color": "#e8590c",
+   "color2": "#ffc078",
+   "title": "đi singapore khám: ×3.8"
+  },
+  {
+   "label": "giao thuốc 2h",
+   "value": "×2.9",
+   "width": "34%",
+   "color": "#e8590c",
+   "color2": "#ffc078",
+   "title": "giao thuốc 2h: ×2.9"
+  },
+  {
+   "label": "bác sĩ online",
+   "value": "×2.2",
+   "width": "26%",
+   "color": "#e8590c",
+   "color2": "#ffc078",
+   "title": "bác sĩ online: ×2.2"
+  }
+ ],
+ "suggest": [
+  {
+   "rank": 1,
+   "text": "bệnh viện tư tốt nhất tphcm",
+   "isNew": false
+  },
+  {
+   "rank": 2,
+   "text": "bệnh viện tư có bảo hiểm y tế",
+   "isNew": true
+  },
+  {
+   "rank": 3,
+   "text": "bệnh viện tư sinh con",
+   "isNew": false
+  },
+  {
+   "rank": 4,
+   "text": "bệnh viện tư hà nội",
+   "isNew": false
+  },
+  {
+   "rank": 5,
+   "text": "bệnh viện tư khám ngoài giờ",
+   "isNew": true
+  },
+  {
+   "rank": 6,
+   "text": "bệnh viện tư giá khám",
+   "isNew": false
+  }
+ ]
+};
+    return { ...D, accent: this.props.accent ?? '#2f5bea' };
+  }
+}
+</script>
+</body>
+</html>

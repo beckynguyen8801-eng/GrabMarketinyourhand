@@ -1,0 +1,764 @@
+# Taxonomy: Healthcare (Y tế / Sức khoẻ)
+# ------------------------------------------------------------------
+# UI tiếng Anh (name), nội dung matching tiếng Việt (aliases, keywords).
+#
+# Quy tắc alias cho bệnh viện:
+#  - Tên trùng từ thông dụng / tên người / tên đường => BẮT BUỘC kèm "bệnh viện"/"bv":
+#    "hùng vương", "thống nhất", "hồng ngọc", "tâm anh", "hoàn mỹ", "hạnh phúc", "108", "115", "k", "e"
+#  - Người dùng hay viết tắt "bv" -> thêm alias "bv <tên>".
+#  - Bệnh viện nước ngoài: thêm cả tên tiếng Anh lẫn cách người Việt hay gọi.
+#
+# meta: thông tin hiển thị trên dashboard (country, city, type, specialty).
+# ⚠ Thông tin meta được tổng hợp sẵn – nên rà soát lại trước khi dùng cho báo cáo chính thức.
+# ------------------------------------------------------------------
+industry: y_te_suc_khoe
+name: Healthcare
+
+risk_terms:
+  # --- Dược phẩm / TPCN ---
+  - thuốc giả
+  - hàng giả
+  - hàng xách tay giả
+  - thu hồi
+  - đình chỉ lưu hành
+  - không rõ nguồn gốc
+  - quảng cáo sai sự thật
+  - quảng cáo như thuốc chữa bệnh
+  - bị xử phạt
+  - tác dụng phụ
+  - sốc phản vệ
+  - ngộ độc
+  - dị ứng
+  - lừa đảo
+  - bóc phốt
+  - phốt
+  - tăng giá
+  - khan hiếm
+  # --- Bệnh viện ---
+  - sự cố y khoa
+  - tai biến
+  - biến chứng
+  - tử vong
+  - tắc trách
+  - sai sót chuyên môn
+  - nhầm thuốc
+  - quá tải
+  - chặt chém
+  - phong bì
+  - từ chối cấp cứu
+  - thái độ nhân viên y tế
+  - đình chỉ hành nghề
+
+hourly_keywords:
+  - thuốc giả
+  - thu hồi thuốc
+  - thực phẩm chức năng quảng cáo sai sự thật
+  - sốc phản vệ sau khi uống
+  - đình chỉ lưu hành
+  - sự cố y khoa
+  - bệnh viện tắc trách
+  - tử vong sau phẫu thuật
+
+research_seeds:
+  - thực phẩm chức năng
+  - vitamin tổng hợp
+  - thuốc hạ sốt
+  - máy đo huyết áp
+  - nhà thuốc
+  - bệnh viện tư
+  - khám dịch vụ
+  - đi singapore khám bệnh
+  - khám sức khoẻ tổng quát
+
+# Khía cạnh người dùng hay nói – dùng cho "Product keywords" (tầng Known)
+aspects:
+  - giá
+  - viện phí
+  - bảo hiểm
+  - bảo hiểm y tế
+  - chất lượng
+  - chính hãng
+  - hiệu quả
+  - tác dụng phụ
+  - liều dùng
+  - dược sĩ
+  - giao hàng
+  - bác sĩ
+  - điều dưỡng
+  - thái độ
+  - chờ lâu
+  - quá tải
+  - đặt lịch
+  - khám tổng quát
+  - gói khám
+  - phẫu thuật
+  - sinh con
+  - cấp cứu
+  - sạch sẽ
+  - cơ sở vật chất
+  - kinh nghiệm
+  - review
+
+sentiment:
+  positive:
+    - hiệu quả
+    - đỡ hẳn
+    - đỡ nhiều
+    - khỏi hẳn
+    - hạ sốt nhanh
+    - giảm đau nhanh
+    - dễ uống
+    - đo chính xác
+    - dược sĩ tư vấn nhiệt tình
+    - giao nhanh
+    - khoẻ hơn
+    - ngủ ngon hơn
+    - da đẹp hơn
+    # bệnh viện
+    - bác sĩ tận tâm
+    - bác sĩ giỏi
+    - chu đáo
+    - chuyên nghiệp
+    - sạch sẽ
+    - khám nhanh
+    - không phải chờ
+    - điều dưỡng dễ thương
+    - mổ thành công
+    - bảo hiểm thanh toán nhanh
+  negative:
+    - không hiệu quả
+    - không đỡ
+    - tác dụng phụ
+    - buồn nôn
+    - chóng mặt
+    - đau dạ dày
+    - sốc phản vệ
+    - nhập viện
+    - đo sai
+    - thuốc giả
+    - quảng cáo sai sự thật
+    - bán sai thuốc
+    - thái độ
+    - tăng giá
+    - hết hàng
+    # bệnh viện
+    - chờ cả ngày
+    - chờ lâu
+    - quá tải
+    - chen chúc
+    - tắc trách
+    - chặt chém
+    - viện phí cao
+    - phong bì
+    - cáu gắt
+    - sai sót
+    - tai biến
+    - biến chứng
+    - sự cố y khoa
+    - từ chối cấp cứu
+
+activity_terms:
+  su_kien_offline:
+    - khám sức khoẻ miễn phí
+    - đo huyết áp miễn phí
+    - tư vấn miễn phí tại nhà thuốc
+    - tiêm chủng
+    - ngày hội sức khoẻ
+    - khám sàng lọc miễn phí
+    - hội thảo y khoa
+  ra_mat:
+    - khai trương nhà thuốc
+    - khai trương bệnh viện
+    - khai trương
+    - đưa vào hoạt động
+  khuyen_mai:
+    - gói khám ưu đãi
+    - giảm giá gói khám
+  csr:
+    - phẫu thuật miễn phí
+    - mổ tim miễn phí
+    - khám chữa bệnh miễn phí
+
+categories:
+  # ---------------- Dược phẩm & sản phẩm ----------------
+  tpcn:
+    name: Supplements
+    keywords:
+      - thực phẩm chức năng
+      - vitamin tổng hợp
+      - viên uống collagen
+      - omega 3
+      - sữa cho người lớn tuổi
+  thuoc_otc:
+    name: OTC medicine
+    keywords:
+      - thuốc hạ sốt
+      - thuốc cảm cúm
+      - siro ho
+      - paracetamol
+  nha_thuoc:
+    name: Pharmacy chains
+    keywords:
+      - nhà thuốc
+      - chuỗi nhà thuốc
+      - mua thuốc online
+  thiet_bi_yte:
+    name: Home medical devices
+    keywords:
+      - máy đo huyết áp
+      - nhiệt kế điện tử
+      - máy đo đường huyết
+      - máy xông khí dung
+  # ---------------- Bệnh viện ----------------
+  bv_cong_vn:
+    name: Public hospitals (Vietnam)
+    keywords:
+      - bệnh viện công
+      - bệnh viện tuyến trung ương
+      - khám bảo hiểm y tế
+      - quá tải bệnh viện
+  bv_tu_vn:
+    name: Private hospitals (Vietnam)
+    keywords:
+      - bệnh viện tư
+      - bệnh viện quốc tế
+      - khám dịch vụ
+      - gói khám sức khoẻ
+      - bệnh viện tư nhân
+  bv_chau_a:
+    name: Hospitals in Asia
+    keywords:
+      - đi singapore khám bệnh
+      - chữa bệnh ở thái lan
+      - khám bệnh ở hàn quốc
+      - du lịch y tế
+      - khám bệnh ở nhật
+  bv_chau_au:
+    name: Hospitals in Europe
+    keywords:
+      - chữa bệnh ở châu âu
+      - khám bệnh ở đức
+      - bệnh viện châu âu
+
+brands:
+  # ================= Dược phẩm / TPCN / thiết bị =================
+  blackmores: { name: Blackmores, aliases: [blackmores] }
+  dhc:        { name: DHC,        aliases: [dhc] }
+  centrum:    { name: Centrum,    aliases: [centrum] }
+  nature_made: { name: Nature Made, aliases: [nature made] }
+  herbalife:  { name: Herbalife,  aliases: [herbalife] }
+  ensure:     { name: Ensure (Abbott), aliases: [sữa ensure, ensure gold] }
+  panadol:    { name: Panadol,    aliases: [panadol] }
+  efferalgan: { name: Efferalgan, aliases: [efferalgan] }
+  hapacol:    { name: Hapacol (DHG), aliases: [hapacol, dhg pharma] }
+  decolgen:   { name: Decolgen,   aliases: [decolgen] }
+  tiffy:      { name: Tiffy,      aliases: [tiffy] }
+  prospan:    { name: Prospan,    aliases: [prospan] }
+  eugica:     { name: Eugica,     aliases: [eugica] }
+  long_chau:  { name: FPT Long Châu, aliases: [long châu, longchau, nhà thuốc long châu] }
+  pharmacity: { name: Pharmacity, aliases: [pharmacity] }
+  an_khang:   { name: An Khang,   aliases: [nhà thuốc an khang] }
+  omron:      { name: Omron,      aliases: [omron] }
+  microlife:  { name: Microlife,  aliases: [microlife] }
+  beurer:     { name: Beurer,     aliases: [beurer] }
+
+  # ================= Bệnh viện công – Việt Nam =================
+  # ---- Hà Nội ----
+  bv_bach_mai:
+    name: Bạch Mai Hospital
+    category: bv_cong_vn
+    aliases: [bạch mai, bv bạch mai, bệnh viện bạch mai]
+    meta: { country: "Vietnam", city: "Hà Nội", type: "Public – central level", specialty: "General" }
+  bv_viet_duc:
+    name: Viet Duc University Hospital
+    category: bv_cong_vn
+    aliases: [bệnh viện việt đức, bv việt đức, bệnh viện hữu nghị việt đức]
+    meta: { country: "Vietnam", city: "Hà Nội", type: "Public – central level", specialty: "Surgery & trauma" }
+  bv_108:
+    name: Military Central Hospital 108
+    category: bv_cong_vn
+    aliases: [bệnh viện 108, bv 108, bệnh viện trung ương quân đội 108]
+    meta: { country: "Vietnam", city: "Hà Nội", type: "Public – military", specialty: "General" }
+  bv_k:
+    name: Vietnam National Cancer Hospital (K Hospital)
+    category: bv_cong_vn
+    aliases: [bệnh viện k, bv k, bệnh viện ung bướu trung ương]
+    meta: { country: "Vietnam", city: "Hà Nội", type: "Public – central level", specialty: "Oncology" }
+  bv_nhi_tw:
+    name: Vietnam National Children's Hospital
+    category: bv_cong_vn
+    aliases: [bệnh viện nhi trung ương, bv nhi trung ương, nhi trung ương]
+    meta: { country: "Vietnam", city: "Hà Nội", type: "Public – central level", specialty: "Pediatrics" }
+  bv_phu_san_tw:
+    name: National Hospital of Obstetrics and Gynecology
+    category: bv_cong_vn
+    aliases: [bệnh viện phụ sản trung ương, bv phụ sản trung ương, phụ sản trung ương]
+    meta: { country: "Vietnam", city: "Hà Nội", type: "Public – central level", specialty: "Obstetrics & gynecology" }
+  bv_phu_san_hn:
+    name: Hanoi Obstetrics and Gynecology Hospital
+    category: bv_cong_vn
+    aliases: [bệnh viện phụ sản hà nội, bv phụ sản hà nội, phụ sản hà nội]
+    meta: { country: "Vietnam", city: "Hà Nội", type: "Public – city level", specialty: "Obstetrics & gynecology" }
+  bv_e:
+    name: E Hospital
+    category: bv_cong_vn
+    aliases: [bệnh viện e, bv e]
+    meta: { country: "Vietnam", city: "Hà Nội", type: "Public – central level", specialty: "General" }
+  bv_huu_nghi:
+    name: Huu Nghi (Friendship) Hospital
+    category: bv_cong_vn
+    aliases: [bệnh viện hữu nghị, bv hữu nghị]
+    meta: { country: "Vietnam", city: "Hà Nội", type: "Public – central level", specialty: "General" }
+  bv_thanh_nhan:
+    name: Thanh Nhan Hospital
+    category: bv_cong_vn
+    aliases: [bệnh viện thanh nhàn, bv thanh nhàn]
+    meta: { country: "Vietnam", city: "Hà Nội", type: "Public – city level", specialty: "General" }
+  bv_xanh_pon:
+    name: Saint Paul (Xanh Pôn) Hospital
+    category: bv_cong_vn
+    aliases: [bệnh viện xanh pôn, bv xanh pôn, xanh pôn]
+    meta: { country: "Vietnam", city: "Hà Nội", type: "Public – city level", specialty: "General" }
+  bv_dhy_hn:
+    name: Hanoi Medical University Hospital
+    category: bv_cong_vn
+    aliases: [bệnh viện đại học y hà nội, bv đại học y hà nội, bv đhy hà nội]
+    meta: { country: "Vietnam", city: "Hà Nội", type: "Public – university hospital", specialty: "General" }
+  bv_nhiet_doi_tw:
+    name: National Hospital for Tropical Diseases
+    category: bv_cong_vn
+    aliases: [bệnh viện bệnh nhiệt đới trung ương, bv nhiệt đới trung ương, nhiệt đới trung ương]
+    meta: { country: "Vietnam", city: "Hà Nội", type: "Public – central level", specialty: "Infectious diseases" }
+  bv_mat_tw:
+    name: Vietnam National Eye Hospital
+    category: bv_cong_vn
+    aliases: [bệnh viện mắt trung ương, bv mắt trung ương]
+    meta: { country: "Vietnam", city: "Hà Nội", type: "Public – central level", specialty: "Ophthalmology" }
+  bv_da_lieu_tw:
+    name: National Hospital of Dermatology and Venereology
+    category: bv_cong_vn
+    aliases: [bệnh viện da liễu trung ương, bv da liễu trung ương]
+    meta: { country: "Vietnam", city: "Hà Nội", type: "Public – central level", specialty: "Dermatology" }
+  bv_noi_tiet_tw:
+    name: National Hospital of Endocrinology
+    category: bv_cong_vn
+    aliases: [bệnh viện nội tiết trung ương, bv nội tiết trung ương]
+    meta: { country: "Vietnam", city: "Hà Nội", type: "Public – central level", specialty: "Endocrinology" }
+  bv_lao_khoa_tw:
+    name: National Geriatric Hospital
+    category: bv_cong_vn
+    aliases: [bệnh viện lão khoa trung ương, bv lão khoa trung ương]
+    meta: { country: "Vietnam", city: "Hà Nội", type: "Public – central level", specialty: "Geriatrics" }
+  bv_tim_hn:
+    name: Hanoi Heart Hospital
+    category: bv_cong_vn
+    aliases: [bệnh viện tim hà nội, bv tim hà nội]
+    meta: { country: "Vietnam", city: "Hà Nội", type: "Public – city level", specialty: "Cardiology" }
+  # ---- TP.HCM ----
+  bv_cho_ray:
+    name: Cho Ray Hospital
+    category: bv_cong_vn
+    aliases: [chợ rẫy, bv chợ rẫy, bệnh viện chợ rẫy]
+    meta: { country: "Vietnam", city: "TP.HCM", type: "Public – central level", specialty: "General" }
+  bv_thong_nhat:
+    name: Thong Nhat Hospital
+    category: bv_cong_vn
+    aliases: [bệnh viện thống nhất, bv thống nhất]
+    meta: { country: "Vietnam", city: "TP.HCM", type: "Public – central level", specialty: "General" }
+  bv_dhyd_hcm:
+    name: University Medical Center HCMC
+    category: bv_cong_vn
+    aliases: [bệnh viện đại học y dược, bv đại học y dược, bv đhyd, đại học y dược tp hcm]
+    meta: { country: "Vietnam", city: "TP.HCM", type: "Public – university hospital", specialty: "General" }
+  bv_115:
+    name: People's Hospital 115
+    category: bv_cong_vn
+    aliases: [bệnh viện 115, bv 115, bệnh viện nhân dân 115]
+    meta: { country: "Vietnam", city: "TP.HCM", type: "Public – city level", specialty: "General, neurology" }
+  bv_gia_dinh:
+    name: Nhan Dan Gia Dinh Hospital
+    category: bv_cong_vn
+    aliases: [bệnh viện nhân dân gia định, bv nhân dân gia định, bv gia định]
+    meta: { country: "Vietnam", city: "TP.HCM", type: "Public – city level", specialty: "General" }
+  bv_tu_du:
+    name: Tu Du Hospital
+    category: bv_cong_vn
+    aliases: [từ dũ, bv từ dũ, bệnh viện từ dũ]
+    meta: { country: "Vietnam", city: "TP.HCM", type: "Public – city level", specialty: "Obstetrics & gynecology" }
+  bv_hung_vuong:
+    name: Hung Vuong Hospital
+    category: bv_cong_vn
+    aliases: [bệnh viện hùng vương, bv hùng vương]
+    meta: { country: "Vietnam", city: "TP.HCM", type: "Public – city level", specialty: "Obstetrics & gynecology" }
+  bv_nhi_dong_1:
+    name: Children's Hospital 1
+    category: bv_cong_vn
+    aliases: [nhi đồng 1, bv nhi đồng 1, bệnh viện nhi đồng 1]
+    meta: { country: "Vietnam", city: "TP.HCM", type: "Public – city level", specialty: "Pediatrics" }
+  bv_nhi_dong_2:
+    name: Children's Hospital 2
+    category: bv_cong_vn
+    aliases: [nhi đồng 2, bv nhi đồng 2, bệnh viện nhi đồng 2]
+    meta: { country: "Vietnam", city: "TP.HCM", type: "Public – city level", specialty: "Pediatrics" }
+  bv_nhi_dong_tp:
+    name: City Children's Hospital
+    category: bv_cong_vn
+    aliases: [bệnh viện nhi đồng thành phố, bv nhi đồng thành phố, nhi đồng thành phố]
+    meta: { country: "Vietnam", city: "TP.HCM", type: "Public – city level", specialty: "Pediatrics" }
+  bv_ung_buou_hcm:
+    name: HCMC Oncology Hospital
+    category: bv_cong_vn
+    aliases: [bệnh viện ung bướu tp hcm, bv ung bướu tp hcm, bệnh viện ung bướu thành phố]
+    meta: { country: "Vietnam", city: "TP.HCM", type: "Public – city level", specialty: "Oncology" }
+  bv_nhiet_doi_hcm:
+    name: Hospital for Tropical Diseases HCMC
+    category: bv_cong_vn
+    aliases: [bệnh viện bệnh nhiệt đới tp hcm, bv bệnh nhiệt đới, bệnh viện nhiệt đới tp hcm]
+    meta: { country: "Vietnam", city: "TP.HCM", type: "Public – city level", specialty: "Infectious diseases" }
+  bv_mat_hcm:
+    name: HCMC Eye Hospital
+    category: bv_cong_vn
+    aliases: [bệnh viện mắt tp hcm, bv mắt tp hcm, bệnh viện mắt thành phố]
+    meta: { country: "Vietnam", city: "TP.HCM", type: "Public – city level", specialty: "Ophthalmology" }
+  bv_ctch_hcm:
+    name: HCMC Hospital for Traumatology and Orthopedics
+    category: bv_cong_vn
+    aliases: [bệnh viện chấn thương chỉnh hình, bv chấn thương chỉnh hình, bv ctch]
+    meta: { country: "Vietnam", city: "TP.HCM", type: "Public – city level", specialty: "Orthopedics & trauma" }
+  # ---- Miền Trung / Tây Nam Bộ ----
+  bv_tw_hue:
+    name: Hue Central Hospital
+    category: bv_cong_vn
+    aliases: [bệnh viện trung ương huế, bv trung ương huế]
+    meta: { country: "Vietnam", city: "Huế", type: "Public – central level", specialty: "General" }
+  bv_da_nang:
+    name: Da Nang Hospital
+    category: bv_cong_vn
+    aliases: [bệnh viện đà nẵng, bv đà nẵng]
+    meta: { country: "Vietnam", city: "Đà Nẵng", type: "Public – city level", specialty: "General" }
+  bv_tw_can_tho:
+    name: Can Tho Central General Hospital
+    category: bv_cong_vn
+    aliases: [bệnh viện đa khoa trung ương cần thơ, bv trung ương cần thơ]
+    meta: { country: "Vietnam", city: "Cần Thơ", type: "Public – central level", specialty: "General" }
+
+  # ================= Bệnh viện tư – Việt Nam =================
+  vinmec:
+    name: Vinmec
+    category: bv_tu_vn
+    aliases: [vinmec]
+    meta: { country: "Vietnam", city: "Multi-city network", type: "Private – hospital network", specialty: "General, international standard" }
+  tam_anh:
+    name: Tam Anh General Hospital
+    category: bv_tu_vn
+    aliases: [bệnh viện tâm anh, bv tâm anh, bệnh viện đa khoa tâm anh]
+    meta: { country: "Vietnam", city: "Hà Nội & TP.HCM", type: "Private – hospital network", specialty: "General, IVF" }
+  fv:
+    name: FV Hospital
+    category: bv_tu_vn
+    aliases: [bệnh viện fv, bv fv, bệnh viện pháp việt, franco vietnamese hospital]
+    meta: { country: "Vietnam", city: "TP.HCM", type: "Private – international", specialty: "General" }
+  hoan_my:
+    name: Hoan My Medical Group
+    category: bv_tu_vn
+    aliases: [bệnh viện hoàn mỹ, bv hoàn mỹ, hệ thống y khoa hoàn mỹ]
+    meta: { country: "Vietnam", city: "Multi-city network", type: "Private – hospital network", specialty: "General" }
+  thu_cuc:
+    name: Thu Cuc TCI
+    category: bv_tu_vn
+    aliases: [thu cúc tci, bệnh viện thu cúc, bv thu cúc]
+    meta: { country: "Vietnam", city: "Hà Nội", type: "Private", specialty: "General" }
+  hong_ngoc:
+    name: Hong Ngoc General Hospital
+    category: bv_tu_vn
+    aliases: [bệnh viện hồng ngọc, bv hồng ngọc, bệnh viện đa khoa hồng ngọc]
+    meta: { country: "Vietnam", city: "Hà Nội", type: "Private", specialty: "General" }
+  medlatec:
+    name: Medlatec
+    category: bv_tu_vn
+    aliases: [medlatec]
+    meta: { country: "Vietnam", city: "Hà Nội & nationwide sampling", type: "Private", specialty: "Diagnostics & general" }
+  viet_phap_hn:
+    name: Hanoi French Hospital
+    category: bv_tu_vn
+    aliases: [bệnh viện việt pháp, bv việt pháp, hanoi french hospital]
+    meta: { country: "Vietnam", city: "Hà Nội", type: "Private – international", specialty: "General" }
+  cih:
+    name: City International Hospital (CIH)
+    category: bv_tu_vn
+    aliases: [bệnh viện quốc tế city, bv quốc tế city, city international hospital]
+    meta: { country: "Vietnam", city: "TP.HCM", type: "Private – international", specialty: "General" }
+  aih:
+    name: American International Hospital (AIH)
+    category: bv_tu_vn
+    aliases: [bệnh viện quốc tế mỹ, bv quốc tế mỹ, american international hospital]
+    meta: { country: "Vietnam", city: "TP.HCM", type: "Private – international", specialty: "General" }
+  hanh_phuc:
+    name: Hanh Phuc International Hospital
+    category: bv_tu_vn
+    aliases: [bệnh viện hạnh phúc, bv hạnh phúc, bệnh viện quốc tế hạnh phúc]
+    meta: { country: "Vietnam", city: "Bình Dương", type: "Private – international", specialty: "Obstetrics & pediatrics" }
+  my_duc:
+    name: My Duc Hospital
+    category: bv_tu_vn
+    aliases: [bệnh viện mỹ đức, bv mỹ đức, ivf mỹ đức]
+    meta: { country: "Vietnam", city: "TP.HCM", type: "Private", specialty: "IVF & obstetrics" }
+  sih:
+    name: Saigon International OB-GYN Hospital (SIH)
+    category: bv_tu_vn
+    aliases: [bệnh viện phụ sản quốc tế sài gòn, bv phụ sản quốc tế sài gòn]
+    meta: { country: "Vietnam", city: "TP.HCM", type: "Private – international", specialty: "Obstetrics & gynecology" }
+  phuong_dong:
+    name: Phuong Dong General Hospital
+    category: bv_tu_vn
+    aliases: [bệnh viện phương đông, bv phương đông, bệnh viện đa khoa phương đông]
+    meta: { country: "Vietnam", city: "Hà Nội", type: "Private", specialty: "General" }
+  xuyen_a:
+    name: Xuyen A General Hospital
+    category: bv_tu_vn
+    aliases: [bệnh viện xuyên á, bv xuyên á, bệnh viện đa khoa xuyên á]
+    meta: { country: "Vietnam", city: "TP.HCM & Long An", type: "Private", specialty: "General" }
+  an_sinh:
+    name: An Sinh Hospital
+    category: bv_tu_vn
+    aliases: [bệnh viện an sinh, bv an sinh]
+    meta: { country: "Vietnam", city: "TP.HCM", type: "Private", specialty: "General" }
+  mat_sai_gon:
+    name: Saigon Eye Hospital
+    category: bv_tu_vn
+    aliases: [bệnh viện mắt sài gòn, bv mắt sài gòn]
+    meta: { country: "Vietnam", city: "Multi-city network", type: "Private – hospital network", specialty: "Ophthalmology" }
+  fmp:
+    name: Family Medical Practice
+    category: bv_tu_vn
+    aliases: [family medical practice, phòng khám fmp]
+    meta: { country: "Vietnam", city: "Hà Nội & TP.HCM", type: "Private – international clinic", specialty: "General & family medicine" }
+  dolife:
+    name: DoLife International Hospital
+    category: bv_tu_vn
+    aliases: [bệnh viện dolife, bv dolife, dolife]
+    meta: { country: "Vietnam", city: "Hà Nội", type: "Private – international", specialty: "General" }
+
+  # ================= Bệnh viện châu Á =================
+  sgh:
+    name: Singapore General Hospital
+    category: bv_chau_a
+    aliases: [singapore general hospital, bệnh viện đa khoa singapore]
+    meta: { country: "Singapore", city: "Singapore", type: "Public", specialty: "General" }
+  nuh:
+    name: National University Hospital (NUH)
+    category: bv_chau_a
+    aliases: [national university hospital, bệnh viện nuh]
+    meta: { country: "Singapore", city: "Singapore", type: "Public – university hospital", specialty: "General" }
+  mount_elizabeth:
+    name: Mount Elizabeth Hospital
+    category: bv_chau_a
+    aliases: [mount elizabeth, bệnh viện mount elizabeth]
+    meta: { country: "Singapore", city: "Singapore", type: "Private", specialty: "General" }
+  gleneagles:
+    name: Gleneagles Hospital
+    category: bv_chau_a
+    aliases: [gleneagles, bệnh viện gleneagles]
+    meta: { country: "Singapore & Malaysia", city: "Singapore / Kuala Lumpur", type: "Private", specialty: "General" }
+  raffles:
+    name: Raffles Hospital
+    category: bv_chau_a
+    aliases: [raffles hospital, raffles medical, bệnh viện raffles]
+    meta: { country: "Singapore", city: "Singapore", type: "Private", specialty: "General" }
+  thomson_medical:
+    name: Thomson Medical
+    category: bv_chau_a
+    aliases: [thomson medical]
+    meta: { country: "Singapore", city: "Singapore", type: "Private", specialty: "Women & children" }
+  bumrungrad:
+    name: Bumrungrad International Hospital
+    category: bv_chau_a
+    aliases: [bumrungrad, bệnh viện bumrungrad]
+    meta: { country: "Thailand", city: "Bangkok", type: "Private – international", specialty: "General" }
+  bangkok_hospital:
+    name: Bangkok Hospital
+    category: bv_chau_a
+    aliases: [bangkok hospital, bệnh viện bangkok]
+    meta: { country: "Thailand", city: "Bangkok", type: "Private – hospital network", specialty: "General" }
+  samitivej:
+    name: Samitivej Hospital
+    category: bv_chau_a
+    aliases: [samitivej]
+    meta: { country: "Thailand", city: "Bangkok", type: "Private", specialty: "General" }
+  prince_court:
+    name: Prince Court Medical Centre
+    category: bv_chau_a
+    aliases: [prince court medical centre, prince court]
+    meta: { country: "Malaysia", city: "Kuala Lumpur", type: "Private", specialty: "General" }
+  sunway_medical:
+    name: Sunway Medical Centre
+    category: bv_chau_a
+    aliases: [sunway medical centre, sunway medical]
+    meta: { country: "Malaysia", city: "Selangor", type: "Private", specialty: "General" }
+  samsung_medical:
+    name: Samsung Medical Center
+    category: bv_chau_a
+    aliases: [samsung medical center, bệnh viện samsung]
+    meta: { country: "South Korea", city: "Seoul", type: "Private – university affiliated", specialty: "General, oncology" }
+  asan_medical:
+    name: Asan Medical Center
+    category: bv_chau_a
+    aliases: [asan medical center, bệnh viện asan]
+    meta: { country: "South Korea", city: "Seoul", type: "Private – university affiliated", specialty: "General" }
+  snuh:
+    name: Seoul National University Hospital
+    category: bv_chau_a
+    aliases: [seoul national university hospital, bệnh viện đại học quốc gia seoul]
+    meta: { country: "South Korea", city: "Seoul", type: "Public – university hospital", specialty: "General" }
+  severance:
+    name: Severance Hospital
+    category: bv_chau_a
+    aliases: [severance hospital, bệnh viện severance]
+    meta: { country: "South Korea", city: "Seoul", type: "Private – university hospital", specialty: "General" }
+  st_luke_tokyo:
+    name: St. Luke's International Hospital
+    category: bv_chau_a
+    aliases: [st luke's international hospital, st lukes tokyo, bệnh viện st luke]
+    meta: { country: "Japan", city: "Tokyo", type: "Private", specialty: "General" }
+  utokyo_hospital:
+    name: University of Tokyo Hospital
+    category: bv_chau_a
+    aliases: [university of tokyo hospital, bệnh viện đại học tokyo]
+    meta: { country: "Japan", city: "Tokyo", type: "Public – university hospital", specialty: "General" }
+  pumch:
+    name: Peking Union Medical College Hospital
+    category: bv_chau_a
+    aliases: [peking union medical college hospital, bệnh viện hiệp hoà bắc kinh]
+    meta: { country: "China", city: "Beijing", type: "Public", specialty: "General" }
+  queen_mary_hk:
+    name: Queen Mary Hospital
+    category: bv_chau_a
+    aliases: [queen mary hospital]
+    meta: { country: "Hong Kong", city: "Hong Kong", type: "Public", specialty: "General" }
+  hk_sanatorium:
+    name: Hong Kong Sanatorium & Hospital
+    category: bv_chau_a
+    aliases: [hong kong sanatorium]
+    meta: { country: "Hong Kong", city: "Hong Kong", type: "Private", specialty: "General" }
+  ntuh:
+    name: National Taiwan University Hospital
+    category: bv_chau_a
+    aliases: [national taiwan university hospital, bệnh viện đại học quốc gia đài loan]
+    meta: { country: "Taiwan", city: "Taipei", type: "Public – university hospital", specialty: "General" }
+  apollo:
+    name: Apollo Hospitals
+    category: bv_chau_a
+    aliases: [apollo hospitals, bệnh viện apollo]
+    meta: { country: "India", city: "Multi-city network", type: "Private – hospital network", specialty: "General" }
+  fortis:
+    name: Fortis Healthcare
+    category: bv_chau_a
+    aliases: [fortis healthcare, fortis hospital]
+    meta: { country: "India", city: "Multi-city network", type: "Private – hospital network", specialty: "General" }
+
+  # ================= Bệnh viện châu Âu =================
+  charite:
+    name: Charité – Universitätsmedizin Berlin
+    category: bv_chau_au
+    aliases: [charité, charite berlin, bệnh viện charité]
+    meta: { country: "Germany", city: "Berlin", type: "Public – university hospital", specialty: "General" }
+  heidelberg:
+    name: Heidelberg University Hospital
+    category: bv_chau_au
+    aliases: [heidelberg university hospital, bệnh viện đại học heidelberg]
+    meta: { country: "Germany", city: "Heidelberg", type: "Public – university hospital", specialty: "General, oncology" }
+  lmu_klinikum:
+    name: LMU Klinikum
+    category: bv_chau_au
+    aliases: [lmu klinikum]
+    meta: { country: "Germany", city: "Munich", type: "Public – university hospital", specialty: "General" }
+  karolinska:
+    name: Karolinska University Hospital
+    category: bv_chau_au
+    aliases: [karolinska]
+    meta: { country: "Sweden", city: "Stockholm", type: "Public – university hospital", specialty: "General" }
+  pitie_salpetriere:
+    name: Pitié-Salpêtrière Hospital (AP-HP)
+    category: bv_chau_au
+    aliases: [pitié salpêtrière, pitie salpetriere]
+    meta: { country: "France", city: "Paris", type: "Public – university hospital", specialty: "General" }
+  clinic_barcelona:
+    name: Hospital Clínic de Barcelona
+    category: bv_chau_au
+    aliases: [hospital clínic de barcelona, hospital clinic barcelona]
+    meta: { country: "Spain", city: "Barcelona", type: "Public – university hospital", specialty: "General" }
+  gosh:
+    name: Great Ormond Street Hospital
+    category: bv_chau_au
+    aliases: [great ormond street]
+    meta: { country: "United Kingdom", city: "London", type: "Public – NHS", specialty: "Pediatrics" }
+  guys_st_thomas:
+    name: Guy's and St Thomas'
+    category: bv_chau_au
+    aliases: [guy's and st thomas, guys and st thomas]
+    meta: { country: "United Kingdom", city: "London", type: "Public – NHS", specialty: "General" }
+  cleveland_london:
+    name: Cleveland Clinic London
+    category: bv_chau_au
+    aliases: [cleveland clinic london]
+    meta: { country: "United Kingdom", city: "London", type: "Private", specialty: "General" }
+  usz:
+    name: University Hospital Zurich
+    category: bv_chau_au
+    aliases: [university hospital zurich, universitätsspital zürich]
+    meta: { country: "Switzerland", city: "Zurich", type: "Public – university hospital", specialty: "General" }
+  rigshospitalet:
+    name: Rigshospitalet
+    category: bv_chau_au
+    aliases: [rigshospitalet]
+    meta: { country: "Denmark", city: "Copenhagen", type: "Public – university hospital", specialty: "General" }
+  akh_wien:
+    name: Vienna General Hospital (AKH Wien)
+    category: bv_chau_au
+    aliases: [akh wien, vienna general hospital]
+    meta: { country: "Austria", city: "Vienna", type: "Public – university hospital", specialty: "General" }
+  erasmus_mc:
+    name: Erasmus MC
+    category: bv_chau_au
+    aliases: [erasmus mc]
+    meta: { country: "Netherlands", city: "Rotterdam", type: "Public – university hospital", specialty: "General" }
+
+products:
+  # ---- TPCN ----
+  - { id: blackmores_multi,   name: Blackmores Multivitamin, brand: blackmores, category: tpcn, aliases: [blackmores multivitamin, blackmores bầu] }
+  - { id: blackmores_fishoil, name: Blackmores Fish Oil,  brand: blackmores, category: tpcn, aliases: [blackmores fish oil, dầu cá blackmores] }
+  - { id: dhc_collagen,       name: DHC Collagen,         brand: dhc,        category: tpcn, aliases: [dhc collagen, collagen dhc] }
+  - { id: dhc_vitamin_c,      name: DHC Vitamin C,        brand: dhc,        category: tpcn, aliases: [dhc vitamin c, vitamin c dhc] }
+  - { id: centrum_adults,     name: Centrum Adults,       brand: centrum,    category: tpcn, aliases: [centrum adults, centrum silver] }
+  - { id: nature_made_d3,     name: Nature Made D3,       brand: nature_made, category: tpcn, aliases: [nature made d3, nature made vitamin d] }
+  - { id: herbalife_f1,       name: Herbalife F1,         brand: herbalife,  category: tpcn, aliases: [herbalife f1, sữa herbalife] }
+  - { id: ensure_gold,        name: Ensure Gold,          brand: ensure,     category: tpcn, aliases: [ensure gold] }
+  # ---- OTC ----
+  - { id: panadol_extra,      name: Panadol Extra,        brand: panadol,    category: thuoc_otc, aliases: [panadol extra, panadol xanh, panadol đỏ] }
+  - { id: efferalgan_500,     name: Efferalgan 500mg,     brand: efferalgan, category: thuoc_otc, aliases: [efferalgan 500, efferalgan sủi] }
+  - { id: hapacol_250,        name: Hapacol 250,          brand: hapacol,    category: thuoc_otc, aliases: [hapacol 250, hapacol bột] }
+  - { id: decolgen_forte,     name: Decolgen Forte,       brand: decolgen,   category: thuoc_otc, aliases: [decolgen forte] }
+  - { id: tiffy_dey,          name: Tiffy Dey,            brand: tiffy,      category: thuoc_otc, aliases: [tiffy dey, tiffy siro] }
+  - { id: prospan_siro,       name: Prospan cough syrup,  brand: prospan,    category: thuoc_otc, aliases: [siro prospan, prospan siro] }
+  - { id: eugica_siro,        name: Eugica cough syrup,   brand: eugica,     category: thuoc_otc, aliases: [siro eugica, eugica đỏ] }
+  # ---- Nhà thuốc ----
+  - { id: long_chau_app,      name: Long Châu app,        brand: long_chau,  category: nha_thuoc, aliases: [app long châu, long châu online] }
+  - { id: pharmacity_store,   name: Pharmacity stores,    brand: pharmacity, category: nha_thuoc, aliases: [cửa hàng pharmacity] }
+  - { id: an_khang_store,     name: An Khang pharmacy,    brand: an_khang,   category: nha_thuoc, aliases: [nhà thuốc an khang] }
+  # ---- Thiết bị ----
+  - { id: omron_hem7121,      name: Omron HEM-7121,       brand: omron,      category: thiet_bi_yte, aliases: [omron hem 7121, omron 7121, máy đo huyết áp omron] }
+  - { id: microlife_b3,       name: Microlife B3 Basic,   brand: microlife,  category: thiet_bi_yte, aliases: [microlife b3, máy đo huyết áp microlife] }
+  - { id: beurer_bm28,        name: Beurer BM28,          brand: beurer,     category: thiet_bi_yte, aliases: [beurer bm28, máy đo huyết áp beurer] }
+  # ---- Cơ sở / dịch vụ của các hệ thống bệnh viện tư ----
+  - { id: vinmec_times_city,  name: Vinmec Times City,    brand: vinmec,  category: bv_tu_vn, aliases: [vinmec times city] }
+  - { id: vinmec_central_park, name: Vinmec Central Park, brand: vinmec,  category: bv_tu_vn, aliases: [vinmec central park] }
+  - { id: vinmec_da_nang,     name: Vinmec Đà Nẵng,       brand: vinmec,  category: bv_tu_vn, aliases: [vinmec đà nẵng] }
+  - { id: vinmec_nha_trang,   name: Vinmec Nha Trang,     brand: vinmec,  category: bv_tu_vn, aliases: [vinmec nha trang] }
+  - { id: vinmec_phu_quoc,    name: Vinmec Phú Quốc,      brand: vinmec,  category: bv_tu_vn, aliases: [vinmec phú quốc] }
+  - { id: vinmec_hai_phong,   name: Vinmec Hải Phòng,     brand: vinmec,  category: bv_tu_vn, aliases: [vinmec hải phòng] }
+  - { id: tam_anh_hn,         name: Tâm Anh Hà Nội,       brand: tam_anh, category: bv_tu_vn, aliases: [tâm anh hà nội, bệnh viện tâm anh hà nội] }
+  - { id: tam_anh_hcm,        name: Tâm Anh TP.HCM,       brand: tam_anh, category: bv_tu_vn, aliases: [tâm anh tp hcm, tâm anh sài gòn, bệnh viện tâm anh tp hcm] }
+  - { id: hoan_my_sai_gon,    name: Hoàn Mỹ Sài Gòn,      brand: hoan_my, category: bv_tu_vn, aliases: [hoàn mỹ sài gòn, bệnh viện hoàn mỹ sài gòn] }
+  - { id: hoan_my_da_nang,    name: Hoàn Mỹ Đà Nẵng,      brand: hoan_my, category: bv_tu_vn, aliases: [hoàn mỹ đà nẵng, bệnh viện hoàn mỹ đà nẵng] }
+  - { id: gleneagles_sg,      name: Gleneagles Singapore, brand: gleneagles, category: bv_chau_a, aliases: [gleneagles singapore] }
+  - { id: gleneagles_kl,      name: Gleneagles Kuala Lumpur, brand: gleneagles, category: bv_chau_a, aliases: [gleneagles kuala lumpur, gleneagles kl] }

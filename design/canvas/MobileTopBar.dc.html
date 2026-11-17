@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>VN Listen – Mobile top bar</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+</style>
+</helmet>
+<header style="width: 390px; padding: 14px 16px 12px; display: flex; flex-direction: column; gap: 12px; background: rgba(255,255,255,0.7); border-bottom: 1px solid rgba(255,255,255,0.95); font-family: Montserrat, system-ui, sans-serif; color: #101828">
+  <div style="display: flex; align-items: center; gap: 10px">
+    <span class="tile" style="flex: 0 0 38px; height: 38px; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #ffffff; background: linear-gradient(135deg, {{accent}} 0%, #8cc8fb 100%); box-shadow: 0 6px 16px rgba(47,91,234,0.3)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h3l3-7 4 14 3-7h5"></path></svg></span>
+    <div style="flex: 1; min-width: 0">
+      <div style="font-size: 11px; font-weight: 500; color: #5b6478">{{section}}</div>
+      <div style="font-size: 20px; font-weight: 800; letter-spacing: -0.02em; line-height: 1.2">{{title}}</div>
+    </div>
+    <label style="position: relative; display: inline-flex; align-items: center">
+      <span style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">Industry</span>
+      <select style="height: 38px; max-width: 150px; border-radius: 19px; border: 1px solid rgba(47,91,234,0.18); background: #ffffff; padding: 0 12px; font-family: Montserrat, system-ui, sans-serif; font-size: 12px; font-weight: 700; color: #101828">
+        <sc-for list="{{industries}}" as="ind" hint-placeholder-count="2"><sc-if value="{{ind.on}}" hint-placeholder-val="{{false}}"><option selected="selected">{{ind.label}}</option></sc-if><sc-if value="{{ind.off}}" hint-placeholder-val="{{true}}"><option>{{ind.label}}</option></sc-if></sc-for>
+      </select>
+    </label>
+  </div>
+  <div style="display: flex; align-items: center; gap: 8px; height: 46px; padding: 0 14px; border-radius: 14px; background: #ffffff; border: 1.5px solid {{accent}}; box-shadow: 0 6px 18px rgba(47,91,234,0.12); color: #5b6478">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg>
+    <input type="search" value="{{query}}" placeholder="Search any keyword…" aria-label="Search" style="flex: 1; min-width: 0; border: 0; outline: none; background: transparent; font-family: Montserrat, system-ui, sans-serif; font-size: 15px; font-weight: 500; color: #101828">
+    <button type="button" aria-label="Track this keyword daily" style="flex: 0 0 auto; height: 30px; padding: 0 10px; border: 0; border-radius: 10px; background: rgba(47,91,234,0.1); color: #1f43c4; font-family: Montserrat, system-ui, sans-serif; font-size: 12px; font-weight: 700">+ Track</button>
+  </div>
+  <div class="hscroll">
+    <button type="button" class="chip" data-tap style="flex: 0 0 auto; display: inline-flex; align-items: center; gap: 6px; height: 34px; padding: 0 12px; border-radius: 17px; border: 0; background: {{accent}}; color: #ffffff; font-family: Montserrat, system-ui, sans-serif; font-size: 12px; font-weight: 700; white-space: nowrap"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="3"></rect><path d="M8 3v4M16 3v4M3.5 10h17"></path></svg> {{dateRange}}</button>
+    <sc-for list="{{presets}}" as="p" hint-placeholder-count="4"><button type="button" class="chip" data-tap style="flex: 0 0 auto; height: 34px; padding: 0 12px; border-radius: 16px; border: 1px solid rgba(47,91,234,0.14); background: rgba(255,255,255,0.8); color: #3b4459; font-family: Montserrat, system-ui, sans-serif; font-size: 12px; font-weight: 600; white-space: nowrap">{{p}}</button></sc-for>
+    <sc-for list="{{sources}}" as="s" hint-placeholder-count="6"><label class="chip" data-tap style="flex: 0 0 auto; display: inline-flex; align-items: center; gap: 6px; height: 34px; padding: 0 11px; border-radius: 17px; background: rgba(255,255,255,0.85); border: 1px solid rgba(47,91,234,0.14); font-size: 12px; font-weight: 500; color: #3b4459; white-space: nowrap"><input type="checkbox" checked="checked" style="margin: 0; accent-color: {{accent}}"> {{s}}</label></sc-for>
+  </div>
+</header>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"section": {"editor": "text", "default": "Social Listening"}, "title": {"editor": "text", "default": "Overview"}, "industry": {"editor": "enum", "options": ["Mother &amp; Baby", "Healthcare"], "default": "Mother &amp; Baby"}, "query": {"editor": "text", "default": "sữa công thức"}, "dateRange": {"editor": "text", "default": "01/10 – 31/10/2026"}, "accent": {"editor": "color", "default": "#2f5bea", "options": ["#2f5bea", "#6250d6", "#0e9f6e", "#e8590c"]}, "$preview": {"width": 390, "height": 186}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const industry = this.props.industry ?? 'Mother & Baby';
+    return {
+      accent: this.props.accent ?? '#2f5bea',
+      section: this.props.section ?? 'Social Listening', title: this.props.title ?? 'Overview',
+      query: this.props.query ?? 'sữa công thức', dateRange: this.props.dateRange ?? '01/10 – 31/10/2026',
+      industries: ['Mother & Baby', 'Healthcare'].map((label) => ({ label, on: label === industry, off: label !== industry })),
+      presets: ['7D', '30D', 'This month', 'YTD'],
+      sources: ["Facebook", "TikTok", "YouTube", "News", "Threads", "Instagram"],
+    };
+  }
+}
+</script>
+</body>
+</html>

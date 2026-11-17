@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <header><div class="logo">VN</div><div><b>VN Listen Capture</b><small id="health">checking server…</small></div></header>
+  <button id="capture" class="primary">Capture this page</button>
+  <label class="row"><input type="checkbox" id="auto"> Auto-capture while I scroll</label>
+  <p class="hint">Only posts visible on your screen are read. Right-click any selected text → “Send selected text to VN Listen”.</p>
+  <details>
+    <summary>Settings</summary>
+    <label>Server <input id="server" placeholder="http://127.0.0.1:8765"></label>
+    <label>Token <input id="token" placeholder="(optional)"></label>
+    <label>Industry
+      <select id="industry">
+        <option value="">Auto-detect</option>
+        <option value="me_va_be">Mother &amp; Baby</option>
+        <option value="y_te_suc_khoe">Healthcare</option>
+      </select>
+    </label>
+  </details>
+  <footer id="stats">No posts sent yet</footer>
+  <script src="popup.js"></script>
+</body>
+</html>

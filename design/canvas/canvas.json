@@ -1,0 +1,31 @@
+{
+  "v": 3,
+  "createdOnFiles": {"v": 1, "at": "2026-11-17T14:30:00Z"},
+  "title": "VN Listen – Dashboard UI",
+  "launch": {"view": "canvas"},
+  "pages": [],
+  "boards": {
+    "Sidebar.dc.html": {"x": 0, "y": 0, "w": 280, "h": 1260, "title": "0 · Sidebar (shared component)"},
+    "Main.dc.html": {"x": 360, "y": 0, "w": 1440, "h": 1960, "title": "1 · Social Listening – Mother & Baby", "expand": "fill", "is_interactive": true},
+    "Communities.dc.html": {"x": 1880, "y": 0, "w": 1440, "h": 1730, "title": "1b · Communities – Mother & Baby", "expand": "fill", "is_interactive": true},
+    "Research.dc.html": {"x": 3400, "y": 0, "w": 1440, "h": 1650, "title": "2 · Marketing Research – Healthcare", "expand": "fill", "is_interactive": true},
+    "Alerts.dc.html": {"x": 4920, "y": 0, "w": 1440, "h": 1260, "title": "3 · Alerts & crisis", "expand": "fill", "is_interactive": true},
+    "MobileTopBar.dc.html": {"x": 0, "y": 2500, "w": 390, "h": 186, "title": "M0 · Top bar (shared)"},
+    "MobileTabBar.dc.html": {"x": 0, "y": 2806, "w": 390, "h": 92, "title": "M0 · Tab bar (shared)"},
+    "M_Listening.dc.html": {"x": 470, "y": 2500, "w": 390, "h": 3800, "title": "M1 · Social Listening", "is_interactive": true},
+    "M_Communities.dc.html": {"x": 940, "y": 2500, "w": 390, "h": 3030, "title": "M1b · Communities", "is_interactive": true},
+    "M_Research.dc.html": {"x": 1410, "y": 2500, "w": 390, "h": 2950, "title": "M2 · Marketing Research", "is_interactive": true},
+    "M_Alerts.dc.html": {"x": 1880, "y": 2500, "w": 390, "h": 2320, "title": "M3 · Alerts", "is_interactive": true}
+  },
+  "order": ["Sidebar.dc.html", "Main.dc.html", "Communities.dc.html", "Research.dc.html", "Alerts.dc.html",
+            "MobileTopBar.dc.html", "MobileTabBar.dc.html", "M_Listening.dc.html", "M_Communities.dc.html",
+            "M_Research.dc.html", "M_Alerts.dc.html"],
+  "notes": {
+    "title": {"x": 0, "y": -300, "text": "VN Listen · Desktop (glass tone, 3D icon tiles, Montserrat)", "kind": "title1", "maxW": 6360},
+    "data": {"x": 0, "y": -190, "text": "Brand, hospital and community names and numbers are ILLUSTRATIVE (fictional), not real data. Edit the Sidebar / Top bar / Tab bar artboards once – every screen updates. Press Play and use the menus to move between screens.", "w": 620, "fill": "yellow", "size": "m"},
+    "type": {"x": 700, "y": -190, "text": "Type scale – Montserrat only: Page title ExtraBold 800 · KPI numbers Bold 700 · Section titles SemiBold 600 · Labels & nav Medium 500 · Body & tables Regular 400", "w": 620, "fill": "blue", "size": "m"},
+    "colour": {"x": 1400, "y": -190, "text": "Module colours: Listening blue · Communities pink · Research orange · Alerts amber. Green = good / up, red = warning. EVERY clickable thing (buttons, chips, cards, chart bars, heat-map cells, rows, dots) lifts or brightens on hover, squishes on press and gives a haptic tick on Android.", "w": 620, "fill": "pink", "size": "m"},
+    "mobile": {"x": 0, "y": 2240, "text": "Mobile · 390 px", "kind": "title1", "maxW": 2270}
+  },
+  "designSystems": []
+}

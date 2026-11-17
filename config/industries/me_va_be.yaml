@@ -1,0 +1,196 @@
+# Taxonomy: Mother & Baby (Mẹ & Bé) – PILOT
+# UI tiếng Anh (name), nội dung matching tiếng Việt (aliases, keywords).
+# ------------------------------------------------------------------
+# Quy tắc viết alias:
+#  - Viết thường, có dấu hay không dấu đều được (matcher tự bỏ dấu khi so khớp).
+#  - TRÁNH alias quá ngắn / trùng từ thông dụng. Ví dụ "nan" (bỏ dấu sẽ trùng
+#    "nạn", "nàn") -> phải dùng "sữa nan", "nan optipro".
+#  - Thêm teencode / cách mẹ bỉm hay gõ: "bỉm bobby", "tã bobby", "srm"...
+# ------------------------------------------------------------------
+industry: me_va_be
+name: Mother & Baby
+
+# Từ khoá rủi ro: xuất hiện cùng brand => đẩy vào luồng cảnh báo khủng hoảng
+risk_terms:
+  - sữa giả
+  - hàng giả
+  - hàng nhái
+  - thu hồi
+  - ngộ độc
+  - dị ứng
+  - tiêu chảy
+  - táo bón
+  - nôn trớ
+  - hăm tã
+  - nổi mẩn
+  - nhiễm khuẩn
+  - kém chất lượng
+  - lừa đảo
+  - bóc phốt
+  - phốt
+  - tẩy chay
+
+# Seed cho keyword research (Google Autocomplete)
+research_seeds:
+  - sữa bột cho bé
+  - sữa mát
+  - bỉm cho bé
+  - bình sữa
+  - sữa tăng cân
+
+# Khía cạnh người dùng hay nói về sản phẩm – dùng cho "Product keywords" (tầng Known)
+aspects:
+  - giá
+  - giá cao
+  - giá tốt
+  - chất lượng
+  - chính hãng
+  - hàng giả
+  - mùi vị
+  - dễ uống
+  - tăng cân
+  - tiêu hoá
+  - táo bón
+  - đi ngoài
+  - dị ứng
+  - nổi mẩn
+  - sữa mát
+  - đạm a2
+  - hmo
+  - dha
+  - thấm hút
+  - hăm tã
+  - tràn
+  - chống sặc
+  - núm ti
+  - phù hợp
+  - kinh nghiệm
+  - review
+  - đổi sữa
+  - khuyến mãi
+  - giao hàng
+  - mua ở đâu
+
+# Từ vựng sentiment đặc thù ngành (cộng thêm vào từ điển chung)
+sentiment:
+  positive:
+    - tăng cân
+    - lên cân
+    - ngủ ngon
+    - mát
+    - thấm hút tốt
+    - mỏng nhẹ
+    - không hăm
+    - hợp với bé
+    - uống ngon
+    - bé thích
+    - tiêu hoá tốt
+    - đi ngoài đều
+    - chống sặc tốt
+  negative:
+    - sữa giả
+    - táo bón
+    - tiêu chảy
+    - nôn trớ
+    - dị ứng
+    - nổi mẩn
+    - hăm
+    - hăm tã
+    - tràn
+    - bị tràn
+    - xì
+    - sụt cân
+    - biếng ăn
+    - vón cục
+    - sặc
+
+# Từ khoá hoạt động MKT đặc thù ngành (cộng thêm vào bộ chung)
+activity_terms:
+  su_kien_offline:
+    - hội thảo tiền sản
+    - lớp học tiền sản
+    - ngày hội mẹ và bé
+    - dùng thử miễn phí tại siêu thị
+  csr:
+    - tặng sữa
+    - quỹ sữa
+
+# Tier HOURLY: chỉ những query "nóng" để không bị rate-limit
+hourly_keywords:
+  - sữa giả
+  - thu hồi sữa
+  - sữa bột ngộ độc
+  - bỉm kém chất lượng
+  - bóc phốt sữa
+
+categories:
+  sua_bot:
+    name: Infant formula
+    keywords:
+      - sữa bột cho bé
+      - sữa công thức
+      - sữa mát cho bé
+      - sữa tăng cân cho bé
+      - review sữa bột
+  bim_ta:
+    name: Diapers
+    keywords:
+      - bỉm cho bé
+      - tã dán sơ sinh
+      - bỉm quần
+      - review bỉm
+  binh_sua:
+    name: Baby bottles
+    keywords:
+      - bình sữa cho bé
+      - bình sữa chống sặc
+      - review bình sữa
+
+brands:
+  # ---- Sữa bột ----
+  vinamilk:   { name: Vinamilk,   aliases: [vinamilk] }
+  abbott:     { name: Abbott,     aliases: [abbott] }
+  nestle:     { name: Nestlé,     aliases: [nestle, nestlé] }
+  meiji:      { name: Meiji,      aliases: [meiji] }
+  friso:      { name: Friso,      aliases: [friso, frisolac] }
+  enfa:       { name: Enfa (Mead Johnson), aliases: [mead johnson, enfa, enfamil, enfagrow] }
+  aptamil:    { name: Aptamil,    aliases: [aptamil] }
+  morinaga:   { name: Morinaga,   aliases: [morinaga] }
+  nutricare:  { name: Nutricare,  aliases: [nutricare] }
+  # ---- Bỉm ----
+  bobby:      { name: Bobby,      aliases: [bobby] }
+  huggies:    { name: Huggies,    aliases: [huggies] }
+  merries:    { name: Merries,    aliases: [merries] }
+  moony:      { name: Moony,      aliases: [moony] }
+  pampers:    { name: Pampers,    aliases: [pampers] }
+  goon:       { name: Goo.n,      aliases: [goon, goo.n] }
+  # ---- Bình sữa ----
+  pigeon:     { name: Pigeon,     aliases: [pigeon] }
+  comotomo:   { name: Comotomo,   aliases: [comotomo] }
+  hegen:      { name: Hegen,      aliases: [hegen] }
+  avent:      { name: Philips Avent, aliases: [avent, philips avent] }
+
+products:
+  # ---- Sữa bột ----
+  - { id: vnm_optimum_gold,  name: Optimum Gold,      brand: vinamilk, category: sua_bot, aliases: [optimum gold, sữa optimum] }
+  - { id: vnm_dielac_grow,   name: Dielac Grow Plus,  brand: vinamilk, category: sua_bot, aliases: [dielac grow, grow plus] }
+  - { id: vnm_dielac_alpha,  name: Dielac Alpha,      brand: vinamilk, category: sua_bot, aliases: [dielac alpha] }
+  - { id: abbott_similac,    name: Similac,           brand: abbott,   category: sua_bot, aliases: [similac] }
+  - { id: abbott_grow,       name: Abbott Grow,       brand: abbott,   category: sua_bot, aliases: [abbott grow] }
+  - { id: abbott_pediasure,  name: PediaSure,         brand: abbott,   category: sua_bot, aliases: [pediasure, pedia sure] }
+  - { id: nestle_nan,        name: NAN Optipro,       brand: nestle,   category: sua_bot, aliases: [nan optipro, sữa nan, nan supreme, nan infinipro] }
+  - { id: meiji_infant,      name: Meiji Infant Formula, brand: meiji, category: sua_bot, aliases: [meiji 0-1, meiji số 0, meiji thanh, meiji hộp] }
+  - { id: friso_gold,        name: Friso Gold,        brand: friso,    category: sua_bot, aliases: [friso gold] }
+  - { id: enfa_a_plus,       name: Enfamil A+,        brand: enfa,     category: sua_bot, aliases: [enfamil a+, enfa a+, enfagrow a+] }
+  - { id: aptamil_profutura, name: Aptamil Profutura, brand: aptamil,  category: sua_bot, aliases: [aptamil profutura, aptamil úc, aptamil đức] }
+  # ---- Bỉm ----
+  - { id: bobby_quan,        name: Bobby bỉm quần,    brand: bobby,    category: bim_ta,  aliases: [bỉm bobby, tã bobby, bobby quần] }
+  - { id: huggies_dry,       name: Huggies Dry,       brand: huggies,  category: bim_ta,  aliases: [huggies dry, bỉm huggies, tã huggies] }
+  - { id: merries_dan,       name: Merries tã dán,    brand: merries,  category: bim_ta,  aliases: [bỉm merries, tã merries] }
+  - { id: moony_natural,     name: Moony Natural,     brand: moony,    category: bim_ta,  aliases: [moony natural, bỉm moony, tã moony] }
+  - { id: pampers_quan,      name: Pampers quần,      brand: pampers,  category: bim_ta,  aliases: [bỉm pampers, tã pampers] }
+  # ---- Bình sữa ----
+  - { id: pigeon_ppsu,       name: Pigeon PPSU,       brand: pigeon,   category: binh_sua, aliases: [bình pigeon, pigeon ppsu] }
+  - { id: comotomo_bottle,   name: Comotomo,          brand: comotomo, category: binh_sua, aliases: [bình comotomo] }
+  - { id: hegen_ppsu,        name: Hegen PPSU,        brand: hegen,    category: binh_sua, aliases: [bình hegen] }
+  - { id: avent_natural,     name: Avent Natural,     brand: avent,    category: binh_sua, aliases: [avent natural, bình avent] }
