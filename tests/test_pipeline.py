@@ -115,3 +115,33 @@ def test_organic_review_is_not_kol_activity():
     assert clf.enrich(make_mention("Review chân thật sau 1 tháng, hợp tác cùng brand")).activities == ["kol_review"]
     assert clf.enrich(make_mention("Ad ơi cho em hỏi giá với")).activities == []
     assert clf.enrich(make_mention("Video này được tài trợ bởi nhãn hàng")).activities == ["kol_review"]
+
+
+@pytest.mark.parametrize(("text", "expected"), [
+    ("Bé nhà mình uống similac bị táo bón, các mẹ cho hỏi nên đổi sữa nào?", True),
+    ("62 puste domy i działki zostały przekazane do Centrum Rozwoju", False),       # Ba Lan
+    ("Juice that helps soothe the stomach and supports digestion", False),          # tiếng Anh
+    ("Le médecin a prescrit un traitement à l'hôpital", False),                     # tiếng Pháp
+])
+def test_looks_vietnamese(text, expected):
+    from vnlisten.pipeline.relevance import looks_vietnamese
+    assert looks_vietnamese(text) is expected
+
+
+def test_relevance_filter_drops_off_topic_and_foreign(registry):
+    from vnlisten.domain.models import TrackingQuery  # noqa: F401
+    pipe = EnrichmentPipeline([build_router(registry)])
+    on_brand = make_mention("Khám ở bv bạch mai bác sĩ rất tận tâm", ext="1", industry="y_te_suc_khoe")
+    on_keyword = make_mention("Nên chọn bệnh viện tư nào để sinh con ở Hà Nội?", ext="2", industry="y_te_suc_khoe",
+                              keyword="bệnh viện tư")
+    off_topic = make_mention("Hai bác sĩ Việt chạy đua thời gian cứu hành khách trên chuyến bay", ext="3",
+                             industry="y_te_suc_khoe", keyword="bệnh viện tư")
+    foreign = make_mention("Bach Mai hospital opens a new wing in Hanoi", ext="4", industry="y_te_suc_khoe")
+    kept = {m.external_id for m in pipe.run([on_brand, on_keyword, off_topic, foreign])}
+    assert kept == {"1", "2"}
+
+
+def test_tracking_queries_use_vietnamese_alias(health):
+    from vnlisten.domain.models import Tier
+    words = {q.keyword for q in health.tracking_queries(Tier.DAILY)}
+    assert "bệnh viện 108" in words and "Military Central Hospital 108" not in words

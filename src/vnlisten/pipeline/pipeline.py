@@ -4,6 +4,7 @@ from collections.abc import Iterable, Sequence
 
 from ..domain.models import Mention
 from ..domain.ports import Enricher
+from .relevance import is_relevant
 
 
 class EnrichmentPipeline:
@@ -22,7 +23,7 @@ class EnrichmentPipeline:
             seen.add(mention.uid)
             for enricher in self._enrichers:
                 mention = enricher.enrich(mention)
-            # Bỏ các bài không nhắc brand & không có risk term & không có category => nhiễu
-            if self._keep_unmatched or mention.brands or mention.risk_terms or mention.category:
+            # Chỉ giữ bài tiếng Việt & thật sự liên quan (xem relevance.py)
+            if self._keep_unmatched or is_relevant(mention):
                 result.append(mention)
         return result

@@ -103,10 +103,14 @@ class Taxonomy:
         queries: list[TrackingQuery] = []
         for cat in self.categories.values():
             queries += [TrackingQuery(k, cat.id, industry=self.industry) for k in cat.keywords]
+        # Tìm bằng alias tiếng Việt đầu tiên (VD "bệnh viện 108"), KHÔNG dùng tên hiển thị tiếng Anh
+        # ("Military Central Hospital 108") – tên tiếng Anh kéo về toàn bài nước ngoài.
         for brand_id, brand in self.brands.items():
-            queries.append(TrackingQuery(brand.name, self.category_of_brand(brand_id), industry=self.industry))
+            term = brand.aliases[0] if brand.aliases else brand.name
+            queries.append(TrackingQuery(term, self.category_of_brand(brand_id), industry=self.industry))
         for product in self.products.values():
-            queries.append(TrackingQuery(product.name, product.category, industry=self.industry))
+            term = product.aliases[0] if product.aliases else product.name
+            queries.append(TrackingQuery(term, product.category, industry=self.industry))
         return queries
 
 
