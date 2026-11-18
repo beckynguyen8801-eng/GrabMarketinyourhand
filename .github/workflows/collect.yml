@@ -47,6 +47,36 @@ jobs:
             echo "No data branch yet – starting with an empty database"
           fi
 
+      - name: Start SearXNG (free meta-search for public Facebook / TikTok / Threads posts)
+        continue-on-error: true   # nếu không khởi động được thì vẫn thu thập các nguồn khác
+        run: |
+          mkdir -p /tmp/searxng && cp deploy/searxng/settings.yml /tmp/searxng/settings.yml
+          docker run -d --name searxng -p 8888:8080 -v /tmp/searxng:/etc/searxng:rw \
+            -e SEARXNG_SECRET="$(openssl rand -hex 16)" searxng/searxng:latest
+          for i in $(seq 1 45); do
+            if curl -sf "http://localhost:8888/search?q=test&format=json" > /dev/null; then
+              echo "SEARXNG_URL=http://localhost:8888" >> "$GITHUB_ENV"; echo "SearXNG ready"; exit 0
+            fi
+            sleep 2
+          done
+          echo "SearXNG did not start – web search skipped this run"; docker logs searxng | tail -20
+
+      - name: Ingest browser captures
+        run: |
+          if git fetch --depth 1 origin captures:refs/remotes/origin/captures 2>/dev/null; then
+            mkdir -p /tmp/captures
+            git archive origin/captures captures 2>/dev/null | tar -x -C /tmp/captures || true
+            FILES=$(find /tmp/captures -name '*.json' | sort)
+            if [ -n "$FILES" ]; then
+              vnlisten --db "${{ github.workspace }}/data/vnlisten.db" ingest-json $FILES
+              echo "$FILES" | sed 's|/tmp/captures/||' > /tmp/processed.txt
+            else
+              echo "No new captures"
+            fi
+          else
+            echo "No captures branch yet"
+          fi
+
       - name: Collect
         env:
           VNLISTEN_DB: ${{ github.workspace }}/data/vnlisten.db
@@ -65,6 +95,20 @@ jobs:
           fi
           echo "Running: vnlisten $JOB"
           vnlisten "$JOB"
+
+      - name: Remove ingested captures
+        if: success()
+        run: |
+          [ -s /tmp/processed.txt ] || exit 0
+          git config user.name "vnlisten-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          for attempt in 1 2 3; do
+            git fetch -q --depth 1 origin captures:refs/remotes/origin/captures && git checkout -q -B captures origin/captures
+            xargs -a /tmp/processed.txt git rm -q --ignore-unmatch
+            git commit -q -m "captures: ingested $(wc -l < /tmp/processed.txt) file(s)" || exit 0
+            git push -q origin captures && exit 0
+            sleep 5
+          done
 
       - name: Save database to the data branch
         if: always()

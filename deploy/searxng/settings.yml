@@ -1,0 +1,28 @@
+# SearXNG chạy TẠM trong mỗi lần GitHub Actions (miễn phí) để tìm bài PUBLIC trên Facebook / TikTok / Threads
+# bằng truy vấn site:... Không lưu gì, tắt khi job kết thúc.
+use_default_settings: true
+
+server:
+  secret_key: "overridden-by-SEARXNG_SECRET"
+  limiter: false          # chỉ mình collector gọi, không cần chống spam
+  image_proxy: false
+
+search:
+  safe_search: 0
+  default_lang: "vi"
+  formats:
+    - html
+    - json                # bắt buộc: collector đọc JSON
+
+# Dùng nhiều công cụ tìm kiếm cùng lúc: một cái chặn IP máy chủ GitHub thì cái khác vẫn trả kết quả
+engines:
+  - name: duckduckgo
+    disabled: false
+  - name: bing
+    disabled: false
+  - name: brave
+    disabled: false
+  - name: startpage
+    disabled: false
+  - name: mojeek
+    disabled: false

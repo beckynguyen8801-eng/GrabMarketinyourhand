@@ -35,6 +35,8 @@ def main(argv: list[str] | None = None) -> None:
     demo.add_argument("--days", type=int, default=30)
 
     sub.add_parser("dashboard", help="Open the Streamlit dashboard")
+    ij = sub.add_parser("ingest-json", help="Ingest browser-capture JSON files (extension → GitHub mode)")
+    ij.add_argument("paths", nargs="+")
     srv = sub.add_parser("serve", help="Local ingest server for the VN Listen Capture browser extension")
     srv.add_argument("--port", type=int, default=8765)
 
@@ -81,6 +83,20 @@ def main(argv: list[str] | None = None) -> None:
         case "import-csv":
             stats = app.collection.ingest(read_csv(args.path, SourceType(args.source), args.category, args.industry))
             print(f"Read {stats.fetched}, kept {stats.kept} relevant, {stats.new} new")
+        case "ingest-json":
+            import json as _json  # noqa: PLC0415
+
+            from .connectors.browser_capture import capture_to_mentions  # noqa: PLC0415
+
+            total = new = done = 0
+            for path in args.paths:
+                try:
+                    stats = app.collection.ingest(capture_to_mentions(_json.loads(Path(path).read_text("utf-8"))))
+                except (ValueError, OSError) as exc:
+                    print(f"skip {path}: {exc}")
+                    continue
+                total, new, done = total + stats.fetched, new + stats.new, done + 1
+            print(f"Ingested {done}/{len(args.paths)} capture file(s): {total} posts, {new} new")
         case "serve":
             from .ingest_server import serve  # noqa: PLC0415
 

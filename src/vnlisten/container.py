@@ -14,7 +14,7 @@ from .connectors.google_suggest import GoogleSuggestConnector
 from .connectors.web_search import GoogleCseBackend, SearxngBackend, WebSearchConnector
 from .connectors.tiki import TikiConnector
 from .connectors.youtube import YouTubeConnector
-from .domain.models import Tier
+from .domain.models import SourceType, Tier
 from .domain.ports import MentionSource, Notifier
 from .insights.generators import InsightGenerator, OllamaInsight, RuleBasedInsight
 from .pipeline.pipeline import EnrichmentPipeline
@@ -127,7 +127,9 @@ def build_app(settings: Settings | None = None) -> App:
 def _web_search(settings: Settings) -> MentionSource | None:
     """SearXNG (tự host, free) ưu tiên; Google CSE nếu có key; không có gì thì tắt nguồn này."""
     if settings.searxng_url:
-        return WebSearchConnector(SearxngBackend(settings.searxng_url))
+        # Facebook / TikTok / Threads (bỏ Instagram: kết quả chủ yếu là trang profile, tốn quota thời gian)
+        return WebSearchConnector(SearxngBackend(settings.searxng_url),
+                                  (SourceType.FACEBOOK, SourceType.TIKTOK, SourceType.THREADS))
     if settings.google_cse_key and settings.google_cse_cx:
         return WebSearchConnector(GoogleCseBackend(settings.google_cse_key, settings.google_cse_cx))
     return None

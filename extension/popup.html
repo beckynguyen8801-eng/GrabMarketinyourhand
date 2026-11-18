@@ -11,8 +11,20 @@
   <p class="hint">Only posts visible on your screen are read. Right-click any selected text → “Send selected text to VN Listen”.</p>
   <details>
     <summary>Settings</summary>
-    <label>Server <input id="server" placeholder="http://127.0.0.1:8765"></label>
-    <label>Token <input id="token" placeholder="(optional)"></label>
+    <label>Send to
+      <select id="mode">
+        <option value="github">GitHub (cloud dashboard – no server needed)</option>
+        <option value="local">Local server (vnlisten serve)</option>
+      </select>
+    </label>
+    <div id="githubFields">
+      <label>Repository <input id="repo" placeholder="beckynguyen8801-eng/GrabMarketinyourhand"></label>
+      <label>GitHub token <input id="ghToken" type="password" placeholder="github_pat_… (Contents: Read and write)"></label>
+    </div>
+    <div id="localFields">
+      <label>Server <input id="server" placeholder="http://127.0.0.1:8765"></label>
+      <label>Token <input id="token" placeholder="(optional)"></label>
+    </div>
     <label>Industry
       <select id="industry">
         <option value="">Auto-detect</option>
