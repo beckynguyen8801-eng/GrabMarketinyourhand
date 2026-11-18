@@ -15,22 +15,21 @@ from pathlib import Path
 
 import pandas as pd
 import streamlit as st
-from ui import SOURCE_LABELS, ViewContext, apply_theme
-from views import listening, research
+import design
+from ui import SOURCE_LABELS, ViewContext
+from views import alerts, communities, listening, research
 
 from vnlisten.analytics import keywords, metrics
 from vnlisten.container import Settings
-from vnlisten.domain.models import Module
 from vnlisten.storage.sqlite_repo import SqliteRepository
 from vnlisten.taxonomy import IndustryRegistry
 
-MODULES = {
-    Module.SOCIAL_LISTENING: ("Social Listening", listening.render),
-    Module.RESEARCH: ("Marketing Research", research.render),
-}
+# Same 4 modules as the approved design (icon + colour live in design.MODULES)
+MODULES = {"listening": listening.render, "communities": communities.render,
+           "research": research.render, "alerts": alerts.render}
 
 st.set_page_config(page_title="VN Listen", page_icon="📊", layout="wide")
-apply_theme()
+st.markdown(design.CSS, unsafe_allow_html=True)
 
 # ---- Cloud mode (Streamlit Community Cloud): settings come from st.secrets, DB comes from the repo's `data` branch
 try:
@@ -95,32 +94,47 @@ def load_frame(industry: str, since: datetime, until: datetime, db: str = "") ->
 
 
 # ================= Sidebar =================
+# State lives in the URL (?module=&industry=&q=&from=&to=) so the module menu links keep it when switching.
 reg = registry()
 today = date.today()
-with st.sidebar:
-    st.markdown("<h2 style='margin:0 0 4px;font-weight:800'>VN Listen</h2>", unsafe_allow_html=True)
-    st.caption("Social listening & marketing research")
-    industry = st.selectbox("Industry", reg.ids(), format_func=lambda i: reg.get(i).name)
-    tax = reg.get(industry)
-    module = st.radio("Module", list(MODULES), format_func=lambda m: MODULES[m][0])
-    st.divider()
+qp = st.query_params
 
-    picked = st.date_input("Date range", value=(today - timedelta(days=6), today), max_value=today,
-                           format="DD/MM/YYYY", help="Any period, e.g. 01/10/2026 – 31/10/2026")
-    # While the user is still picking, Streamlit returns a 1-item tuple
-    if isinstance(picked, tuple):
+
+def _date(v: str | None, default: date) -> date:
+    try:
+        return date.fromisoformat(v) if v else default
+    except ValueError:
+        return default
+
+
+module = qp.get("module", "listening") if qp.get("module") in MODULES else "listening"
+with st.sidebar:
+    st.markdown(design.logo(), unsafe_allow_html=True)
+    ids = reg.ids()
+    industry = st.selectbox("Industry", ids, index=ids.index(qp["industry"]) if qp.get("industry") in ids else 0,
+                            format_func=lambda i: reg.get(i).name)
+    tax = reg.get(industry)
+    nav_slot = st.empty()  # filled once the alert count is known
+    query = st.text_input("Search", value=qp.get("q", ""), placeholder="e.g. sữa công thức, Enfa A2, bv Bạch Mai",
+                          help="Any word or phrase – Vietnamese, with or without accents.")
+    picked = st.date_input("Date range", value=(_date(qp.get("from"), today - timedelta(days=6)), _date(qp.get("to"), today)),
+                           max_value=today, format="DD/MM/YYYY", help="Any period, e.g. 01/10/2026 – 31/10/2026")
+    if isinstance(picked, tuple):  # while picking, Streamlit returns a 1-item tuple
         start, end = (picked[0], picked[-1]) if picked else (today, today)
     else:
         start = end = picked
 
-    query = st.text_input("Search", placeholder="e.g. sữa công thức, Enfa A+, bv Bạch Mai",
-                          help="Any word or phrase – Vietnamese, with or without accents. "
-                               "Matches post content and brand / product / hospital names.")
+state = {"industry": industry, "q": query, "from": start.isoformat(), "to": end.isoformat()}
+st.query_params.update({"module": module, **{k: v for k, v in state.items() if v}})
+if not query and "q" in st.query_params:
+    del st.query_params["q"]
 
 span = timedelta(days=(end - start).days + 1)
 until = datetime.combine(end, time.max, tzinfo=UTC)
 since = datetime.combine(start, time.min, tzinfo=UTC)
 raw = load_frame(industry, since - span, until, str(DB_PATH))   # current + previous period of equal length
+alerts_24h = [a for a in repo().recent_alerts(100, industry) if a.created_at > datetime.now(UTC) - timedelta(days=1)]
+nav_slot.markdown(design.nav(module, {k: v for k, v in state.items() if v}, len(alerts_24h)), unsafe_allow_html=True)
 
 with st.sidebar:
     all_sources = sorted(raw["source"].unique()) if not raw.empty else []
@@ -132,27 +146,27 @@ with st.sidebar:
         tracked = {kw for _, kw in repo().watchlist(industry)}
         if query.strip() in tracked:
             st.caption(f"“{query}” is tracked daily.")
-        elif st.button(f"Track “{query}” daily", width="stretch"):
+        elif st.button(f"+ Track “{query}” daily", width="stretch"):
             repo().add_watch(industry, query)
             st.toast(f"“{query}” will be collected in the next daily run.")
     if st.button("Refresh data", width="stretch"):
         st.cache_data.clear()
-    st.caption(f"Database: `{DB_PATH.name}`")
+    newest = raw["published_at"].max() if not raw.empty else None
+    st.markdown(design.status_card(f"Data up to {newest:%H:%M · %d/%m}" if newest is not None else "No data yet",
+                                   "Crisis keywords every 2 hours · everything else daily"), unsafe_allow_html=True)
 
-# ================= Header =================
-st.title(MODULES[module][0])
-st.caption(f"{tax.name} · {start:%d/%m/%Y} – {end:%d/%m/%Y}" + (f" · search: “{query}”" if query else ""))
+# ================= Content =================
 if "demo" in DB_PATH.name:
     st.info("You are viewing **demo data** – not real market data.", icon="🧪")
 if raw.empty:
-    st.info(f"No data for **{tax.name}** in this period. Run `vnlisten daily` to collect, "
-            "or `vnlisten seed-demo` then `vnlisten --db data/demo.db dashboard` for a demo.")
+    st.markdown(design.header(f"{tax.name}", "No data yet", "pulse", design.BLUE), unsafe_allow_html=True)
+    st.info(f"No data for **{tax.name}** in this period. Pick a longer date range, or wait for the next scheduled run.")
     st.stop()
 
 by_source = raw[raw["source"].isin(sources)]
 df_all = keywords.search(by_source, query, tax)
 if query and df_all.empty:
-    st.warning(f"No posts match “{query}” in this period. Use **Track** in the sidebar to start collecting it.")
+    st.warning(f"No posts match “{query}” in this period. Try another spelling or a longer date range.")
     st.stop()
 
 ctx = ViewContext(
@@ -161,4 +175,4 @@ ctx = ViewContext(
     prev=df_all[df_all["published_at"] < pd.Timestamp(since)],
     base_cur=by_source[by_source["published_at"] >= pd.Timestamp(since)],
 )
-MODULES[module][1](ctx)
+MODULES[module](ctx)
