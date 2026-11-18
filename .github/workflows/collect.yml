@@ -56,9 +56,12 @@ jobs:
           GOOGLE_CSE_KEY: ${{ secrets.GOOGLE_CSE_KEY }}
           GOOGLE_CSE_CX: ${{ secrets.GOOGLE_CSE_CX }}
         run: |
-          JOB="${{ github.event.inputs.job }}"
-          if [ -z "$JOB" ]; then
-            if [ "${{ github.event.schedule }}" = "23 23 * * *" ]; then JOB=daily; else JOB=hourly; fi
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            JOB="${{ inputs.job || 'daily' }}"          # manual run: daily unless "hourly" is picked
+          elif [ "${{ github.event.schedule }}" = "23 23 * * *" ]; then
+            JOB=daily
+          else
+            JOB=hourly
           fi
           echo "Running: vnlisten $JOB"
           vnlisten "$JOB"
