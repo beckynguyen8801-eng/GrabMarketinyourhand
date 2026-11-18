@@ -43,23 +43,29 @@ os.environ.setdefault("VNLISTEN_INDUSTRIES_DIR", str(Path(__file__).resolve().pa
 REMOTE_REPO = os.environ.get("VNLISTEN_REMOTE_REPO", "")
 
 
+class NoRemoteData(Exception):
+    """Raised (not returned) so Streamlit does NOT cache the 'no data yet' answer."""
+
+
 @st.cache_data(ttl=600, show_spinner="Loading latest data…")
 def remote_db() -> str:
-    """Download the newest DB (refreshed every 10 min). Returns '' if the collector has not run yet."""
+    """Download the newest DB (refreshed every 10 min). Only successful downloads are cached."""
     from vnlisten.remote_db import download_db  # noqa: PLC0415
 
     dest = Path(tempfile.gettempdir()) / f"vnlisten-{datetime.now(UTC):%Y%m%d%H%M%S}.db"
-    ok = download_db(REMOTE_REPO, dest, os.environ.get("GITHUB_TOKEN", ""))
-    return str(dest) if ok else ""
+    if not download_db(REMOTE_REPO, dest, os.environ.get("GITHUB_TOKEN", "")):
+        raise NoRemoteData
+    return str(dest)
 
 
 def _db_path() -> Path:
     if REMOTE_REPO:
-        path = remote_db()
-        if not path:
-            st.info("No data yet. Run the **Collect data** workflow once in GitHub → Actions (see DEPLOY.md).")
+        try:
+            return Path(remote_db())
+        except NoRemoteData:
+            st.info("No data yet. Run the **Collect data** workflow once in GitHub → Actions (see DEPLOY.md). "
+                    "If it has already finished, check that GITHUB_TOKEN in the app secrets can read this repo.")
             st.stop()
-        return Path(path)
     parser = argparse.ArgumentParser()
     parser.add_argument("--db")
     args, _ = parser.parse_known_args(sys.argv[1:])
