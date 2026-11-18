@@ -61,10 +61,20 @@ class Taxonomy:
     research_seeds: tuple[str, ...] = ()
     # Khía cạnh hay được nhắc kèm sản phẩm (giá, chất lượng, chờ lâu...)
     aspects: tuple[str, ...] = ()
+    # Chủ đề ngành + cách viết khác: {"sữa công thức": ("sct", ...)} – gộp về 1 keyword, đủ để giữ bài
+    topic_terms: dict[str, tuple[str, ...]] = field(default_factory=dict)
+
+    def topic_aliases(self) -> dict[str, str]:
+        """Cách viết (kể cả tên chuẩn) -> tên chuẩn."""
+        out: dict[str, str] = {}
+        for canonical, variants in self.topic_terms.items():
+            for v in (canonical, *variants):
+                out.setdefault(v, canonical)
+        return out
 
     def keyword_lexicon(self) -> tuple[str, ...]:
         """Toàn bộ từ khoá 'đã biết' của ngành: khía cạnh + sentiment + rủi ro + hoạt động + từ khoá ngành con."""
-        terms = [*self.aspects, *self.positive_terms, *self.negative_terms, *self.risk_terms]
+        terms = [*self.topic_aliases(), *self.aspects, *self.positive_terms, *self.negative_terms, *self.risk_terms]
         terms += [t for ts in self.activity_terms.values() for t in ts]
         terms += [k for c in self.categories.values() for k in c.keywords]
         return tuple(dict.fromkeys(terms))
@@ -150,6 +160,7 @@ def load_taxonomy(path: str | Path) -> Taxonomy:
         activity_terms={k: tuple(v) for k, v in (raw.get("activity_terms") or {}).items()},
         research_seeds=tuple(raw.get("research_seeds", [])),
         aspects=tuple(raw.get("aspects", [])),
+        topic_terms={str(k): tuple(str(x) for x in (v or [])) for k, v in (raw.get("topic_terms") or {}).items()},
     )
 
 

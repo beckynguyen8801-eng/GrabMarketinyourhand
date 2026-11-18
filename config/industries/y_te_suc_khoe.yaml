@@ -368,8 +368,36 @@ brands:
   bv_dhyd_hcm:
     name: University Medical Center HCMC
     category: bv_cong_vn
-    aliases: [bệnh viện đại học y dược, bv đại học y dược, bv đhyd, đại học y dược tp hcm]
+    aliases:
+      - bệnh viện đại học y dược
+      - bệnh viện đại học y dược tp hcm
+      - bệnh viện đại học y dược tphcm
+      - bệnh viện đại học y dược tp. hồ chí minh
+      - bệnh viện đại học y dược thành phố hồ chí minh
+      - bệnh viện đh y dược
+      - bv đại học y dược
+      - bv đh y dược
+      - bv đhyd
+      - bvđhyd
+      - đại học y dược tp hcm
+      - umc
+      - umc hospital
+      - bệnh viện umc
+      - bv umc
+      - university medical center hcmc
+      - university medical center ho chi minh city
     meta: { country: "Vietnam", city: "TP.HCM", type: "Public – university hospital", specialty: "General" }
+  # Các BV cùng tên "Đại học Y Dược" ở tỉnh khác – khai báo riêng để KHÔNG bị tính nhầm vào UMC TP.HCM
+  bv_dhyd_hue:
+    name: Hue University of Medicine and Pharmacy Hospital
+    category: bv_cong_vn
+    aliases: [bệnh viện trường đại học y dược huế, bệnh viện đại học y dược huế, bv đại học y dược huế, bv trường đại học y dược huế]
+    meta: { country: "Vietnam", city: "Huế", type: "Public – university hospital", specialty: "General" }
+  bv_dhyd_can_tho:
+    name: Can Tho University of Medicine and Pharmacy Hospital
+    category: bv_cong_vn
+    aliases: [bệnh viện trường đại học y dược cần thơ, bệnh viện đại học y dược cần thơ, bv đại học y dược cần thơ, bv trường đại học y dược cần thơ]
+    meta: { country: "Vietnam", city: "Cần Thơ", type: "Public – university hospital", specialty: "General" }
   bv_115:
     name: People's Hospital 115
     category: bv_cong_vn
@@ -453,6 +481,24 @@ brands:
     category: bv_tu_vn
     aliases: [bệnh viện tâm anh, bv tâm anh, bệnh viện đa khoa tâm anh]
     meta: { country: "Vietnam", city: "Hà Nội & TP.HCM", type: "Private – hospital network", specialty: "General, IVF" }
+  carmel:
+    name: Carmel General Hospital
+    category: bv_tu_vn
+    aliases:
+      - bệnh viện carmel
+      - bệnh viện đa khoa carmel
+      - bv carmel
+      - bv đa khoa carmel
+      - bv đk carmel
+      - bvđk carmel
+      - carmel hospital
+      - carmel
+    meta: { country: "Vietnam", city: "To verify", type: "Private – general hospital", specialty: "General" }
+  shing_mark:
+    name: Shing Mark University Hospital
+    category: bv_tu_vn
+    aliases: [bệnh viện đại học y dược shing mark, bệnh viện shing mark, bv shing mark, shing mark]
+    meta: { country: "Vietnam", city: "Đồng Nai", type: "Private – university hospital", specialty: "General" }
   fv:
     name: FV Hospital
     category: bv_tu_vn
@@ -760,5 +806,7 @@ products:
   - { id: tam_anh_hcm,        name: Tâm Anh TP.HCM,       brand: tam_anh, category: bv_tu_vn, aliases: [tâm anh tp hcm, tâm anh sài gòn, bệnh viện tâm anh tp hcm] }
   - { id: hoan_my_sai_gon,    name: Hoàn Mỹ Sài Gòn,      brand: hoan_my, category: bv_tu_vn, aliases: [hoàn mỹ sài gòn, bệnh viện hoàn mỹ sài gòn] }
   - { id: hoan_my_da_nang,    name: Hoàn Mỹ Đà Nẵng,      brand: hoan_my, category: bv_tu_vn, aliases: [hoàn mỹ đà nẵng, bệnh viện hoàn mỹ đà nẵng] }
+  # ---- Chương trình / kênh truyền thông của bệnh viện ----
+  - { id: umc_caretalk,       name: UMC Nursing CareTalk, brand: bv_dhyd_hcm, category: bv_cong_vn, aliases: [umc nursing caretalk, nursing caretalk, umc caretalk, caretalk, care talk] }
   - { id: gleneagles_sg,      name: Gleneagles Singapore, brand: gleneagles, category: bv_chau_a, aliases: [gleneagles singapore] }
   - { id: gleneagles_kl,      name: Gleneagles Kuala Lumpur, brand: gleneagles, category: bv_chau_a, aliases: [gleneagles kuala lumpur, gleneagles kl] }

@@ -32,11 +32,31 @@ risk_terms:
 
 # Seed cho keyword research (Google Autocomplete)
 research_seeds:
+  - sữa công thức
+  - sữa mẹ
+  - sữa êm bụng cho bé
+  - sữa tăng đề kháng cho bé
+  - sữa phát triển trí não
   - sữa bột cho bé
   - sữa mát
   - bỉm cho bé
   - bình sữa
   - sữa tăng cân
+
+# Chủ đề ngành + mọi cách mẹ bỉm hay viết. Mỗi nhóm được gộp thành 1 keyword trên dashboard
+# (VD "SCT", "sct" đều đếm vào "sữa công thức"), gõ cách nào trong ô Search cũng ra, và bài chỉ cần
+# nhắc 1 chủ đề là được giữ lại (không cần nhắc brand).
+# ⚠ Từ 1 âm tiết có dấu ("mát") chỉ khớp ĐÚNG DẤU và KHÔNG đủ để giữ bài (dễ trùng "trời mát").
+topic_terms:
+  sữa công thức: [sct, sữa công thức cho bé, sữa ct, sua cong thuc]
+  sữa bột: [sữa bột cho bé, sữa bột pha sẵn]
+  sữa mẹ: [nuôi con bằng sữa mẹ, ncbsm, bú mẹ, bú mẹ hoàn toàn, ti mẹ, sữa mẹ vắt]
+  sữa mát: [mát, sữa mát cho bé, uống mát, sữa không nóng]
+  êm bụng: [êm bụng cho bé, dễ tiêu, dễ tiêu hoá, bụng êm]
+  tăng đề kháng: [tăng sức đề kháng, đề kháng, sức đề kháng, tăng miễn dịch, hệ miễn dịch]
+  phát triển trí não: [phát triển não bộ, trí não, não bộ, phát triển trí tuệ]
+  đi poo mượt: [đi poo, poo mượt, đi ị mượt, đi cầu mượt, đi ngoài mượt, phân mềm, đi poo đều]
+  btp: [BTP]
 
 # Khía cạnh người dùng hay nói về sản phẩm – dùng cho "Product keywords" (tầng Known)
 aspects:
@@ -132,6 +152,13 @@ categories:
       - sữa mát cho bé
       - sữa tăng cân cho bé
       - review sữa bột
+      - sữa bột
+      - sct cho bé
+      - sữa công thức êm bụng
+      - sữa tăng đề kháng cho bé
+      - sữa phát triển trí não cho bé
+      - bé đi poo mượt
+      - nuôi con bằng sữa mẹ
   bim_ta:
     name: Diapers
     keywords:

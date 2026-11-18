@@ -47,11 +47,20 @@ class EntityMatcher:
         self._taxonomy = taxonomy
         # Có khai báo alias thì CHỈ dùng alias (tên hiển thị như "An Khang" có thể trùng từ thông dụng);
         # không khai báo thì mới dùng tên làm alias.
+        # longest_only: "bệnh viện đại học y dược huế" chỉ là BV Huế, không tính thêm UMC TP.HCM
         self._products = _AliasIndex(
-            (alias, p.id) for p in taxonomy.products.values() for alias in (p.aliases or (p.name,))
+            ((alias, p.id) for p in taxonomy.products.values() for alias in (p.aliases or (p.name,))),
+            longest_only=True,
         )
         self._brands = _AliasIndex(
-            (alias, b.id) for b in taxonomy.brands.values() for alias in (b.aliases or (b.name,))
+            ((alias, b.id) for b in taxonomy.brands.values() for alias in (b.aliases or (b.name,))),
+            longest_only=True,
+        )
+        # Chủ đề: bỏ từ 1 âm tiết có dấu ("mát") – bỏ dấu dễ trùng nghĩa khác ("mắt", "mất")
+        self._topics = _AliasIndex(
+            ((alias, canonical) for alias, canonical in taxonomy.topic_aliases().items()
+             if " " in alias.strip() or normalize_for_match(alias) == alias.strip().lower()),
+            longest_only=True,
         )
         self._risks = _AliasIndex(((term, term) for term in taxonomy.risk_terms),
                                   longest_only=True, skip_negated=True)
@@ -69,6 +78,7 @@ class EntityMatcher:
         mention.products = products
         mention.brands = brands
         mention.risk_terms = self._risks.find(text)
+        mention.topics = self._topics.find(text)
         if not mention.category and products:
             mention.category = self._taxonomy.products[products[0]].category
         if not mention.category and brands:

@@ -46,7 +46,12 @@ def search(df: pd.DataFrame, query: str, tax: Taxonomy | None = None) -> pd.Data
     if df.empty or not q:
         return df
     text = (df["title"].fillna("") + " " + df["content"].fillna("")).map(normalize_for_match)
-    pattern = re.compile(rf"(?<![0-9a-z]){re.escape(q)}(?![0-9a-z])")
+    variants = {q}
+    if tax is not None:  # gõ "sct" cũng ra bài viết "sữa công thức" (và ngược lại)
+        aliases = {normalize_for_match(a): normalize_for_match(c) for a, c in tax.topic_aliases().items()}
+        if q in aliases:
+            variants |= {a for a, c in aliases.items() if c == aliases[q]}
+    pattern = re.compile(rf"(?<![0-9a-z])(?:{'|'.join(map(re.escape, sorted(variants, key=len, reverse=True)))})(?![0-9a-z])")
     mask = text.map(lambda t: bool(pattern.search(t)))
     if tax is not None:
         brands, products = matching_entities(tax, query)
@@ -138,6 +143,7 @@ def keywords_in(subset: pd.DataFrame, tax: Taxonomy, *, brand_id: str | None = N
     single = [(t, re.compile(rf"(?<!\w){re.escape(t.lower())}(?!\w)"))
               for t in terms if normalize_for_match(t) and " " not in normalize_for_match(t)]
     lexicon_norm = {normalize_for_match(t) for t, _ in lexicon}
+    canonical = tax.topic_aliases()  # "sct" -> "sữa công thức": đếm chung 1 keyword
     entity_tokens = _entity_token_set(tax, brand_id, product_id)
 
     stats: dict[tuple[str, str], dict] = defaultdict(lambda: {"mentions": 0, "positive": 0, "negative": 0,
@@ -156,13 +162,13 @@ def keywords_in(subset: pd.DataFrame, tax: Taxonomy, *, brand_id: str | None = N
                 taken.append((start, end))
                 if is_negated_no_accent(norm, start) and not norm[start:end].startswith(("khong", "ko ")):
                     continue  # "không bị táo bón" không phải keyword "táo bón"
-                found.add((term, "Known"))
+                found.add((canonical.get(term, term), "Known"))
                 known_tokens |= set(norm[start:end].split())
                 break
         accented = normalize_keep_accents(raw_text)
         for term, pattern in single:
             if normalize_for_match(term) not in known_tokens and pattern.search(accented):
-                found.add((term, "Known"))
+                found.add((canonical.get(term, term), "Known"))
         for gram in phrases(raw_text, 2):
             tokens = gram.split()
             g_tokens = set(normalize_for_match(gram).split())

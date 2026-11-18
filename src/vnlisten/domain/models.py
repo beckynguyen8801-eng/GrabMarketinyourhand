@@ -86,6 +86,7 @@ class Mention:
     brands: list[str] = field(default_factory=list)
     products: list[str] = field(default_factory=list)
     risk_terms: list[str] = field(default_factory=list)
+    topics: list[str] = field(default_factory=list)  # chủ đề ngành (VD "sữa công thức") – chỉ dùng để lọc, không lưu
     sentiment: Sentiment = Sentiment.NEUTRAL
     sentiment_score: float = 0.0
     activities: list[str] = field(default_factory=list)  # loại hoạt động MKT: khuyen_mai, su_kien_offline...

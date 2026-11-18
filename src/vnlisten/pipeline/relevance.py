@@ -3,7 +3,7 @@
 Bài lần chạy thật đầu tiên cho thấy công cụ tìm kiếm trả về cả bài tiếng nước ngoài và bài chỉ
 "na ná" từ khoá. Quy tắc giữ bài:
   1. Viết bằng tiếng Việt (có đủ ký tự đặc trưng tiếng Việt), VÀ
-  2. Nhắc brand / sản phẩm, HOẶC chứa từ khoá rủi ro, HOẶC chứa đúng cụm từ khoá đã dùng để tìm.
+  2. Nhắc brand / sản phẩm / chủ đề ngành (topic_terms), HOẶC chứa từ khoá rủi ro, HOẶC chứa đúng cụm từ khoá đã dùng để tìm.
 """
 from __future__ import annotations
 
@@ -36,4 +36,4 @@ def keyword_hit(mention: Mention) -> bool:
 def is_relevant(mention: Mention) -> bool:
     if not looks_vietnamese(mention.text):
         return False
-    return bool(mention.brands or mention.products or mention.risk_terms or keyword_hit(mention))
+    return bool(mention.brands or mention.products or mention.topics or mention.risk_terms or keyword_hit(mention))
