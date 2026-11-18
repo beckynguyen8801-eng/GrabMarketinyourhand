@@ -492,8 +492,10 @@ brands:
       - bv đk carmel
       - bvđk carmel
       - carmel hospital
+      - carmel quận 2
+      - carmel thủ đức
       - carmel
-    meta: { country: "Vietnam", city: "To verify", type: "Private – general hospital", specialty: "General" }
+    meta: { country: "Vietnam", city: "TP.HCM (Quận 2 – TP. Thủ Đức)", type: "Private – general hospital", specialty: "General" }
   shing_mark:
     name: Shing Mark University Hospital
     category: bv_tu_vn
